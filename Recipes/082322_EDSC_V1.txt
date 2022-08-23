@@ -1,0 +1,31 @@
+Elijah's first attempt at a recipe
+8/23/2022, columns represent the DELTA from the last step
+units are in mm and seconds
+Define XYZ at t=0 to be 10mm above the nearest left corner of the bottom pedestal. +X is to the right, +Y is away from user,  +Z is up
+---------
+n 0 X 0 Y 0 Z 0 t 0
+n 1 X 0 Y 0 Z -10 t 0.5
+n 2 X 0 Y 0 Z 10 t 0.5
+n 3 X 3 Y 0 Z 0 t 0.5
+n 4 X 0 Y 0 Z -10 t 0.5
+n 5 X 0 Y 0 Z 10 t 0.5
+n 6 X 6 Y 0 Z 0 t 0.5
+n 7 X 0 Y 0 Z -10 t 0.5
+n 8 X 0 Y 0 Z 10 t 0.5
+n 9 X 12 Y 0 Z 0 t 0.5
+n 10 X 0 Y 0 Z -10 t 0.5
+n 11 X 0 Y 0 Z 10 t 0.5
+n 12 X 24 Y 0 Z 0 t 0.5
+n 13 X 0 Y 0 Z -10 t 0.5
+n 14 X 0 Y 0 Z 10 t 0.5
+n 15 X 0 Y 3 Z 0 t 0.5
+n 16 X 0 Y 0 Z -10 t 0.5
+n 17 X 0 Y 0 Z 10 t 0.5
+n 18 X 0 Y 6 Z 0 t 0.5
+n 19 X 0 Y 0 Z -10 t 0.5
+n 20 X 0 Y 0 Z 10 t 0.5
+n 21 X 0 Y 12 Z 0 t 0.5
+n 22 X 0 Y 0 Z -10 t 0.5
+n 23 X 0 Y 0 Z 10 t 0.5
+n 24 X 0 Y 24 Z 0 t 1
+n 25 X -24 Y -24 Z 0 t 100
