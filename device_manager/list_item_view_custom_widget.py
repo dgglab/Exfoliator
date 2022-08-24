@@ -10,7 +10,7 @@ class ConnectionStatus(NamedTuple):
 
 class ConnectionStatuses:
     CONNECTED = ConnectionStatus("Connected", "Disconnect")
-    NOT_CONNECTED = ConnectionStatus('Not Connected', "Connenct")
+    NOT_CONNECTED = ConnectionStatus('Not Connected', "Connect")
     ERROR = ConnectionStatus("Error", "")
 
 class ConnectionStatusWidget(QWidget):

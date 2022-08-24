@@ -1,7 +1,7 @@
 import dataclasses
 import re
 from typing import List, Dict, Any
-from pymmc_commands import COMMANDS
+from motion_controller.pymmc_commands import COMMANDS
 
 import serial
 

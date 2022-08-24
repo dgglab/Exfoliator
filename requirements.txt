@@ -1,0 +1,8 @@
+pyserial~=3.5
+pyqt5~=5.15.6
+opencv-python~=4.5.5.64
+numpy~=1.22.3
+matplotlib~=3.5.2
+pyside6~=6.3.0
+dataclasses~=0.8
+recordclass~=0.17.2
