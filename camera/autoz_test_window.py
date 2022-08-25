@@ -293,17 +293,27 @@ class MotionWindow(QtW.QWidget):
         self.layout.addWidget(self.lineEdits['Recipe file name'], 13, 7, 1, 2)
         path2=self.lineEdits['Recipe file name'].text()
         recpath=path1+path2
-        def recipe_click(recpath):
-            print('Recipe Clicked! Loading%s'%recpath)
-            nrec,xrec,yrec,zrec,trec=np.loadtxt(recpath,dtype=float, delimiter=' ', skiprows=5,usecols=(1,3,5,7,9),unpack=True)
-            return nrec,xrec,yrec,zrec,trec
+        self.nrec=0
+        self.xrec=0
+        self.yrec=0
+        self.zrec=0
+        self.trec=0
+        self.varlist=0
+        def recipe_load(recpath):
+            print('Loading %s'%recpath)
+            self.nrec,self.xrec,self.yrec,self.zrec,self.trec=np.loadtxt(recpath,dtype=float, delimiter=' ', skiprows=5,usecols=(1,3,5,7,9),unpack=True)
+            #print(self.nrec[1])
+            print('Recipe Loaded!')
+            self.varlist=[self.nrec,self.xrec,self.yrec,self.zrec,self.trec]
+            print(self.varlist)
         self.buttons['Load Recipe'] = QtW.QPushButton("Load Recipe")
-        self.buttons['Load Recipe'].clicked.connect(lambda: recipe_click(recpath))
+        self.buttons['Load Recipe'].clicked.connect(lambda: recipe_load(recpath))
         self.buttons["Load Recipe"].setEnabled(True)
         self.layout.addWidget(self.buttons["Load Recipe"], 12, 9, 1, 1)
         
+            
         self.buttons['Execute Recipe'] = QtW.QPushButton("Execute Recipe")
-        self.buttons['Execute Recipe'].clicked.connect(nrec,xrec,yrec,zrec,trec=recipe_click(recpath)) #doesn't work
+        self.buttons['Execute Recipe'].clicked.connect(lambda: self.recipe_queue(self.varlist)) #doesn't work
         self.buttons["Execute Recipe"].setEnabled(True)
         self.layout.addWidget(self.buttons["Execute Recipe"], 13, 9, 1, 1)
         
@@ -484,7 +494,29 @@ class MotionWindow(QtW.QWidget):
         if axis == 2:
             self.queue_manager.queue(axis, f'3ZRO')
             self.queue_manager.queue(3, f'3POS?')
-
+            
+    def recipe_queue(self,varlist):
+        #varlist has form [n,x,y,z,t] where each are arrays
+        j=0 #array position
+        
+        while j<np.size(varlist)/5:
+            k=1 #variable check
+            while k<4:
+                axis=k
+                delta=0
+                step=varlist[k][j]
+                increment=1
+                while abs(delta)<=abs(step):
+                    print(j,axis,delta)
+                    #self.queue_manager.queue(axis, f'{axis}MVR{increment}')
+                    if step<0:
+                        delta=delta-increment
+                    else:
+                        delta=delta+increment
+                #this will probably result in very jerky motions? is there a defined velocity?
+                k=k+1
+            j=j+1
+                
     def update_position(self, response):
         axis = response[0]
         pos = response[1].split(',')
