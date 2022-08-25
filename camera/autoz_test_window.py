@@ -103,8 +103,7 @@ class MotionWindow(QtW.QWidget):
             self.queue_manager.queue(axis.number, f'{axis.number}POS?')
             self.queue_manager.queue(axis.number, f'{axis.number}FBK0')
             self.queue_manager.queue(axis.number, f'{axis.number}MOT0')
-    def recipe_click(self):
-        print('Recipe Clicked!')
+   
     def GUI_Elements(self):
         self.layout = QtW.QGridLayout(self)
 
@@ -130,10 +129,7 @@ class MotionWindow(QtW.QWidget):
         self.buttons['CMD Line'] = QtW.QPushButton("Command Line")
         self.layout.addWidget(self.buttons["CMD Line"], 0, 10, 1, 2)
         
-        self.buttons['Load Rec'] = QtW.QPushButton("Load Recipe")
-        self.buttons['Load Rec'].clicked.connect(self.recipe_click)
-        self.buttons["Load Rec"].setEnabled(True)
-        self.layout.addWidget(self.buttons["Load Rec"], 13, 9, 1, 1)
+        
 
         self.buttons['Motor On'] = QtW.QPushButton("Toggle On")
         self.buttons['Motor On'].clicked.connect(lambda state, x=True: self.toggle_motors(x))
@@ -267,7 +263,6 @@ class MotionWindow(QtW.QWidget):
         
         self.layout.addWidget(QtW.QLabel("Recipe Directory"), 12, 5)
         self.layout.addWidget(QtW.QLabel("Recipe file name"), 12, 7)
-        self.layout.addWidget(QtW.QLabel("Load Recipe"), 12, 9)
         
         self.buttons['Timed Approach'] = QtW.QPushButton("Timed Approach")
         self.layout.addWidget(self.buttons['Timed Approach'], 13, 0)
@@ -288,12 +283,30 @@ class MotionWindow(QtW.QWidget):
         self.lineEdits['File name'] = QtW.QLineEdit("R22_")
         self.layout.addWidget(self.lineEdits['File name'], 13, 10, 1, 2)
         
-        self.lineEdits['Recipe Directory'] = QtW.QLineEdit("D:")
-        self.layout.addWidget(self.lineEdits['Recipe Directory'], 13, 5, 1, 2)
+       
         
-        self.lineEdits['Recipe file name'] = QtW.QLineEdit("Recipe")
+        self.lineEdits['Recipe Directory'] = QtW.QLineEdit("D:/GitHub/Exfoliator/Recipes/")
+        self.layout.addWidget(self.lineEdits['Recipe Directory'], 13, 5, 1, 2)
+        path1=self.lineEdits['Recipe Directory'].text()
+        
+        self.lineEdits['Recipe file name'] = QtW.QLineEdit("082322_EDSC_V1.txt")
         self.layout.addWidget(self.lineEdits['Recipe file name'], 13, 7, 1, 2)
-
+        path2=self.lineEdits['Recipe file name'].text()
+        recpath=path1+path2
+        def recipe_click(recpath):
+            print('Recipe Clicked! Loading%s'%recpath)
+            nrec,xrec,yrec,zrec,trec=np.loadtxt(recpath,dtype=float, delimiter=' ', skiprows=5,usecols=(1,3,5,7,9),unpack=True)
+            return nrec,xrec,yrec,zrec,trec
+        self.buttons['Load Recipe'] = QtW.QPushButton("Load Recipe")
+        self.buttons['Load Recipe'].clicked.connect(lambda: recipe_click(recpath))
+        self.buttons["Load Recipe"].setEnabled(True)
+        self.layout.addWidget(self.buttons["Load Recipe"], 12, 9, 1, 1)
+        
+        self.buttons['Execute Recipe'] = QtW.QPushButton("Execute Recipe")
+        self.buttons['Execute Recipe'].clicked.connect(nrec,xrec,yrec,zrec,trec=recipe_click(recpath)) #doesn't work
+        self.buttons["Execute Recipe"].setEnabled(True)
+        self.layout.addWidget(self.buttons["Execute Recipe"], 13, 9, 1, 1)
+        
         self.boxes['Rec Position'] = QtW.QCheckBox("Position")
         self.layout.addWidget(self.boxes['Rec Position'], 13, 12)
         self.boxes['Rec Position'].setEnabled(False)
@@ -310,21 +323,14 @@ class MotionWindow(QtW.QWidget):
         self.boxes['Rec Temp'].clicked.connect(lambda state, x='Temp': self.start_recording(state, x))
 
         self.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Fixed)
-        for b in self.buttons.values():
-            b: QtW.QPushButton
-            b.setEnabled(False)
+        #for b in self.buttons.values():
+         #   b: QtW.QPushButton
+         #   b.setEnabled(False)
 
         ##test
         #self.buttons['Map'].setEnabled(True)
         #self.buttons['Map'].clicked.connect(self._launch_subwindow)
 
-    #def get_recipe(self):
-        #wdir=self.lineEdits['Recipe Directory'].text()
-        #n,xsteps,ysteps,zsteps,tsteps
-        #recipename=self.lineEdits['Recipe file name'].text()
-        #n,x,y,z,t=np.loadtxt("%s/%s"%(recipename),dtype=float, delimiter=' ', skiprows=5,usecols=(1,3,5,7,9),unpack=True) 
-        #gives you step n (from 0), the 3D cartesian step size, and the wait time after the step
-        # units are in mm and seconds
         
     def start_recording(self, state, x):
         if x == 'Frames':

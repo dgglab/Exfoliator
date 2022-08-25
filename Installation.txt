@@ -1,0 +1,13 @@
+How to set up RangerApp and ExfoliatorApp.py to work from a clean conda install (as done by Elijah on Windows, August 2022)
+
+1. Install Anaconda from https://docs.anaconda.com/anaconda/install/windows/
+I used Spyder (comes with Anaconda Navigator) as my interface for working with Python 3
+
+2. Install cv2 (pip install opencv-python)
+
+3. Install serial (pip install pyserial)
+
+Do NOT install PyQT5! Anaconda comes with a native version, installing PyQT5 will break your conda installation and require reinstallation
+
+4. Install recordclass (pip install recordclass)
+
