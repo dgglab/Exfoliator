@@ -30,7 +30,7 @@ class DeviceManager(QtCore.QObject):
                 import traceback
                 traceback.print_exc()
                 
-        elif dev_type == 'MMC1' or dev_type == 'MMC2':
+        elif dev_type == 'MMC1' or dev_type == 'IKA':
             port = port_list.currentText()
             print(dev_type, port)
             if port in self.active_ports.values():
@@ -81,7 +81,7 @@ class DeviceManagerWindow(QtW.QMainWindow):
         for i in range(0, len(labels)):
             self.layout.addWidget(QtW.QLabel(labels[i]), 0, i)
 
-        device_labels = ["Camera", "MMC (1)", "MMC (2)"]
+        device_labels = ["Camera", "MMC (1)", "IKA"]
         for i in range(0, len(device_labels)):
             self.layout.addWidget(QtW.QLabel(device_labels[i]), i + 1, 0)
 
@@ -92,33 +92,33 @@ class DeviceManagerWindow(QtW.QMainWindow):
         
 
         self.lists['MMC1'] = QtW.QComboBox()
-        self.lists['MMC2'] = QtW.QComboBox()
+        self.lists['IKA'] = QtW.QComboBox()
         
         available_ports = get_com_ports()
         for p in available_ports:
             self.lists['MMC1'].addItem(p)
-            self.lists['MMC2'].addItem(p)
+            self.lists['IKA'].addItem(p)
         self.layout.addWidget(self.lists['MMC1'], 2, 1)
-        self.layout.addWidget(self.lists['MMC2'], 3, 1)
+        self.layout.addWidget(self.lists['IKA'], 3, 1)
 
         self.buttons['MMC1 Conn'] = QtW.QPushButton("Connect")
         self.buttons['MMC1 Conn'].clicked.connect(lambda state, dev_type='MMC1', port_list = self.lists['MMC1']: self.device_manager.connect_device(dev_type, port_list))
         
-        self.buttons['MMC2 Conn'] = QtW.QPushButton("Connect")
-        self.buttons['MMC2 Conn'].clicked.connect(lambda state, dev_type='MMC2', port_list = self.lists['MMC2']:  self.device_manager.connect_device(dev_type, port_list))
+        self.buttons['IKA Conn'] = QtW.QPushButton("Connect")
+        self.buttons['IKA Conn'].clicked.connect(lambda state, dev_type='IKA', port_list = self.lists['IKA']:  self.device_manager.connect_device(dev_type, port_list))
 
         self.buttons['MMC1 DConn'] = QtW.QPushButton("Disconnect")
         self.buttons['MMC1 DConn'].clicked.connect(lambda state, dev_type = 'MMC1':  self.device_manager.disconnect_device(dev_type))
         
-        self.buttons['MMC2 DConn'] = QtW.QPushButton("Disconnect")
-        self.buttons['MMC2 DConn'].clicked.connect(lambda state, dev_type = 'MMC2':  self.device_manager.disconnect_device(dev_type))
+        self.buttons['IKA DConn'] = QtW.QPushButton("Disconnect")
+        self.buttons['IKA DConn'].clicked.connect(lambda state, dev_type = 'IKA':  self.device_manager.disconnect_device(dev_type))
 
 
         self.layout.addWidget(self.buttons['MMC1 Conn'], 2, 2)
-        self.layout.addWidget(self.buttons['MMC2 Conn'], 3, 2)
+        self.layout.addWidget(self.buttons['IKA Conn'], 3, 2)
 
         self.layout.addWidget(self.buttons['MMC1 DConn'], 2, 3)
-        self.layout.addWidget(self.buttons['MMC2 DConn'], 3, 3)
+        self.layout.addWidget(self.buttons['IKA DConn'], 3, 3)
         self.centralWidget().setLayout(self.layout)
 
 

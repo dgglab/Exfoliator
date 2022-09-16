@@ -16,10 +16,8 @@ class CTC100Manager:
     def detect_ctc100s(self):
         # TODO make logging
         print("CTC100 Manager: Detecting Devices")
-        com_ports = get_com_ports()
-        # com_ports = [x for x in com_ports if x in WHITELISTED]
-        #com_ports.remove('COM7')
-        #com_ports.remove('COM3')
+        com_ports = []#get_com_ports()
+        #com_ports = [x for x in com_ports if x in WHITELISTED]
         print(com_ports)
         for port in com_ports:
             try:

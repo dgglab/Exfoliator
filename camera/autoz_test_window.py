@@ -29,6 +29,7 @@ class MotionWindow(QtW.QWidget):
         self.axis_display_label = {}
         self.axis_display_unit = ['(mm)' if num <4 else '(deg)' for num in
                                   self.axis_display_order]
+
         self.available_axes = []
 
         for i in range(0, len(self.axis_display_order)):
@@ -69,15 +70,6 @@ class MotionWindow(QtW.QWidget):
                     self.buttons['Stop Loop'].setEnabled(True)
                 if axis.number == 2 or axis.number == 7 or axis.number == 8 or axis.number == 9:
                     self.boxes[f'CL {self.num_to_axis[axis.number]}'].setEnabled(False)
-
-            if 7 in self.available_axes and 10 in self.available_axes:
-                self.boxes['Microscope -> Sample Z'].setEnabled(True)
-
-            if 2 in self.available_axes and 3 in self.available_axes and 8 in self.available_axes:
-                self.boxes['Sample X -> Gonio1'].setEnabled(True)
-
-            if 4 in self.available_axes and 9 in self.available_axes:
-                self.boxes['Sample Y -> Gonio2'].setEnabled(True)
 
             if not self.motor_connected:
                 self.motor_connected = True

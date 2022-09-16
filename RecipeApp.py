@@ -8,10 +8,10 @@ from PyQt5.QtWidgets import QApplication, QMainWindow, QDockWidget, QMenuBar
 from PyQt5 import QtWidgets as QtW
 
 from camera.autoz_device_manager import DeviceManagerWindow
-from camera.autoz_camera_viewport import CameraWindow
+#from camera.autoz_camera_viewport import CameraWindow
 from temperature_controller.dashboard import TemperatureDashboard
 
-from camera.autoz_test_window import MotionWindow
+from camera.autoz_motion_window import MotionWindow
 
 from camera.autoz_logger import Logger, LogWidget
 import temperature_controller.hotplate as hp
@@ -21,7 +21,7 @@ class RangerMainWindow(QMainWindow):
         super().__init__(*args, **kwargs)
         self.setGeometry(100, 100, 1080, 720)
         self.logger = Logger()
-        #self.device_manager_window = DeviceManagerWindow(self.logger)
+        self.device_manager_window = DeviceManagerWindow(self.logger)
         #self.cw = CameraWindow(logger=self.logger)
         self._init_ui()
 
@@ -94,7 +94,7 @@ class RangerMainWindow(QMainWindow):
         self.temperature_doc_widget.setWidget(self.temperature_widget)
         self.addDockWidget(Qt.LeftDockWidgetArea, self.temperature_doc_widget)
 
-        #self.device_manager_window.device_manager.deviceConnected.connect(self.motion_controller_widget.connect_motor)
+        self.device_manager_window.device_manager.deviceConnected.connect(self.motion_controller_widget.connect_motor)
 
 
 class RangerApp(QApplication):

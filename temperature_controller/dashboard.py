@@ -9,7 +9,8 @@ from temperature_controller.controller_table import ControllerTableRow, Temperat
     TemperatureControllerTableDelegate, \
     ControllerTableRowControlButtons, ConfigureRowsDialog
 from temperature_controller.poller import PollResponse, ChannelPoller
-from temperature_controller.ctc100_manager import global_ctc_100_manager
+from temperature_controller.ikaret_manager import global_ikaret_manager
+from temperature_controller.ikaret import IKARET
 from temperature_controller.log_widget import logger, log_editor
 from temperature_controller.sensor_table import TemperatureSensorTable, SensorTableRow
 
@@ -26,19 +27,18 @@ class TemperatureDashboard(QWidget):
     """
     Dashboard for system temperature controllers and sensors.
     """
-
+    
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-
         self.init_ui()
-
+        
     def init_ui(self):
-        sensors = [x for x in global_ctc_100_manager.sensors if x.name.lower().startswith("bot-") or x.name.lower() in [
+        sensors = [x for x in global_ikaret_manager.sensors if x.name.lower().startswith("bot-") or x.name.lower() in [
             'festival', 'of', 'vdw', 'stacking', 'aaa', 'bbb', 'ccc'
         ]]
         self.temperature_sensor_table = TemperatureSensorTable(sensors)
 
-        controllers = global_ctc_100_manager.controllers
+        controllers = global_ikaret_manager.controllers
         self.temperature_controller_table = TemperatureControllerTable(controllers)
 
 
@@ -63,7 +63,8 @@ class TemperatureDashboard(QWidget):
     def switch_all_controllers_off(self):
         # TODO: call off on all the controllers.
         logger.info("Switching all off")
-
+    def get_weight(self):
+        IKARET.get_weight()
     def build_log_display(self) -> QWidget:
         log_display = QTextEdit()
         log_display.setReadOnly(True)
@@ -72,7 +73,14 @@ class TemperatureDashboard(QWidget):
         logger.info("Startup")
         return log_display
 
+    def printfunc(self,arg):
+        print(arg)
     def build_dashboard_buttons(self) -> QWidget:
+        #self.IKARET=IKARET()
+        # self.ikaman=global_ikaret_manager
+        # self.ports=self.ikaman.ikarets
+        # print(self.ports)
+        #self.get_weight()=IKARET.get_weight()
         buttons = QWidget(self)
         buttons_layout = QVBoxLayout(buttons)
         configure_button = QPushButton("Configure Rows")
@@ -81,11 +89,14 @@ class TemperatureDashboard(QWidget):
         hold_all_button = QPushButton("Hold All")
         hold_all_button.setEnabled(False)
         hold_all_button.clicked.connect(self.hold_all_controllers)
+        newbutton=QPushButton("Test New Button")
+        newbutton.setEnabled(True)
+        #newbutton.clicked.connect(self.get_weight())
         switch_off_all_button = QPushButton("Switch Off All")
         switch_off_all_button.setEnabled(False)
         switch_off_all_button.clicked.connect(self.switch_all_controllers_off)
         buttons.setLayout(buttons_layout)
-        for b in [configure_button, hold_all_button, switch_off_all_button]:
+        for b in [configure_button, hold_all_button, switch_off_all_button,newbutton]:
             buttons_layout.addWidget(b)
         return buttons
 

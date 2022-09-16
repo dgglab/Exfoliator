@@ -29,7 +29,9 @@ class Channel:
         self.send = send_fn
         self.pid: Optional[Channel] = None
         self.mutex = self.parent.mutex
-
+        self.send('START_1')
+        self.send('START_90')
+        print(self.send('IN_PV_90'))
     @property
     def value(self):
         return self.send('value?')
@@ -48,12 +50,13 @@ class Channel:
         return f"SRS:{self.parent.port}-{self.name}"
 
 
-class CTC100(DDict):
+class IKARET(DDict):
     def __init__(self, port):
         super().__init__()
         self.channels: Dict[str, Channel] = {}
         self.port = port
-
+        
+        print('initializing hot plate')
         super().__init__()
         self.channels: Dict[str, Channel] = {}
         self.port = port
@@ -69,7 +72,6 @@ class CTC100(DDict):
         self.controllers = [c for c in self.channels.values() if c.pid]
         self.sensors = [c for c in self.channels.values() if not c.pid]
         self.mutex = QMutex()
-
     def send(self, msg):
         if not type(msg) is bytes:
             msg = bytes(msg, 'utf-8')
@@ -82,6 +84,7 @@ class CTC100(DDict):
             response = ''
         # print(response)
         return response
+    
 
     #def _confirm_valid(self):
         #"""
@@ -89,7 +92,20 @@ class CTC100(DDict):
         #"""
         #output = self.send('description?')
         #assert "CTC100" in output, f"Failed verification check, description does not look valid: '{output}'"
-
+    def get_weight(self):
+        weight=self.send('IN_PV_90')
+        return weight
+    def get_temp(self,flag):
+        if flag==0:
+            temp=self.send('IN_PV_2')
+        if flag==1:
+            temp=self.send('IN_PV_1')
+        return temp
+    def set_temp(self,goal,flag):
+        if flag==0: #defaults to hot plate
+            self.send('OUT_SP_2 {goal}')
+        if flag==1:
+            self.send('OUT_SP_1 {goal}')
     def _get_chan_send(self, channel):
         def chan_send(msg):
             return self.send(f"{channel}.{msg}")
@@ -120,7 +136,7 @@ class CTC100(DDict):
 
 
 
-class EmulatedCTC100(CTC100):
+class EmulatedIKARET(IKARET):
     def __init__(self, *args, **kwargs):
         self.channels = {
             x: Channel(x, lambda str: f"Channel-{x}: {str}") for x in ['c1', 'c2', 'c3']
@@ -137,14 +153,13 @@ class EmulatedCTC100(CTC100):
 # pid.i=<integral>
 # pid.d=<derivative>
 
-
 if __name__ == "__main__":
     import sys
     if len(sys.argv) > 1:
         com = sys.argv[1]
     else:
         com = 'COM7'
-    c = CTC100(com)
+    c = IKARET(com)
     from IPython import embed
     embed()
 

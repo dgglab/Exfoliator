@@ -14,8 +14,9 @@ class MotionWindow(QtW.QWidget):
         super().__init__()
         self.queue_manager = Queue_Manager()
         self.queue_manager.position_signal.connect(self.update_position)
-
         self.motors = {}
+        self.plates={}
+        self.plate_connected = False
         self.motor_connected = False
 
         self.axis_to_motor = {}
@@ -29,6 +30,7 @@ class MotionWindow(QtW.QWidget):
         self.axis_display_label = {}
         self.axis_display_unit = ['(mm)' if num <4 else '(deg)' for num in
                                   self.axis_display_order]
+
         self.available_axes = []
 
         for i in range(0, len(self.axis_display_order)):
@@ -48,11 +50,15 @@ class MotionWindow(QtW.QWidget):
         self.GUI_Elements()
 
     def connect_motor(self, connection_msg):
-        if connection_msg[0] == 'MMC1' or connection_msg[0] == 'MMC2':
+        print(connection_msg)
+        if connection_msg[0] == 'IKA':
+            self.plates[connection_msg[0]] = connection_msg[1]
+            print('Plate connected!',connection_msg[0])
+        if connection_msg[0] == 'MMC1':
             self.motors[connection_msg[0]] = connection_msg[1]
             for axis in self.motors[connection_msg[0]].axes.values():
                 self.available_axes.append(axis.number)
-                print(connection_msg[0], axis.number)
+                print('Motors Connected!',connection_msg[0], axis.number)
                 self.axis_to_motor[axis.number] = connection_msg[1]
                 self.buttons[f'Home {self.num_to_axis[axis.number]}'].setEnabled(True)
                 self.buttons[f'Zero {self.num_to_axis[axis.number]}'].setEnabled(True)
@@ -62,22 +68,22 @@ class MotionWindow(QtW.QWidget):
                 self.buttons['Motor On'].setEnabled(True)
                 self.buttons['Motor Off'].setEnabled(True)
                 # Homing for these disabled for safety
-                if axis.number == 2 or axis.number == 3 or axis.number == 7 or axis.number == 8 or axis.number == 9:
+                if axis.number == 7 or axis.number == 8 or axis.number == 9:
                     self.buttons[f'Home {self.num_to_axis[axis.number]}'].setEnabled(False)
                     self.buttons["Timed Approach"].setEnabled(True)
                     self.buttons['Timed Retract'].setEnabled(True)
                     self.buttons['Stop Loop'].setEnabled(True)
-                if axis.number == 2 or axis.number == 7 or axis.number == 8 or axis.number == 9:
+                if axis.number == 7 or axis.number == 8 or axis.number == 9:
                     self.boxes[f'CL {self.num_to_axis[axis.number]}'].setEnabled(False)
 
-            if 7 in self.available_axes and 10 in self.available_axes:
-                self.boxes['Microscope -> Sample Z'].setEnabled(True)
+            # if 7 in self.available_axes and 10 in self.available_axes:
+            #     self.boxes['Microscope -> Sample Z'].setEnabled(True)
 
-            if 2 in self.available_axes and 3 in self.available_axes and 8 in self.available_axes:
-                self.boxes['Sample X -> Gonio1'].setEnabled(True)
+            # if 2 in self.available_axes and 3 in self.available_axes and 8 in self.available_axes:
+            #     self.boxes['Sample X -> Gonio1'].setEnabled(True)
 
-            if 4 in self.available_axes and 9 in self.available_axes:
-                self.boxes['Sample Y -> Gonio2'].setEnabled(True)
+            # if 4 in self.available_axes and 9 in self.available_axes:
+            #     self.boxes['Sample Y -> Gonio2'].setEnabled(True)
 
             if not self.motor_connected:
                 self.motor_connected = True
@@ -87,24 +93,24 @@ class MotionWindow(QtW.QWidget):
                 self.buttons["Map"].setEnabled(True)
                 self.buttons["Jog"].setEnabled(True)
                 self.buttons["CMD Line"].setEnabled(True)
-                
                 self.boxes['Rec Position'].setEnabled(True)
                 self.boxes['Rec Frames'].setEnabled(True)
                 self.boxes['Rec Temp'].setEnabled(True)
 
             self.queue_manager.motors = self.motors
             self.queue_manager.axis_to_motor = self.axis_to_motor
+            print('Check', self.axis_to_motor)
 
             self.init_motor_settings(self.motors[connection_msg[0]].axes.values())
 
     def init_motor_settings(self, axes):
         for axis in axes:
-            self.queue_manager.queue(axis.number, f'{axis.number}ZRO')
             self.queue_manager.queue(axis.number, f'{axis.number}POS?')
             self.queue_manager.queue(axis.number, f'{axis.number}FBK0')
-            self.queue_manager.queue(axis.number, f'{axis.number}MOT0')
-    def recipe_click(self):
-        print('Recipe Clicked!')
+            self.queue_manager.queue(axis.number, f'{axis.number}MOT1')
+            self.queue_manager.queue(axis.number, f'{axis.number}VEL10')
+            #self.queue_manager.queue(axis.number, f'{axis.number}VMX?')
+
     def GUI_Elements(self):
         self.layout = QtW.QGridLayout(self)
 
@@ -129,11 +135,6 @@ class MotionWindow(QtW.QWidget):
 
         self.buttons['CMD Line'] = QtW.QPushButton("Command Line")
         self.layout.addWidget(self.buttons["CMD Line"], 0, 10, 1, 2)
-        
-        self.buttons['Load Rec'] = QtW.QPushButton("Load Recipe")
-        self.buttons['Load Rec'].clicked.connect(self.recipe_click)
-        self.buttons["Load Rec"].setEnabled(True)
-        self.layout.addWidget(self.buttons["Load Rec"], 13, 9, 1, 1)
 
         self.buttons['Motor On'] = QtW.QPushButton("Toggle On")
         self.buttons['Motor On'].clicked.connect(lambda state, x=True: self.toggle_motors(x))
@@ -200,8 +201,8 @@ class MotionWindow(QtW.QWidget):
         column_counter += 1
 
         for axis in self.axis_display_order:
-            self.lineEdits[f'Absolute {self.num_to_axis[axis]}'] = QtW.QLineEdit('0.0000')
-            self.lineEdits[f'Absolute {self.num_to_axis[axis]}'].setInputMask('9.9999')
+            self.lineEdits[f'Absolute {self.num_to_axis[axis]}'] = QtW.QLineEdit('00.0000')
+            self.lineEdits[f'Absolute {self.num_to_axis[axis]}'].setInputMask('99.9999')
             self.layout.addWidget(self.lineEdits[f'Absolute {self.num_to_axis[axis]}'],
                                   row_counter + self.axis_display_order.index(axis), column_counter)
 
@@ -217,8 +218,8 @@ class MotionWindow(QtW.QWidget):
         column_counter += 1
 
         for axis in self.axis_display_order:
-            self.lineEdits[f'Increment {self.num_to_axis[axis]}'] = QtW.QLineEdit('0.0000')
-            self.lineEdits[f'Increment {self.num_to_axis[axis]}'].setInputMask('9.9999')
+            self.lineEdits[f'Increment {self.num_to_axis[axis]}'] = QtW.QLineEdit('00.0000')
+            self.lineEdits[f'Increment {self.num_to_axis[axis]}'].setInputMask('99.9999')
             self.layout.addWidget(self.lineEdits[f'Increment {self.num_to_axis[axis]}'],
                                   row_counter + self.axis_display_order.index(axis), column_counter)
 
@@ -235,8 +236,7 @@ class MotionWindow(QtW.QWidget):
 
         for axis in self.axis_display_order:
             self.buttons[f'+ {self.num_to_axis[axis]}'] = QtW.QPushButton('+')
-            self.buttons[f'+ {self.num_to_axis[axis]}'].clicked.connect(
-                lambda state, x=axis, sign=1: self.increment_axis(x, sign))
+            self.buttons[f'+ {self.num_to_axis[axis]}'].clicked.connect(lambda state, x=axis, sign=1: self.increment_axis(x, sign))
             self.layout.addWidget(self.buttons[f'+ {self.num_to_axis[axis]}'],
                                   row_counter + self.axis_display_order.index(axis), column_counter)
 
@@ -249,26 +249,15 @@ class MotionWindow(QtW.QWidget):
             self.layout.addWidget(self.boxes[f'CL {self.num_to_axis[axis]}'],
                                   row_counter + self.axis_display_order.index(axis), column_counter)
         column_counter += 1
-
-        self.boxes["Microscope -> Sample Z"] = QtW.QCheckBox("Follow Z")
-        self.layout.addWidget(self.boxes["Microscope -> Sample Z"], 2, column_counter)
-
-        self.boxes["Sample X -> Gonio1"] = QtW.QCheckBox("Follow Gonio1")
-        self.layout.addWidget(self.boxes["Sample X -> Gonio1"], 3, column_counter)
-
-        self.boxes["Sample Y -> Gonio2"] = QtW.QCheckBox("Follow Gonio2")
-        self.layout.addWidget(self.boxes["Sample Y -> Gonio2"], 4, column_counter)
-
         self.layout.addWidget(QtW.QLabel("Routines"), 12, 0)
         self.layout.addWidget(QtW.QLabel("Frequency (s)"), 12, 3)
-
-        self.layout.addWidget(QtW.QLabel("Recording (motion triggered, file created on click)"), 12, 12, 1, 3)
-        self.layout.addWidget(QtW.QLabel("File name"), 12, 10)
         
         self.layout.addWidget(QtW.QLabel("Recipe Directory"), 12, 5)
         self.layout.addWidget(QtW.QLabel("Recipe file name"), 12, 7)
-        self.layout.addWidget(QtW.QLabel("Load Recipe"), 12, 9)
-        
+
+        self.layout.addWidget(QtW.QLabel("Recording (motion triggered, file created on click)"), 12, 12, 1, 3)
+        self.layout.addWidget(QtW.QLabel("File name"), 12, 10)
+
         self.buttons['Timed Approach'] = QtW.QPushButton("Timed Approach")
         self.layout.addWidget(self.buttons['Timed Approach'], 13, 0)
         self.buttons['Timed Approach'].clicked.connect(lambda state, sign=1: self.timed_approach(sign))
@@ -284,15 +273,42 @@ class MotionWindow(QtW.QWidget):
         self.lineEdits['Loop Freq'] = QtW.QLineEdit("1.0")
         self.lineEdits['Loop Freq'].setInputMask('9.9')
         self.layout.addWidget(self.lineEdits['Loop Freq'], 13, 3)
+        
+        self.lineEdits['Recipe Directory'] = QtW.QLineEdit("D:/GitHub/Exfoliator/Recipes/")
+        self.layout.addWidget(self.lineEdits['Recipe Directory'], 13, 5, 1, 2)
+        path1=self.lineEdits['Recipe Directory'].text()
+        
+        self.lineEdits['Recipe file name'] = QtW.QLineEdit("091322_EDSC_V1.txt")
+        self.layout.addWidget(self.lineEdits['Recipe file name'], 13, 7, 1, 2)
+        path2=self.lineEdits['Recipe file name'].text()
+        
+        recpath=path1+path2
+        self.recmode=0
+        self.xrec=0
+        self.yrec=0
+        self.zrec=0
+        self.trec=0
+        self.varlist=0
+        def recipe_load(recpath):
+            print('Loading %s'%recpath)
+            self.fbkmode,self.movmode,self.xrec,self.yrec,self.zrec,self.Frec,self.Trec=np.loadtxt(recpath,dtype=str, delimiter=' ', skiprows=5,usecols=(0,1,2,3,4,5,6),unpack=True)
+            print('Recipe Loaded!')
+            self.varlist=[self.fbkmode,self.movmode,self.xrec,self.yrec,self.zrec,self.Frec,self.Trec]
+            #print(self.varlist)
+        self.buttons['Load Recipe'] = QtW.QPushButton("Load Recipe")
+        self.buttons['Load Recipe'].clicked.connect(lambda: recipe_load(recpath))
+        self.buttons["Load Recipe"].setEnabled(True)
+        self.layout.addWidget(self.buttons["Load Recipe"], 12, 9, 1, 1)
+        
+            
+        self.buttons['Execute Recipe'] = QtW.QPushButton("Execute Recipe")
+        self.buttons['Execute Recipe'].clicked.connect(lambda: self.recipe_queue(self.varlist)) #doesn't work
+        self.buttons["Execute Recipe"].setEnabled(True)
+        self.layout.addWidget(self.buttons["Execute Recipe"], 13, 9, 1, 1)
+        
 
         self.lineEdits['File name'] = QtW.QLineEdit("R22_")
         self.layout.addWidget(self.lineEdits['File name'], 13, 10, 1, 2)
-        
-        self.lineEdits['Recipe Directory'] = QtW.QLineEdit("D:")
-        self.layout.addWidget(self.lineEdits['Recipe Directory'], 13, 5, 1, 2)
-        
-        self.lineEdits['Recipe file name'] = QtW.QLineEdit("Recipe")
-        self.layout.addWidget(self.lineEdits['Recipe file name'], 13, 7, 1, 2)
 
         self.boxes['Rec Position'] = QtW.QCheckBox("Position")
         self.layout.addWidget(self.boxes['Rec Position'], 13, 12)
@@ -312,20 +328,12 @@ class MotionWindow(QtW.QWidget):
         self.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Fixed)
         for b in self.buttons.values():
             b: QtW.QPushButton
-            b.setEnabled(False)
+            #b.setEnabled(False)
 
         ##test
-        #self.buttons['Map'].setEnabled(True)
+        #self.buttons['Map'].(False)(True)
         #self.buttons['Map'].clicked.connect(self._launch_subwindow)
 
-    #def get_recipe(self):
-        #wdir=self.lineEdits['Recipe Directory'].text()
-        #n,xsteps,ysteps,zsteps,tsteps
-        #recipename=self.lineEdits['Recipe file name'].text()
-        #n,x,y,z,t=np.loadtxt("%s/%s"%(recipename),dtype=float, delimiter=' ', skiprows=5,usecols=(1,3,5,7,9),unpack=True) 
-        #gives you step n (from 0), the 3D cartesian step size, and the wait time after the step
-        # units are in mm and seconds
-        
     def start_recording(self, state, x):
         if x == 'Frames':
             if state:
@@ -365,11 +373,11 @@ class MotionWindow(QtW.QWidget):
 
         self.active_loop = True
 
-    def timed_single_step(self):
-        axis = 7
-        increment = self.loop_sign * float(self.lineEdits[f'Increment {self.num_to_axis[axis]}'].text())
-        self.queue_manager.queue(axis, f'7MVR{increment}')
-        self.queue_manager.queue(axis, f'7POS?')
+    # def timed_single_step(self):
+    #     axis = 7
+    #     increment = self.loop_sign * float(self.lineEdits[f'Increment {self.num_to_axis[axis]}'].text())
+    #     self.queue_manager.queue(axis, f'7MVR{increment}')
+    #     self.queue_manager.queue(axis, f'7POS?')
 
     def stop_loop(self):
         print('Stopping timed loop')
@@ -434,62 +442,33 @@ class MotionWindow(QtW.QWidget):
 
     def home_axis(self, axis):
         print(axis)
-        if axis == 2 or axis == 7 or axis == 8 or axis == 9:
-            print('Homing is disabled for this axis')
-        else:
-            self.queue_manager.queue(axis, f'{axis}HOM')
+        self.queue_manager.queue(axis, f'{axis}MLN')
 
         self.labels[f'Home Status {self.num_to_axis[axis]}'].setText("Yes")
 
-    def increment_axis(self, axis, sign):
+    def increment_axis(self, axis, sign=1):
         increment = sign * float(self.lineEdits[f'Increment {self.num_to_axis[axis]}'].text())
-        if axis == 2:
-            self.queue_manager.queue(axis, f'{axis}MVR{increment};3MVR{increment}')
-            self.queue_manager.queue(axis, f'{axis}POS?')
-            self.queue_manager.queue(3, f'3POS?')
-        elif axis == 10:
-            increment = -1 * increment
-            self.queue_manager.queue(axis, f'{axis}MVR{increment}')
-            self.queue_manager.queue(axis, f'{axis}POS?')
-        else:
-            self.queue_manager.queue(axis, f'{axis}MVR{increment}')
-            self.queue_manager.queue(axis, f'{axis}POS?')
-            if axis == 7 and self.boxes['Microscope -> Sample Z'].isChecked():
-                increment = -1 * sign * float(self.lineEdits[f'Increment {self.num_to_axis[10]}'].text())
-                if np.abs(increment) <= 100E-3:
-                    self.queue_manager.queue(10, f'10MVR{increment}')
-                    self.queue_manager.queue(10, f'10POS?')
-                else:
-                    print("Microscope increment too large to follow (restrict to less than 100 um)")
-            if axis == 8 and self.boxes['Sample X -> Gonio1'].isChecked():
-                increment = sign * float(self.lineEdits[f'Increment {self.num_to_axis[2]}'].text())
-                self.queue_manager.queue(2, f'2MVR{increment};3MVR{increment}')
-                self.queue_manager.queue(2, f'2POS?')
-                self.queue_manager.queue(3, f'3POS?')
-
-            if axis == 9 and self.boxes['Sample Y -> Gonio2'].isChecked():
-                increment = sign * float(self.lineEdits[f'Increment {self.num_to_axis[4]}'].text())
-                self.queue_manager.queue(4, f'4MVR{increment}')
-                self.queue_manager.queue(4, f'4POS?')
-
+        self.queue_manager.queue(axis, f'{axis}MVR{increment}')
+        #self.queue_manager.queue(axis, f'{axis}POS?')
+        print(f'{axis}MVR{increment}')
+        print('Moving!', increment)
     def zero_axis(self, axis):
         self.queue_manager.queue(axis, f'{axis}ZRO')
-        self.queue_manager.queue(axis, f'{axis}POS?')
-        if axis == 2:
-            self.queue_manager.queue(axis, f'3ZRO')
-            self.queue_manager.queue(3, f'3POS?')
+        #self.queue_manager.queue(axis, f'{axis}POS?')
+       # if axis == 2:
+        #    self.queue_manager.queue(axis, f'3ZRO')
+         #   self.queue_manager.queue(3, f'3POS?')
 
     def update_position(self, response):
         axis = response[0]
         pos = response[1].split(',')
         self.logger.position_data(axis, pos[0], pos[1])
-        if axis == 3:
-            pass
-        elif axis == 8 or axis == 9:
+        print(pos[0])
+        if axis == 8 or axis == 9:
             self.labels[f'Position {self.num_to_axis[axis]}'].setText(pos[0].replace('#', ''))
         else:
             self.labels[f'Position {self.num_to_axis[axis]}'].setText(pos[1])
-
+    
         if self.boxes["Rec Position"].isChecked():
             line = f'({datetime.now()});'
             for axis in self.axis_display_order:
@@ -501,11 +480,75 @@ class MotionWindow(QtW.QWidget):
             for temps in self.logger.temps.values():
                 line += f'{temps};'
             self.logger.save_annotation(self.recordings['Temp'], line)
-
+    
+        return axis, pos[0], pos[1]
+    def isfloat(self,incr):
+        try:
+            float(incr)
+            return 1
+        except ValueError:
+            return 0
+    def poschecker(self,axis):
+        axpos=self.axis_to_motor[axis].send(f'{axis}POS?')
+        # self.MW= MotionWindow('dummy')
+        # self.MW.labels[f'Position {self.num_to_axis[axis]}'].setText(axpos[1:9])
+        axpos=float(axpos[1:9])
+        return axpos
+    def timechecker(self,axis,incr):
+        axpos=self.poschecker(axis)
+        axvel=self.axis_to_motor[axis].send(f'{axis}VEL?')
+        axvel=float(axvel[1:9])
+        if axis<3:
+            maxcheck=min(200,axpos+incr)
+            destination=max(maxcheck,0)
+        else:
+            maxcheck=min(100,axpos+incr)
+            destination=max(maxcheck,0)
+        sleeptime=1+abs(axpos-destination)/abs(axvel)
+        #print(axpos,destination,axvel,sleeptime)
+        return sleeptime
+    def recipe_queue(self,varlist):
+        #varlist has form [n,x,y,z,t] where each are arrays
+        j=0 #array position
+        while j<np.size(varlist)/7:
+            k=2 #variable check
+            fbkmode=varlist[0][j] #for later implementation of force as afeedback
+            movemode=varlist[1][j]
+            setforce=varlist[5][j]
+            settemp=varlist[6][j]
+            wait=0
+            while k<5:
+                axis=k-1 #accident of the way the recipe is set up
+                incr=varlist[k][j]
+                if self.isfloat(incr)==1:
+                    incr=float(incr)
+                    if abs(incr)>0:                        
+                        self.queue_manager.queue(axis, f'{axis}MVR{incr}')
+                        #self.queue_manager.queue(axis, f'{axis}POS?')
+                        tsleep=self.timechecker(axis,incr)
+                        if movemode=='SER':
+                            print('Serial')
+                            time.sleep(tsleep)
+                        if movemode=='PAR':
+                            print('Parallel')
+                            wait=max(wait,tsleep)
+                elif self.isfloat(incr)==0:
+                    self.queue_manager.queue(axis, f'{axis}{incr}')
+                    # elif 'MLN' in incr:
+                    #     newv=incr.strip('MLN')
+                    #     time.sleep(abs(incr)/2+1)
+                    # elif 'MLP' in incr:
+                    #     newv=incr.strip('MLP')
+                    #     time.sleep(abs(incr)/2+1)
+                    #self.queue_manager.queue(axis,f'0WTM{waittime}')
+                #this will probably result in very jerky motions? is there a defined velocity?
+                k=k+1
+            time.sleep(wait) #0 for serial, max travel time for parallel
+            j=j+1
     def stop_axis(self, axis):
         self.queue_manager.pause = True
         if axis == 2:
-            self.axis_to_motor[axis].send(f'{axis}STP;3STP')
+            self.axis_to_motor[axis].send(f'{axis}STP')
         else:
             self.axis_to_motor[axis].send(f'{axis}STP')
         self.queue_manager.clear_queue()
@@ -559,15 +602,20 @@ class Queue_Manager(QtCore.QObject):
         self.pause = False
         self.cmd_thread = CMD_Thread('dummy')
         self.cmd_thread.response_signal.connect(self.receive_response)
-
-    def queue(self, axis, cmd):
+    def queue(self, axis, cmd,t=0):
         self.cmd_queue.append(cmd)
         self.axis_queue.append(axis)
-        if len(self.cmd_queue) == 1:
-            self.send_next_cmd()
+        if len(self.cmd_queue) >= 1:
+            print("The Queue is ",self.cmd_queue)
+            #self.send_next_cmd()
+            self.motor = self.axis_to_motor[axis]
+            self.motor.send(self.cmd_queue[0])
+            
+            #time.sleep(5)
+            del self.cmd_queue[0]
         else:
             pass
-        self.queue_signal.emit([self.cmd_queue, self.axis_queue])
+        #self.queue_signal.emit([self.cmd_queue, self.axis_queue])
 
     def send_next_cmd(self):
         if self.pause:
@@ -575,10 +623,12 @@ class Queue_Manager(QtCore.QObject):
         else:
             axis = self.axis_queue[0]
             cmd = self.cmd_queue[0]
+            print("Executing", cmd)
+            print("The Queue is ",self.cmd_queue)
             self.cmd_thread.motor = self.axis_to_motor[axis]
             self.cmd_thread.cmd = cmd
             self.cmd_thread.start()
-
+            #self.pause=True
     def undo_queue(self):
         del self.cmd_queue[-1]
         del self.axis_queue[-1]
@@ -588,12 +638,11 @@ class Queue_Manager(QtCore.QObject):
         self.cmd_history.append(self.cmd_queue[0])
         self.axis_history.append(self.axis_queue[0])
         self.response_history.append(response)
+        self.pause = False
         if 'POS' in self.cmd_queue[0]:
             self.position_signal.emit([self.axis_queue[0], response])
-
         del self.cmd_queue[0]
         del self.axis_queue[0]
-
         if len(self.cmd_queue) == 0:
             print("Queue empty")
         else:
