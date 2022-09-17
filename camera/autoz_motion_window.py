@@ -568,9 +568,10 @@ class MotionWindow(QtW.QWidget):
                     k=k+1
             elif fbkmode=='For':
                 setweight=float(varlist[5][j])
-                boundary=10
+                boundary=70
                 self.queue_manager.queue(3, '3MVR-100')
                 time.sleep(self.timechecker(3,-100))
+                self.queue_manager.queue(3, '3VEL10')
                 self.queue_manager.queue(3, f'3MVR{boundary}')
                 print('Moving to boundary')
                 time.sleep(self.timechecker(3,boundary))
@@ -579,10 +580,11 @@ class MotionWindow(QtW.QWidget):
                 step=100-boundary
                 self.queue_manager.queue(3, f'3MVR{step}')
                 counter=0
-                if self.globalweight<0.1:
+                while self.globalweight<0.1:
                     print('Approaching ', counter)
+                    self.globalweight=float(self.get_weight())
                     counter=counter+1
-                elif self.globalweight>0.1:
+                if self.globalweight>0.1:
                     print(self.globalweight)
                     self.queue_manager.queue(3, f'3STP')
                     self.queue_manager.queue(3, '3VEL0.01')
@@ -591,10 +593,11 @@ class MotionWindow(QtW.QWidget):
                     difference=setweight-self.globalweight
                     while abs(difference)>3:
                         calibration=8 #g/micron, calibrated as 6.6 with no viton Setting too low will lead to a crash, too high is slower
-                        distance=difference/abs(difference)*min(100,abs(difference/calibration))
+                        distance=difference/calibration/1000 #distance in mm
                         print('Getting closer')
                         self.queue_manager.queue(3, f'3MVR{distance}')
                         time.sleep(self.timechecker(3,distance))
+                        self.globalweight=float(self.get_weight())
                         difference=setweight-self.globalweight
                     if abs(difference<3):  
                         print('Target reached!')
