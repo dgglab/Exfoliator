@@ -6,15 +6,18 @@ from PyQt5.QtCore import Qt
 from PyQt5.QtWidgets import QApplication, QMainWindow, QDockWidget, QMenuBar
 
 from PyQt5 import QtWidgets as QtW
+from PyQt5.QtCore import QTimer
 
 from camera.autoz_device_manager import DeviceManagerWindow
 #from camera.autoz_camera_viewport import CameraWindow
-from temperature_controller.dashboard import TemperatureDashboard
+# from temperature_controller.dashboard import TemperatureDashboard
 
 from camera.autoz_motion_window import MotionWindow
 
 from camera.autoz_logger import Logger, LogWidget
 import temperature_controller.hotplate as hp
+
+
 
 class RangerMainWindow(QMainWindow):
     def __init__(self, *args, **kwargs):
@@ -90,19 +93,53 @@ class RangerMainWindow(QMainWindow):
         self.addDockWidget(Qt.LeftDockWidgetArea, self.motion_doc_widget)
 
         self.temperature_doc_widget = QDockWidget("TemperatureDashboard", self)
-        self.temperature_widget = TemperatureDashboard()
-        self.temperature_doc_widget.setWidget(self.temperature_widget)
+        #self.temperature_widget = TemperatureDashboard()
+        self.hp_widget =QtW.QWidget()
+        self.hp_widget_layout = QtW.QHBoxLayout()
+        self.hp_widget.setLayout(self.hp_widget_layout)
+        self.hp_label = QtW.QLabel("Hot Plate Set value")
+        self.hp_double_spinner = QtW.QDoubleSpinBox()
+        self.hp_double_spinner.setMaximum(350.0)
+        self.hp_submit_btn = QtW.QPushButton("Submit")
+        self.hp_current_temp_label = QtW.QLabel()
+        self.hp_current_weight_label = QtW.QLabel()
+
+        for w in [self.hp_label, self.hp_double_spinner, self.hp_submit_btn, self.hp_current_temp_label,self.hp_current_weight_label]:
+            self.hp_widget_layout.addWidget(w)
+        self.temperature_doc_widget.setWidget(self.hp_widget)
+        self.hp_submit_btn.pressed.connect(self.onHpBtnPress)
+        
+        self.hp_timer = QTimer()
+        self.hp_timer.timeout.connect(self.on_hp_poller_timeout)
+        self.start_hp_poller()
+
+        #self.temperature_doc_widget.setWidget(self.temperature_widget)
         self.addDockWidget(Qt.LeftDockWidgetArea, self.temperature_doc_widget)
 
         self.device_manager_window.device_manager.deviceConnected.connect(self.motion_controller_widget.connect_motor)
-
+        
+        
+    def onHpBtnPress(self):
+        value = self.hp_double_spinner.value()
+        MotionWindow.set_temp(value, 0)
+        print(value)
+        
+    def start_hp_poller(self):
+        self.hp_timer.start(200)
+        
+    def on_hp_poller_timeout(self):
+        temp = MotionWindow.get_temp(self,0)
+        weight = MotionWindow.get_weight(self)
+        self.hp_current_temp_label.setText(str(temp))
+        self.hp_current_weight_label.setText(str(weight))
+        
 
 class RangerApp(QApplication):
     def __init__(self, argv=None):
         if argv is None:
             argv = []
         super().__init__(argv)
-        self.main_window = RangerMainWindow()
+        self.main_window = RangerMainWindow()   
         self.main_window.setWindowTitle(constants.MAIN_TITLE)
         self.main_window.show()
 

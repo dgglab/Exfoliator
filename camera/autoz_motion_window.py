@@ -1,10 +1,13 @@
 from PyQt5 import QtCore, QtWidgets as QtW
+from PyQt5.QtCore import QTimer
 import time
 from datetime import datetime
 import numpy as np
 from PyQt5.QtWidgets import QSizePolicy
+import temperature_controller.ikaret as ika
+import threading
 
-
+IKA = ika.IKARET("COM4")
 class MotionWindow(QtW.QWidget):
     start_video_signal = QtCore.pyqtSignal(object)
     save_frame_signal = QtCore.pyqtSignal(object)
@@ -41,14 +44,28 @@ class MotionWindow(QtW.QWidget):
         self.lineEdits = {}
         self.lists = {}
         self.boxes = {}
-
+        self.globalweight=0
         self.logger = logger
         self.recordings = {}
 
         self.active_loop = False
 
         self.GUI_Elements()
-
+        self.hp_timer = QTimer()
+        self.hp_timer.timeout.connect(self.on_hp_poller_timeout)
+        self.start_hp_poller()
+    def start_hp_poller(self):
+        self.hp_timer.start(200)
+        
+    def on_hp_poller_timeout(self):
+        self.globalweight=float(self.get_weight())
+        #print(self.globalweight)
+    def get_weight(self):
+        return IKA.get_weight()
+    def get_temp(self,flag):
+        return IKA.get_temp(flag)
+    def set_temp(self,goal,flag):
+        return IKA.set_temp(goal,flag)
     def connect_motor(self, connection_msg):
         print(connection_msg)
         if connection_msg[0] == 'IKA':
@@ -278,7 +295,7 @@ class MotionWindow(QtW.QWidget):
         self.layout.addWidget(self.lineEdits['Recipe Directory'], 13, 5, 1, 2)
         path1=self.lineEdits['Recipe Directory'].text()
         
-        self.lineEdits['Recipe file name'] = QtW.QLineEdit("091322_EDSC_V1.txt")
+        self.lineEdits['Recipe file name'] = QtW.QLineEdit("Peel V1.txt")
         self.layout.addWidget(self.lineEdits['Recipe file name'], 13, 7, 1, 2)
         path2=self.lineEdits['Recipe file name'].text()
         
@@ -289,14 +306,17 @@ class MotionWindow(QtW.QWidget):
         self.zrec=0
         self.trec=0
         self.varlist=0
-        def recipe_load(recpath):
+        def recipe_load():
+            path1=self.lineEdits['Recipe Directory'].text()
+            path2=self.lineEdits['Recipe file name'].text()
+            recpath = path1+path2
             print('Loading %s'%recpath)
             self.fbkmode,self.movmode,self.xrec,self.yrec,self.zrec,self.Frec,self.Trec=np.loadtxt(recpath,dtype=str, delimiter=' ', skiprows=5,usecols=(0,1,2,3,4,5,6),unpack=True)
             print('Recipe Loaded!')
             self.varlist=[self.fbkmode,self.movmode,self.xrec,self.yrec,self.zrec,self.Frec,self.Trec]
             #print(self.varlist)
         self.buttons['Load Recipe'] = QtW.QPushButton("Load Recipe")
-        self.buttons['Load Recipe'].clicked.connect(lambda: recipe_load(recpath))
+        self.buttons['Load Recipe'].clicked.connect(lambda: recipe_load())
         self.buttons["Load Recipe"].setEnabled(True)
         self.layout.addWidget(self.buttons["Load Recipe"], 12, 9, 1, 1)
         
@@ -449,7 +469,7 @@ class MotionWindow(QtW.QWidget):
     def increment_axis(self, axis, sign=1):
         increment = sign * float(self.lineEdits[f'Increment {self.num_to_axis[axis]}'].text())
         self.queue_manager.queue(axis, f'{axis}MVR{increment}')
-        #self.queue_manager.queue(axis, f'{axis}POS?')
+        self.queue_manager.queue(axis, f'{axis}POS?')
         print(f'{axis}MVR{increment}')
         print('Moving!', increment)
     def zero_axis(self, axis):
@@ -505,6 +525,7 @@ class MotionWindow(QtW.QWidget):
             maxcheck=min(100,axpos+incr)
             destination=max(maxcheck,0)
         sleeptime=1+abs(axpos-destination)/abs(axvel)
+        print('Sleeping for ',sleeptime)
         #print(axpos,destination,axvel,sleeptime)
         return sleeptime
     def recipe_queue(self,varlist):
@@ -514,35 +535,74 @@ class MotionWindow(QtW.QWidget):
             k=2 #variable check
             fbkmode=varlist[0][j] #for later implementation of force as afeedback
             movemode=varlist[1][j]
-            setforce=varlist[5][j]
+            setweight=varlist[5][j]
             settemp=varlist[6][j]
             wait=0
-            while k<5:
-                axis=k-1 #accident of the way the recipe is set up
-                incr=varlist[k][j]
-                if self.isfloat(incr)==1:
-                    incr=float(incr)
-                    if abs(incr)>0:                        
-                        self.queue_manager.queue(axis, f'{axis}MVR{incr}')
-                        #self.queue_manager.queue(axis, f'{axis}POS?')
-                        tsleep=self.timechecker(axis,incr)
-                        if movemode=='SER':
-                            print('Serial')
-                            time.sleep(tsleep)
-                        if movemode=='PAR':
-                            print('Parallel')
-                            wait=max(wait,tsleep)
-                elif self.isfloat(incr)==0:
-                    self.queue_manager.queue(axis, f'{axis}{incr}')
-                    # elif 'MLN' in incr:
-                    #     newv=incr.strip('MLN')
-                    #     time.sleep(abs(incr)/2+1)
-                    # elif 'MLP' in incr:
-                    #     newv=incr.strip('MLP')
-                    #     time.sleep(abs(incr)/2+1)
-                    #self.queue_manager.queue(axis,f'0WTM{waittime}')
-                #this will probably result in very jerky motions? is there a defined velocity?
-                k=k+1
+            if fbkmode=='Pos':
+                while k<5:
+                    axis=k-1 #accident of the way the recipe is set up
+                    incr=varlist[k][j]
+                    
+                    if self.isfloat(incr)==1:
+                        incr=float(incr)
+                        if abs(incr)>0:                        
+                            self.queue_manager.queue(axis, f'{axis}MVR{incr}')
+                            #self.queue_manager.queue(axis, f'{axis}POS?')
+                            tsleep=self.timechecker(axis,incr)
+                            if movemode=='SER':
+                                print('Serial')
+                                time.sleep(tsleep)
+                            if movemode=='PAR':
+                                print('Parallel')
+                                wait=max(wait,tsleep)
+                    elif self.isfloat(incr)==0:
+                        self.queue_manager.queue(axis, f'{axis}{incr}')
+                        # elif 'MLN' in incr:
+                        #     newv=incr.strip('MLN')
+                        #     time.sleep(abs(incr)/2+1)
+                        # elif 'MLP' in incr:
+                        #     newv=incr.strip('MLP')
+                        #     time.sleep(abs(incr)/2+1)
+                        #self.queue_manager.queue(axis,f'0WTM{waittime}')
+                    #this will probably result in very jerky motions? is there a defined velocity?
+                    k=k+1
+            elif fbkmode=='For':
+                setweight=float(varlist[5][j])
+                boundary=10
+                self.queue_manager.queue(3, '3MVR-100')
+                time.sleep(self.timechecker(3,-100))
+                self.queue_manager.queue(3, f'3MVR{boundary}')
+                print('Moving to boundary')
+                time.sleep(self.timechecker(3,boundary))
+                self.queue_manager.queue(3, '3VEL1')
+                print('Moving carefully')
+                step=100-boundary
+                self.queue_manager.queue(3, f'3MVR{step}')
+                counter=0
+                if self.globalweight<0.1:
+                    print('Approaching ', counter)
+                    counter=counter+1
+                elif self.globalweight>0.1:
+                    print(self.globalweight)
+                    self.queue_manager.queue(3, f'3STP')
+                    self.queue_manager.queue(3, '3VEL0.01')
+                    print('Contact!')
+                    time.sleep(5)
+                    difference=setweight-self.globalweight
+                    while abs(difference)>3:
+                        calibration=8 #g/micron, calibrated as 6.6 with no viton Setting too low will lead to a crash, too high is slower
+                        distance=difference/abs(difference)*min(100,abs(difference/calibration))
+                        print('Getting closer')
+                        self.queue_manager.queue(3, f'3MVR{distance}')
+                        time.sleep(self.timechecker(3,distance))
+                        difference=setweight-self.globalweight
+                    if abs(difference<3):  
+                        print('Target reached!')
+                    else:
+                        print('Mission failed, we will get them next time.')
+                
+                
+                
             time.sleep(wait) #0 for serial, max travel time for parallel
             j=j+1
     def stop_axis(self, axis):
