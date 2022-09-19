@@ -99,7 +99,7 @@ class RangerMainWindow(QMainWindow):
         self.hp_widget.setLayout(self.hp_widget_layout)
         self.hp_label = QtW.QLabel("Hot Plate Set value")
         self.hp_double_spinner = QtW.QDoubleSpinBox()
-        self.hp_double_spinner.setMaximum(350.0)
+        self.hp_double_spinner.setMaximum(200.0)
         self.hp_submit_btn = QtW.QPushButton("Submit")
         self.hp_current_temp_label = QtW.QLabel()
         self.hp_current_weight_label = QtW.QLabel()

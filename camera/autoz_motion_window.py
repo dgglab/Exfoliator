@@ -7,7 +7,7 @@ from PyQt5.QtWidgets import QSizePolicy
 import temperature_controller.ikaret as ika
 import threading
 
-IKA = ika.IKARET("COM4")
+IKA = ika.IKARET("COM5")
 class MotionWindow(QtW.QWidget):
     start_video_signal = QtCore.pyqtSignal(object)
     save_frame_signal = QtCore.pyqtSignal(object)
@@ -566,9 +566,9 @@ class MotionWindow(QtW.QWidget):
                         #self.queue_manager.queue(axis,f'0WTM{waittime}')
                     #this will probably result in very jerky motions? is there a defined velocity?
                     k=k+1
-            elif fbkmode=='For':
+            elif fbkmode=='For': #tries to meeet a set force (weight in grams) read in from file
                 setweight=float(varlist[5][j])
-                boundary=70
+                boundary=60
                 self.queue_manager.queue(3, '3MVR-100')
                 time.sleep(self.timechecker(3,-100))
                 self.queue_manager.queue(3, '3VEL10')
@@ -581,7 +581,7 @@ class MotionWindow(QtW.QWidget):
                 self.queue_manager.queue(3, f'3MVR{step}')
                 counter=0
                 while self.globalweight<0.1:
-                    print('Approaching ', counter)
+                    print('Approaching ', counter, '  ', self.globalweight)
                     self.globalweight=float(self.get_weight())
                     counter=counter+1
                 if self.globalweight>0.1:
@@ -591,15 +591,16 @@ class MotionWindow(QtW.QWidget):
                     print('Contact!')
                     time.sleep(5)
                     difference=setweight-self.globalweight
-                    while abs(difference)>3:
+                    error=1
+                    while abs(difference)>error:
                         calibration=8 #g/micron, calibrated as 6.6 with no viton Setting too low will lead to a crash, too high is slower
                         distance=difference/calibration/1000 #distance in mm
-                        print('Getting closer')
+                        print('Getting closer, current weight ',self.globalweight)
                         self.queue_manager.queue(3, f'3MVR{distance}')
                         time.sleep(self.timechecker(3,distance))
                         self.globalweight=float(self.get_weight())
                         difference=setweight-self.globalweight
-                    if abs(difference<3):  
+                    if abs(difference<error):  
                         print('Target reached!')
                     else:
                         print('Mission failed, we will get them next time.')
