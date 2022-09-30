@@ -716,7 +716,7 @@ class MotionWindow(QtW.QWidget):
                     k=k+1
             elif fbkmode=='For': #tries to meeet a set force (weight in grams) read in from file
                 forcecomm=varlist[5][j]
-                boundary=82.5 #mm, the position z moves to without checking force
+                boundary=78.5 #mm, the position z moves to without checking force
                 tolerance=2
                 if 'HOLD' in forcecomm:
                     incr=varlist[4][j]
