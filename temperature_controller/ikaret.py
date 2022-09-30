@@ -52,6 +52,8 @@ class IKARET(DDict):
         length=len(weight)
         weight=weight[:length-2]
         return weight
+    def tare(self):
+        self.send('START_90')
     def get_temp(self,flag):
         if flag==0:
             temp=self.send('IN_PV_2')

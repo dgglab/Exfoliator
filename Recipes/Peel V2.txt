@@ -4,9 +4,5 @@ units are in mm, celsius, grams, and seconds
 [Pos]ition/[For]ce, [SER]ial/[PAR]allel motion, Del_X, Del_Y, Del Z, desired force, temperature, 
 ---------
 Pos SER VEL1 VEL1 VEL1 0 20
-For PAR 0 0 0 100 20
-Pos PAR 0 HOLD30 0 0 20
-Pos PAR VEL5 VEL5 VEL5 0 20
-Pos PAR 0 0 -40 0 20
 For PAR 0 0 HOLD200 HOLD150 20
 Pos SER VEL10 VEL10 VEL10 0 20

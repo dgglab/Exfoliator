@@ -103,12 +103,14 @@ class RangerMainWindow(QMainWindow):
         self.hp_submit_btn = QtW.QPushButton("Submit")
         self.hp_current_temp_label = QtW.QLabel()
         self.hp_current_weight_label = QtW.QLabel()
+        self.tare_btn=QtW.QPushButton("Tare Scale")
 
-        for w in [self.hp_label, self.hp_double_spinner, self.hp_submit_btn, self.hp_current_temp_label,self.hp_current_weight_label]:
+
+        for w in [self.hp_label, self.hp_double_spinner, self.hp_submit_btn, self.tare_btn, self.hp_current_temp_label,self.hp_current_weight_label]:
             self.hp_widget_layout.addWidget(w)
         self.temperature_doc_widget.setWidget(self.hp_widget)
         self.hp_submit_btn.pressed.connect(self.onHpBtnPress)
-        
+        self.tare_btn.pressed.connect(self.tarefunc)
         self.hp_timer = QTimer()
         self.hp_timer.timeout.connect(self.on_hp_poller_timeout)
         self.start_hp_poller()
@@ -121,8 +123,11 @@ class RangerMainWindow(QMainWindow):
         
     def onHpBtnPress(self):
         value = self.hp_double_spinner.value()
-        MotionWindow.set_temp(value, 0)
+        MotionWindow.set_temp(self,value, 0)
         print(value)
+    def tarefunc(self):
+        print('Taring')
+        MotionWindow.tare(self)
         
     def start_hp_poller(self):
         self.hp_timer.start(200)

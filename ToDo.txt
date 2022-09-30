@@ -1,0 +1,5 @@
+Tolerance in reaching set point
+Time to check stability (for T and F)
+write a 'wait' function that uses Unix time and takes one input to wait for X seconds
+A HOLDX command to wait for X seconds
+interact with Pos/For toggle to Hold and do nothing or Hold and maintain force

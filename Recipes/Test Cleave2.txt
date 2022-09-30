@@ -1,0 +1,11 @@
+Elijah's first attempt at a recipe
+9/13/2022, motion columns represent the DELTA from the last step
+units are in mm, celsius, grams, and seconds
+[Pos]ition/[For]ce, [SER]ial/[PAR]allel motion, Del_X, Del_Y, Del Z, desired force, temperature, 
+---------
+Pos SER VEL10 VEL0.2 VEL0.05 0 20
+Pos SER 0 0 -2 0 20
+Pos SER 0 -80 0 0 20
+Pos SER 0 0 VEL1 0 20
+Pos SER 0 0 -30 0 20
+Pos SER 0 0 VEL5 0 20

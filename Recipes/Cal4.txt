@@ -1,0 +1,35 @@
+Calibration recipe, assumes pedestal surfaces are aligned
+Move to loading position before executing
+units are in mm, celsius, grams, and seconds
+[Pos]ition/[For]ce, [SER]ial/[PAR]allel motion, Del_X, Del_Y, Del Z, desired force, temperature, 
+-------
+Pos PAR 0 0 0 0 20
+Cal SER VEL1 VEL1 VEL0.01 0 20
+Pos PAR VEL8 VEL8 VEL8 0 20
+Pos SER 0 0 -10 0 20
+Pos SER 6.25 0 0 0 20
+Cal SER VEL1 VEL1 VEL0.01 0 20
+Pos PAR VEL8 VEL8 VEL8 0 20
+Pos SER 0 0 -10 0 20
+Pos SER 3.125 0 0 0 20
+Cal SER VEL1 VEL1 VEL0.01 0 20
+Pos PAR VEL8 VEL8 VEL8 0 20
+Pos SER 0 0 -10 0 20
+Pos SER 0 -25 0 0 20
+Cal SER VEL1 VEL1 VEL0.01 0 20
+Pos PAR VEL8 VEL8 VEL8 0 20
+Pos SER 0 0 -10 0 20
+Pos SER 0 -12.5 0 0 20
+Cal SER VEL1 VEL1 VEL0.01 0 20
+Pos PAR VEL8 VEL8 VEL8 0 20
+Pos SER 0 0 -10 0 20
+Pos SER 0 -6.25 0 0 20
+Cal SER VEL1 VEL1 VEL0.01 0 20
+Pos PAR VEL8 VEL8 VEL8 0 20
+Pos SER 0 0 -10 0 20 
+Pos SER 0 -3.125 0 0 20
+Cal SER VEL1 VEL1 VEL0.01 0 20
+Pos PAR VEL8 VEL8 VEL8 0 20
+Pos SER 0 0 -10 0 20
+Pos SER VEL8 VEL8 VEL8 0 20
+Pos PAR -200 -200 -100 0 20

@@ -1,0 +1,49 @@
+Peeling recipe. Delta is (y,z)=(-A*20cos(theta),-A20sin(theta)), A~1.005 is how much tape stretches
+Move to loading position before executing
+units are in mm, celsius, grams, and seconds
+[Pos]ition/[For]ce, [SER]ial/[PAR]allel motion, Del_X, Del_Y, Del Z, desired force, temperature, 
+-------
+Pos SER VEL10 VEL10 VEL10 0 20
+Pos PAR -200 -200 -100 0 20
+Pos PAR ZRO ZRO ZRO 0 20
+Pos PAR 79.1 36.4 84 0 20
+Pos SER VEL10 VEL10 VEL5 0 20
+Pos SER 0 0 -10 0 20 
+Pos PAR -3 3 0 0 20
+Cal SER VEL1 VEL1 VEL0.01 0 20
+Pos PAR VEL8 VEL8 VEL8 0 20
+Pos SER 0 0 -10 0 20
+Pos SER -3 0 0 0 20
+Cal SER VEL1 VEL1 VEL0.01 0 20
+Pos PAR VEL8 VEL8 VEL8 0 20
+Pos SER 0 0 -10 0 20 
+Pos SER -6 0 0 0 20
+Cal SER VEL1 VEL1 VEL0.01 0 20
+Pos PAR VEL8 VEL8 VEL8 0 20
+Pos SER 0 0 -10 0 20
+Pos SER -12 0 0 0 20
+Cal SER VEL1 VEL1 VEL0.01 0 20
+Pos PAR VEL8 VEL8 VEL8 0 20
+Pos SER 0 0 -10 0 20
+Pos SER -24 0 0 0 20
+Cal SER VEL1 VEL1 VEL0.01 0 20
+Pos PAR VEL8 VEL8 VEL8 0 20
+Pos SER 0 0 -10 0 20
+Pos SER 0 3 0 0 20
+Cal SER VEL1 VEL1 VEL0.01 0 20
+Pos PAR VEL8 VEL8 VEL8 0 20
+Pos SER 0 0 -10 0 20
+Pos SER 0 6 0 0 20
+Cal SER VEL1 VEL1 VEL0.01 0 20
+Pos PAR VEL8 VEL8 VEL8 0 20
+Pos SER 0 0 -10 0 20
+Pos SER 0 12 0 0 20
+Cal SER VEL1 VEL1 VEL0.01 0 20
+Pos PAR VEL8 VEL8 VEL8 0 20
+Pos SER 0 0 -10 0 20 
+Pos SER 0 24 0 0 20
+Cal SER VEL1 VEL1 VEL0.01 0 20
+Pos PAR VEL8 VEL8 VEL8 0 20
+Pos SER 0 0 -10 0 20
+Pos SER VEL8 VEL8 VEL8 0 20
+Pos PAR -200 -200 -100 0 20
