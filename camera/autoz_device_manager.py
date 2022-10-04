@@ -2,7 +2,7 @@ from PyQt5 import QtCore, QtWidgets as QtW
 from camera.autoz_camera_class import Camera
 from motion_controller.mmc110 import MMC110
 from temperature_controller.serial_utils import get_com_ports
-HARDCODED_MMC_COM_PORT = "COM3"
+HARDCODED_MMC_COM_PORT = "COM4"
 
 
 class DeviceManager(QtCore.QObject):

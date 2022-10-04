@@ -3,6 +3,5 @@ Move to loading position before executing
 units are in mm, celsius, grams, and seconds
 [Pos]ition/[For]ce, [SER]ial/[PAR]allel motion, Del_X, Del_Y, Del Z, desired force, temperature, 
 ---------
-Pos SER VEL1 VEL1 VEL1 0 20
-For PAR 0 0 HOLD200 HOLD150 20
-Pos SER VEL10 VEL10 VEL10 0 20
+Pos SER VEL10 VEL0.1 VEL0.1 0 20
+Pos PAR 0 -40 -80 0 20

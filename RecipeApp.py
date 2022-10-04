@@ -12,7 +12,7 @@ from camera.autoz_device_manager import DeviceManagerWindow
 #from camera.autoz_camera_viewport import CameraWindow
 # from temperature_controller.dashboard import TemperatureDashboard
 
-from camera.autoz_motion_window import MotionWindow
+from camera.autoz_motion_window_pid import MotionWindow
 
 from camera.autoz_logger import Logger, LogWidget
 import temperature_controller.hotplate as hp

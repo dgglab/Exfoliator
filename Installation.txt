@@ -9,5 +9,6 @@ I used Spyder (comes with Anaconda Navigator) as my interface for working with P
 
 Do NOT install PyQT5! Anaconda comes with a native version, installing PyQT5 will break your conda installation and require reinstallation
 
-4. Install recordclass (pip install recordclass)
+4. Install Microsoft C++ build tools https://visualstudio.microsoft.com/visual-cpp-build-tools/
+5. Install recordclass (pip install recordclass)
 
