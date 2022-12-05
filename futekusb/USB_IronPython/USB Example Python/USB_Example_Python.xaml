@@ -1,0 +1,18 @@
+﻿<Window 
+       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
+       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
+       Title="USB Example Python" Height="95" Width="691.75">
+    <Grid>
+        <Label x:Name="label" Content="Serial Number" HorizontalAlignment="Left" Margin="22,8,0,0" VerticalAlignment="Top" FontWeight="Bold" FontFamily="Microsoft Sans Serif"/>
+        <Label x:Name="label1" Content="Calculated Reading" HorizontalAlignment="Left" Margin="152,8,0,0" VerticalAlignment="Top" FontWeight="Bold" FontFamily="Microsoft Sans Serif"/>
+        <Label x:Name="label2" Content="Units" HorizontalAlignment="Left" Margin="341,8,0,0" VerticalAlignment="Top" FontWeight="Bold" FontFamily="Microsoft Sans Serif"/>
+        <TextBox x:Name="SerialNumberTextBox" HorizontalAlignment="Left" Height="23" Margin="8,28,0,0" TextWrapping="Wrap" Text="Enter Here" VerticalAlignment="Top" Width="120" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontFamily="Microsoft Sans Serif" FontWeight="Bold"/>
+        <TextBox x:Name="CalculatedReadingTextBox" HorizontalAlignment="Left" Height="23" Margin="134,28,0,0" TextWrapping="Wrap" Text="000.000" VerticalAlignment="Top" Width="159" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontFamily="Microsoft Sans Serif" FontWeight="Bold" Background="#FF897E7E"/>
+        <TextBox x:Name="UnitsTextBox" HorizontalAlignment="Left" Height="23" Margin="299,28,0,0" TextWrapping="Wrap" Text="Units" VerticalAlignment="Top" Width="120" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontFamily="Microsoft Sans Serif" FontWeight="Bold" Background="#FF897E7E"/>
+        <Button x:Name="StartButton" Content="Start" HorizontalAlignment="Left" Margin="427,29,0,0" VerticalAlignment="Top" Width="57" Click="StartButton_Click"/>
+        <Button x:Name="StopButton" Content="Stop" HorizontalAlignment="Left" Margin="490,29,0,0" VerticalAlignment="Top" Width="57" Click="StopButton_Click"/>
+        <Button x:Name="TareButton" Content="Tare" HorizontalAlignment="Left" Margin="552,29,-5,0" VerticalAlignment="Top" Width="57" Click="TareButton_Click"/>
+        <Button x:Name="GrossButton" Content="Gross" HorizontalAlignment="Left" Margin="616,29,-69,0" VerticalAlignment="Top" Width="57" Click="GrossButton_Click"/>
+
+    </Grid>
+</Window> 

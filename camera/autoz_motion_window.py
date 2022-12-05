@@ -549,7 +549,7 @@ class MotionWindow(QtW.QWidget):
         return sleeptime
     def calloop(self,boundary):
         self.tare()
-        self.sleepfunc(5)
+        self.sleepfunc(8)
         self.globalweight=float(self.get_weight())
         name=str(int(time.time()))
         location=float(self.poschecker(3))
@@ -580,7 +580,7 @@ class MotionWindow(QtW.QWidget):
         self.queue_manager.queue(3, f'3STP') 
         self.tare()
         print('Lost contact! Calibrating now.')
-        self.sleepfunc(5)
+        self.sleepfunc(8)
         startpos=float(self.poschecker(3))
         cap=2000
         counter=0
@@ -605,7 +605,7 @@ class MotionWindow(QtW.QWidget):
     def forceloop(self,setweight,tolerance,boundary,tareflag=1):
         if tareflag==1:
             self.tare()
-            self.sleepfunc(5)
+            self.sleepfunc(8)
         location=float(self.poschecker(3))
         startflag=0
         if location<boundary:
@@ -650,7 +650,7 @@ class MotionWindow(QtW.QWidget):
             print('Getting closer, current weight ',str(self.get_weight()),' target ',setweight)
             self.queue_manager.queue(3, f'3MVR{distance}')
             self.sleepfunc(self.timechecker(3,distance))
-            self.sleepfunc(0.2)
+            self.sleepfunc(3)
             self.globalweight=float(self.get_weight())
             counter=0
             if abs(self.globalweight-calweight)<1:
@@ -717,7 +717,7 @@ class MotionWindow(QtW.QWidget):
                     k=k+1
             elif fbkmode=='For': #tries to meeet a set force (weight in grams) read in from file
                 forcecomm=varlist[5][j]
-                boundary=82.3 #mm, the position z moves to without checking force
+                boundary=83 #mm, the position z moves to without checking force
                 tolerance=2
                 if 'HOLD' in forcecomm:
                     incr=varlist[4][j]

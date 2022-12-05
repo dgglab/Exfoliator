@@ -6,7 +6,7 @@ import numpy as np
 from PyQt5.QtWidgets import QSizePolicy
 import temperature_controller.ikaret as ika
 import threading
-from simple_pid import PID
+import sys
 
 IKA = ika.IKARET("COM5")
 class MotionWindow(QtW.QWidget):
@@ -55,20 +55,65 @@ class MotionWindow(QtW.QWidget):
         self.hp_timer = QTimer()
         self.hp_timer.timeout.connect(self.on_hp_poller_timeout)
         self.start_hp_poller()
+        path="C:/Users/GGG-EXFOLIATOR/Documents/GitHub/Exfoliator/Coefficients.txt"
+        print('Loading Coefficients')
+        self.coefflist=np.loadtxt(path,dtype=float,delimiter=', ', skiprows=12,usecols=(1),unpack=True)
+        print(self.coefflist)
+
     def start_hp_poller(self):
         self.hp_timer.start(200)
         
     def on_hp_poller_timeout(self):
         self.globalweight=float(self.get_weight())
+        self.update_pos2(1)
+        self.update_pos2(2)
+        self.update_pos2(3)
         #print(self.globalweight)
-    def get_weight(self):
-        return IKA.get_weight()
+    def get_weight(self,saveflag=0):
+        weight=IKA.get_weight()
+        if saveflag==1:
+            now=time.localtime(time.time())
+            month=now.tm_mon
+            day=now.tm_mday
+            year=now.tm_year
+            name=str(year)+'_'+str(month)+'_'+str(day)+' Force Log.txt'
+            now2=time.mktime(time.strptime(str(day)+' '+str(month)+' '+str(year), "%d %m %Y"))
+            deltime=str(time.time()-now2)
+            f=open(name,'a+')
+            weight2=str(int(float(weight)))
+            writestr=str(deltime+' '+weight2+'\n')
+            f.write(writestr)
+            f.close()
+        if float(weight)<5000:# and float(weight)>-3000:
+            return weight
+        else:
+            print('Weight fault!',weight)
+            #if float(weight)<=-3000:
+                #return -0.5
+            if float(weight)>=5000:
+                return 0.5
+    def get_ret_weight(self,start):
+        weight=IKA.get_weight()
+        name=str(int(start))+' Force Log.txt'
+        deltime=str(time.time()-start)
+        f=open(name,'a+')
+        weight2=str(int(float(weight)))
+        writestr=str(deltime+' '+weight2+'\n')
+        f.write(writestr)
+        f.close()
+        return weight
     def get_temp(self,flag):
         return IKA.get_temp(flag)
     def set_temp(self,goal,flag):
         return IKA.set_temp(goal,flag)
     def tare(self):
-        return IKA.tare()
+        IKA.tare()
+        print('Taring')
+    def sleepytare(self):
+        IKA.tare()
+        print('Taring')
+        timer=self.coefflist[3]
+        self.sleepfunc(timer)
     
     def connect_motor(self, connection_msg):
         print(connection_msg)
@@ -299,7 +344,7 @@ class MotionWindow(QtW.QWidget):
         self.layout.addWidget(self.lineEdits['Recipe Directory'], 13, 5, 1, 2)
         path1=self.lineEdits['Recipe Directory'].text()
         
-        self.lineEdits['Recipe file name'] = QtW.QLineEdit("Cal2.txt")
+        self.lineEdits['Recipe file name'] = QtW.QLineEdit("Cleave V9.txt")
         self.layout.addWidget(self.lineEdits['Recipe file name'], 13, 7, 1, 2)
         path2=self.lineEdits['Recipe file name'].text()
         
@@ -320,6 +365,7 @@ class MotionWindow(QtW.QWidget):
             print(self.fbkmode)
             self.varlist=[self.fbkmode,self.movmode,self.xrec,self.yrec,self.zrec,self.Frec,self.Trec]
             #print(self.varlist)
+        
         self.buttons['Load Recipe'] = QtW.QPushButton("Load Recipe")
         self.buttons['Load Recipe'].clicked.connect(lambda: recipe_load())
         self.buttons["Load Recipe"].setEnabled(True)
@@ -327,10 +373,23 @@ class MotionWindow(QtW.QWidget):
         
             
         self.buttons['Execute Recipe'] = QtW.QPushButton("Execute Recipe")
-        self.buttons['Execute Recipe'].clicked.connect(lambda: self.recipe_queue(self.varlist)) #doesn't work
-        self.buttons["Execute Recipe"].setEnabled(True)
+        self.buttons['Execute Recipe'].clicked.connect(lambda: self.recipe_queue(self.varlist,self.coefflist))
         self.layout.addWidget(self.buttons["Execute Recipe"], 13, 9, 1, 1)
         
+        def coeff_load():
+            path="C:/Users/GGG-EXFOLIATOR/Documents/GitHub/Exfoliator/Coefficients.txt"
+            print('Loading Coefficients')
+            self.coefflist=np.loadtxt(path,dtype=float,delimiter=', ', skiprows=12,usecols=(1),unpack=True)
+            print(self.coefflist)
+            xvel=self.coefflist[4]
+            yvel=self.coefflist[5]
+            zvel=self.coefflist[6]
+            self.queue_manager.queue(1, f'1VEL{xvel}')
+            self.queue_manager.queue(2, f'2VEL{yvel}')
+            self.queue_manager.queue(3, f'3VEL{zvel}')
+        self.buttons['Reload Coeffs'] = QtW.QPushButton("Reload Coeffs")
+        self.buttons['Reload Coeffs'].clicked.connect(lambda: coeff_load())
+        self.layout.addWidget(self.buttons["Reload Coeffs"], 12, 11, 1, 1)
 
         self.lineEdits['File name'] = QtW.QLineEdit("R22_")
         self.layout.addWidget(self.lineEdits['File name'], 13, 10, 1, 2)
@@ -467,8 +526,9 @@ class MotionWindow(QtW.QWidget):
 
     def home_axis(self, axis):
         print(axis)
-        self.queue_manager.queue(axis, f'{axis}MLN')
-
+        #self.queue_manager.queue(axis, f'{axis}MLN')
+        self.queue_manager.queue(axis, f'{axis}VEL8')
+        self.queue_manager.queue(axis, f'{axis}MVR-200')
         self.labels[f'Home Status {self.num_to_axis[axis]}'].setText("Yes")
 
     def increment_axis(self, axis, sign=1):
@@ -508,6 +568,25 @@ class MotionWindow(QtW.QWidget):
             self.logger.save_annotation(self.recordings['Temp'], line)
     
         return axis, pos[0], pos[1]
+    def update_pos2(self,axis):
+        pos=self.axis_to_motor[axis].send(f'{axis}POS?')
+        # self.MW= MotionWindow('dummy')
+        # self.MW.labels[f'Position {self.num_to_axis[axis]}'].setText(axpos[1:9])
+        pos=pos[1:9]
+        self.labels[f'Position {self.num_to_axis[axis]}'].setText(pos)
+        if self.boxes["Rec Position"].isChecked():
+            line = f'({datetime.now()});'
+            for axis in self.axis_display_order:
+                line += f'{self.logger.calc_pos[axis]};{self.logger.enc_pos[axis]};'
+            self.logger.save_annotation(self.recordings['Position'], line)
+
+        if self.boxes["Rec Temp"].isChecked():
+            line = f'({datetime.now()});'
+            for temps in self.logger.temps.values():
+                line += f'{temps};'
+            self.logger.save_annotation(self.recordings['Temp'], line)
+    
+        return axis, pos
     def isfloat(self,incr):
         try:
             float(incr)
@@ -522,17 +601,17 @@ class MotionWindow(QtW.QWidget):
         return axpos
     def sleepfunc(self,waittime):
         print('Sleepfunc says sleeping for '+str(int(waittime))+' seconds')
-        start=int(time.time())
-        now=int(time.time())
+        start=float(time.time())
+        now=float(time.time())
         goal=start+float(waittime)
         diff=0
         printflag=0
         while now<goal:
-            now=int(time.time())
+            now=float(time.time())
             diff=int(goal-now)
             if abs(diff-printflag)>=5:
                 print('Waiting '+str(diff)+' more seconds')
-                print('Weight'+str(self.get_weight()))
+                print('Weight'+str(self.get_weight(saveflag=1)))
                 printflag=diff
     def timechecker(self,axis,incr):
         axpos=self.poschecker(axis)
@@ -548,8 +627,14 @@ class MotionWindow(QtW.QWidget):
         #print('Sleeping for ',sleeptime)
         #print(axpos,destination,axvel,sleeptime)
         return sleeptime
-    
+    def formfloat(self,floater):
+        float1=str(floater)
+        float2=float1[:7]
+        float3=float(float2)
+        return float3
     def approachfunc(self,boundary,outflag=0):
+        boundary=self.formfloat(boundary)
+        self.sleepytare()
         location=float(self.poschecker(3))
         if location<boundary:
             print('Moving to boundary '+str(boundary)+'mm')
@@ -557,44 +642,82 @@ class MotionWindow(QtW.QWidget):
             self.queue_manager.queue(3, f'3MVA{boundary}')
             distance=boundary-location
             self.sleepfunc(self.timechecker(3,distance))
-        self.queue_manager.queue(3, '3VEL0.1')
+        appvel=self.coefflist[7]
+        backoff=self.coefflist[8]
+        self.queue_manager.queue(3, f'3VEL{appvel}')
         print('Moving carefully')
         self.queue_manager.queue(3, f'3MVR30')
         counter=0
+        self.globalweight=float(self.get_weight())
         while self.globalweight<0.1:
             print('Approaching ', counter, '  ', self.globalweight,'  ',self.poschecker(3))
-            self.globalweight=float(self.get_weight())
+            self.globalweight=float(self.get_weight(saveflag=1))
             counter=counter+1
         print(self.globalweight)
         self.queue_manager.queue(3, f'3STP')
         self.queue_manager.queue(3, '3VEL0.01')
         print('Contact!')
-        self.queue_manager.queue(3, '3MVR-0.08')
+        self.queue_manager.queue(3, f'3MVR{backoff}')
         
         self.sleepfunc(5)
-        self.tare()
-        self.sleepfunc(5)
         if outflag==1:
-            return float(self.poschecker(3))
-    def pidloop(self,setweight,tolerance):
-        pid = PID(10, 0.1, 0.05, setpoint=setweight)
-        pid.sample_time=0.1
-        #ceiling=100
-        #pid.output_limits = (-1*ceiling, ceiling) #microns
-        self.globalweight=float(self.get_weight())
-        diff=abs(setweight-self.globalweight)
+            loc=float(self.poschecker(3))
+            if abs(boundary-loc)<5:
+                return loc
+            else:
+                return boundary-1
+    def myloop(self,setweight):
+        
+        stepint=self.coefflist[12]
+        stepslope=self.coefflist[11]
+        offset=self.coefflist[13]
+        tolperc=self.coefflist[1]/100
+        tolg=self.coefflist[2]
+        tolerance=abs(tolperc*setweight)+tolg #the listed accuracy of the scale, plus 1g
+        self.globalweight=float(self.get_weight(saveflag=1))
+        diff=setweight-self.globalweight
+        self.newweight=0
+        diff2=0
         self.queue_manager.queue(3, f'3VEL0.1')
-        while diff>tolerance:               
-            step=str(pid(self.globalweight)/1000)
+        cal=8 #g/micron
+        while abs(diff)>tolerance:
+            self.oldweight=self.globalweight
+            step=str(diff/cal/1000)
             step=float(step[:7])
+            cap=min(stepint+abs(diff/stepslope),0.1)
+            step=min(cap,step)
+            step=max(-1*cap,step)
+            step=self.formfloat(step)
             self.queue_manager.queue(3, f'3MVR{step}')
-            self.sleepfunc(self.timechecker(3,step)+3)
-            self.globalweight=float(self.get_weight())
-            print('Getting closer, current weight ',self.globalweight,' target ',setweight)
-            diff=abs(setweight-self.globalweight)
-    def calloop(self,boundary):
-        self.tare()
-        self.sleepfunc(5)
+            if abs(diff2)>0:
+                self.sleepfunc(self.timechecker(3,step)+2)
+            else:
+                self.sleepfunc(self.timechecker(3,step)-0.8)
+            self.newweight=float(self.get_weight(saveflag=1))
+            if abs(int(self.newweight)-self.newweight)<0.1:
+                cal=max(0.2,(self.newweight-self.oldweight)/(1000*step)+offset)
+                print('Getting closer, current weight ',self.newweight,' target ',setweight,' cal ',cal)
+                self.globalweight=self.newweight
+                diff=setweight-self.newweight
+                diff2=self.newweight-self.oldweight
+            else:
+                sign=self.newweight*2
+                failcount=0
+                while (self.newweight)**2<abs(self.newweight):
+                    step=-1*sign*0.1
+                    print('Recovering from weight fault '+str(failcount)+'/10')
+                    self.queue_manager.queue(3, f'3MVR{step}')
+                    self.sleepfunc(self.timechecker(3,step)+2)
+                    self.newweight=float(self.get_weight(saveflag=1))
+                    failcount=failcount+1
+                    if failcount>10:
+                        self.set_temp(0,0)
+                        print('Exiting, please solve my problems yourself.')
+                        sys.exit()
+                cal=8
+                self.sleepfunc(1)
+    def calloop(self,boundary,coefflist):
+        self.sleepytare()
         self.globalweight=float(self.get_weight())
         name=str(int(time.time()))
         location=float(self.poschecker(3))
@@ -616,16 +739,9 @@ class MotionWindow(QtW.QWidget):
         print('Contact!')
         self.sleepfunc(5)
         self.queue_manager.queue(3, '3VEL0.01')
-        self.queue_manager.queue(3,'MVR-1')
-        counter=0
-        while self.globalweight>2:
-            print('Backing away ', counter, '  ', self.globalweight)
-            self.globalweight=float(self.get_weight())
-            counter=counter+1
-        self.queue_manager.queue(3, f'3STP') 
-        self.tare()
+        self.queue_manager.queue(3,'MVR-0.02')
+        self.sleepytare()
         print('Lost contact! Calibrating now.')
-        self.sleepfunc(5)
         startpos=float(self.poschecker(3))
         cap=2000
         counter=0
@@ -647,82 +763,24 @@ class MotionWindow(QtW.QWidget):
             counter=counter+1
         self.sleepfunc(5)
         print('Calibration Complete')
-    def forceloop(self,setweight,tolerance,boundary):
-        location=float(self.poschecker(3))
-        if location<boundary:
-            print('Moving to boundary '+str(boundary)+'mm')
-            self.queue_manager.queue(3, '3VEL10')
-            self.queue_manager.queue(3, f'3MVA{boundary}')
-            distance=boundary-location
-            self.sleepfunc(self.timechecker(3,distance))
-        self.queue_manager.queue(3, '3VEL0.1')
-        print('Moving carefully')
-        step=100-boundary
-        self.queue_manager.queue(3, '3MVR50')
-        counter=0
-        while self.globalweight<0.1:
-            print('Approaching ', counter, '  ', self.globalweight,'  ',self.poschecker(3))
-            self.globalweight=float(self.get_weight())
-            counter=counter+1
-        print(self.globalweight)
-        self.queue_manager.queue(3, f'3STP')
-        self.queue_manager.queue(3, '3VEL0.01')
-        print('Contact!')
-        self.sleepfunc(5)
-        difference=setweight-float(self.get_weight())
-        failcount=0
-        while abs(difference)>tolerance:
-            #g/micron, calibrated as 6.6 with no viton Setting too low will lead to a crash, too high is slower    
-            calweight=min(1000,float(self.get_weight()))
-            calweight=max(-1000,calweight)
-            cal1=8
-            cal2=3
-            if calweight>200:
-                calibration=cal1
-            elif calweight<100:
-                calibration=cal2
-
-            else:
-                calibration=(cal1-cal2)*(calweight/100-1)+cal2
-            print ('Moving '+str(calibration)+' g/micron')
-            distance=difference/calibration/1000 #distance in mm
-            distance=str(distance)
-            distance=float(distance[:7])
-            print('Getting closer, current weight ',str(self.get_weight()),' target ',setweight)
-            self.queue_manager.queue(3, f'3MVR{distance}')
-            self.sleepfunc(self.timechecker(3,distance))
-            self.sleepfunc(0.2)
-            self.globalweight=float(self.get_weight())
-            counter=0
-            if abs(self.globalweight-calweight)<1:
-                failcount=failcount+1
-                if failcount>=5:
-                    print('Not actually touching, pushing forward')
-                    self.queue_manager.queue(3,'3VEL0.05')
-                    step2=-10*(self.globalweight-setweight)/abs(self.globalweight-setweight)
-                    self.queue_manager.queue(3, f'3MVR{step2}')
-                    while abs(self.globalweight-calweight)<1:
-                        print('Approaching again', counter, '  ', self.globalweight,'  ',self.poschecker(3))
-                        self.globalweight=float(self.get_weight())
-                        counter=counter+1
-                    self.queue_manager.queue(3, f'3STP')   
-                    self.queue_manager.queue(3,'3VEL0.01')
-                    failcount=0
-                    self.sleepfunc(5)
-            difference=setweight-self.globalweight
-            print('I am '+str(difference)+'g off target')
-        print('Target reached!')
         
-    def recipe_queue(self,varlist):
+    def recipe_queue(self,varlist,coefflist):
         #varlist has form [n,x,y,z,t] where each are arrays
         j=0 #array position
-        boundary=82.3 #mm, the position z moves to without checking force
+        boundary=81 #mm, the position z moves to without checking force
         while j<np.size(varlist)/7:
             k=2 #variable check
             fbkmode=varlist[0][j] #for later implementation of force as afeedback
             movemode=varlist[1][j]
             setweight=varlist[5][j]
-            settemp=varlist[6][j]
+            settemp=float(varlist[6][j])
+            self.set_temp(settemp,0)
+            self.set_temp(settemp,0)
+            platetemp=float(self.get_temp(0))
+            while abs(platetemp-settemp)>10:
+                 self.sleepfunc(10)
+                 print("Waiting on temperature, current "+str(platetemp)+", goal "+str(settemp))
+                 platetemp=float(self.get_temp(0))
             wait=0
             if fbkmode=='Pos':
                 while k<5:
@@ -758,25 +816,27 @@ class MotionWindow(QtW.QWidget):
                     k=k+1
             elif fbkmode=='For': #tries to meeet a set force (weight in grams) read in from file
                 forcecomm=varlist[5][j]
-                tolerance=2
+                
                 if 'HOLD' in forcecomm:
                     incr=varlist[4][j]
                     waittime=float(incr.strip('HOLD'))
                     setforce=float(forcecomm.strip('HOLD'))
-                    boundary=self.approachfunc(boundary,outflag=1)-.3
-                    self.pidloop(setforce,tolerance)
+                    boundary=self.approachfunc(boundary,outflag=1)-1
+                    self.myloop(setforce)
                     now=time.time()
                     goal=now+waittime
                     print('Holding force for '+str(waittime)+' seconds')
                     printflag=0
+                    tolperc=self.coefflist[1]/100
+                    tolg=self.coefflist[2]
+                    tolerance=abs(tolperc*setforce)+tolg
                     while now<goal:
                         self.globalweight=float(self.get_weight())
                         if abs(setforce-self.globalweight)>tolerance:
                             print("Achieving force to hold!")
-                            self.pidloop(setforce,tolerance)
+                            self.myloop(setforce)
                         else:
-                            diff=int(goal-now)
-                            
+                            diff=int(goal-now) 
                             if abs(diff-printflag)>=5:
                                 print('The weight is within the '+str(tolerance)+'g tolerance, '+str(self.globalweight)+'g Actual, '+str(setforce)+'g Goal')
                                 print('Holding '+str(diff)+' more seconds')
@@ -784,35 +844,49 @@ class MotionWindow(QtW.QWidget):
                         now=time.time()
                 elif self.isfloat(forcecomm)==1:
                     setforce=float(forcecomm)
-                    boundary=self.approachfunc(boundary,outflag=1)-.3
-                    self.pidloop(setforce,tolerance)
+                    boundary=self.approachfunc(boundary,outflag=1)-1
+                    self.myloop(setforce)
                 else:
                     print('Badly formatted force')
             elif fbkmode=='Cal':
                 print('Calibrating')
-                boundary=self.approachfunc(boundary,outflag=1)-.3
-                self.calloop(boundary)
+                boundary=self.approachfunc(boundary,outflag=1)-.5
+                self.calloop(boundary,self.coefflist)
             elif fbkmode=='Ret':
                 print('Retracting')
+                incr=-100
+                self.queue_manager.queue(3, '3VEL0.001')
+                self.queue_manager.queue(3, f'3MVR{incr}')
                 failcount=0
                 while failcount<=5: #needs to read the same weight X times in a row to stop retracting
-                    currweight=float(self.get_weight())
+                    currweight=float(self.get_weight(saveflag=1))
                     print(currweight,failcount)
-                    incr=-0.2
-                    self.queue_manager.queue(3, '3VEL0.1')
-                    self.queue_manager.queue(3, f'3MVR{incr}')
                     #self.queue_manager.queue(3, f'3POS?')
-                    tsleep=self.timechecker(3,incr)
-                    self.sleepfunc(tsleep-0.9)
+                    self.sleepfunc(5)
                     if abs(float(self.get_weight())-currweight)<1:
                         failcount=failcount+1
                     else:
                         failcount=0
-                backoff=-3
-                self.queue_manager.queue(3, '3VEL1')
+                backoff=-20
+                self.queue_manager.queue(3, f'3STP')
+                self.queue_manager.queue(3, '3VEL5')
                 self.queue_manager.queue(3, f'3MVR{backoff}')
                 tsleep=self.timechecker(3,backoff)
                 self.sleepfunc(tsleep)
+            elif fbkmode=='Re2':
+                print('Retracting')
+                incr=-100
+                self.queue_manager.queue(3, '3VEL0.002')
+                self.queue_manager.queue(3, f'3MVR{incr}')
+                loopcount=0
+                start=time.time()
+                while loopcount<100000:
+                    currweight=float(self.get_ret_weight(start))
+                    print(loopcount,currweight)
+                    self.sleepfunc(1)
+                    loopcount=loopcount+1
+                self.queue_manager.queue(3, f'3STP')
+                
             else:
                 print("I don't understand the feedback mode",fbkmode)
             self.sleepfunc(wait) #0 for serial, max travel time for parallel

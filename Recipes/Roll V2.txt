@@ -1,0 +1,16 @@
+Peeling recipe. Delta is (y,z)=(-A*20cos(theta),-A20sin(theta)), A~1.005 is how much tape stretches
+Move to loading position before executing
+units are in mm, celsius, grams, and seconds
+[Pos]ition/[For]ce, [SER]ial/[PAR]allel motion, Del_X, Del_Y, Del Z, desired force, temperature, 
+---------
+Pos SER VEL10 VEL1 VEL0.08 0 20
+Pos PAR 0 -25.4 -1.87 0 20
+Pos PAR 0 -25.4 1.87 0 20
+Pos SER VEL10 VEL1 VEL0.23 0 20
+Pos PAR 0 -25.4 5.74 0 20
+Pos SER VEL10 VEL1 VEL0.4 0 20
+Pos PAR 0 -25.4 10.0 0 20
+Pos SER VEL10 VEL1 VEL0.6 0 20
+Pos PAR 0 -25.4 15.25 0 20
+Pos SER VEL10 VEL1 VEL0.88 0 20
+Pos PAR 0 -25.4 22.5 0 20

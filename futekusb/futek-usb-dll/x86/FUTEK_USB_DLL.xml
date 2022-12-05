@@ -1,0 +1,4647 @@
+﻿<?xml version="1.0"?>
+<doc>
+<assembly>
+<name>
+FUTEK_USB_DLL
+</name>
+</assembly>
+<members>
+<member name="T:FUTEK_USB_DLL.My.Resources.Resources">
+<summary>
+  A strongly-typed resource class, for looking up localized strings, etc.
+</summary>
+</member>
+<member name="P:FUTEK_USB_DLL.My.Resources.Resources.ResourceManager">
+<summary>
+  Returns the cached ResourceManager instance used by this class.
+</summary>
+</member>
+<member name="P:FUTEK_USB_DLL.My.Resources.Resources.Culture">
+<summary>
+  Overrides the current thread's CurrentUICulture property for all
+  resource lookups using this strongly typed resource class.
+</summary>
+</member>
+<member name="T:FUTEK_USB_DLL.USB_DLL">
+ <summary>
+   Provides access to read from or write to USB devices.
+ </summary>
+</member>
+<member name="P:FUTEK_USB_DLL.USB_DLL.CultureInformation">
+ <summary>
+   Gets or sets information about a specific culture (called a locale for unmanaged code development).
+ </summary>
+ <value>
+   Type: <see cref="T:System.Globalization.CultureInfo" />  
+   The information includes the names for the culture, the writing system, the calendar used, and formatting for dates and sort strings.
+ </value>
+ <remarks>
+ </remarks>
+</member>
+<member name="P:FUTEK_USB_DLL.USB_DLL.DeviceHandle">
+ <summary>
+   Gets a pointer to a variable containing the handle of the USB device.
+   The handle will be used with many of the commands to read from and/or write to the USB device.
+ </summary>
+ 
+ <value>
+   Type: <see cref="T:System.IntPtr" /><br />
+   The value must be between 0 and <see cref="F:System.Int32.MaxValue" />.
+ </value>
+ 
+ <remarks>
+ </remarks>
+</member>
+<member name="P:FUTEK_USB_DLL.USB_DLL.DeviceStatus">
+ <summary>
+  Gets a value associated with the status of the USB device.
+ </summary>
+ 
+ <value>
+   Type: <see cref="T:System.Int32" /><br />
+   The value must be between 0 and <see cref="F:System.Int32.MaxValue" />.
+ </value>
+ 
+ <remarks>
+ </remarks>
+ 
+ <seealso cref="M:DeviceStatusCodes" cat="Related"></seealso>
+</member>
+<member name="P:FUTEK_USB_DLL.USB_DLL.PacketSent">
+ <summary>
+  Gets the packet sent to the USB device.
+ </summary>
+ <value>
+   Type: <see cref="T:System.String" /><br />
+   A string of hexadecimal values contained in the packet.
+ </value>
+ <remarks>
+ </remarks>
+</member>
+<member name="P:FUTEK_USB_DLL.USB_DLL.PacketReceived">
+ <summary>
+  Gets the packet received from the USB device.
+ </summary>
+ <value>
+   Type: <see cref="T:System.String" /><br />
+   A string of hexadecimal values contained in the packet.
+ </value>
+ <remarks>
+ </remarks>
+</member>
+<member name="P:FUTEK_USB_DLL.USB_DLL.ErrorDescription">
+ <summary>
+  Gets a string that describes the error encountered when a command is sent or received unsuccessfully.
+ </summary>
+ <value>
+   Type: <see cref="T:System.String" /><br />
+   A string that describes the error.
+ </value>
+ <remarks>
+ </remarks>
+</member>
+<member name="P:FUTEK_USB_DLL.USB_DLL.DisplayPage">
+ <summary>
+  Gets a string that contains the characters displayed on all 4 lines of the LCD.
+ </summary>
+ <value>
+   Type: <see cref="T:System.String" /><br />
+   A string of characters displayed on all 4 lines of the LCD.
+ </value>
+ <remarks>
+ </remarks>
+</member>
+<member name="P:FUTEK_USB_DLL.USB_DLL.LCDLine1">
+ <summary>
+  Gets a string that contains the characters displayed on line 1 of the LCD.
+ </summary>
+ <value>
+   Type: <see cref="T:System.String" /><br />
+   A string of characters displayed on line 1 of the LCD.
+ </value>
+ <remarks>
+ </remarks>
+</member>
+<member name="P:FUTEK_USB_DLL.USB_DLL.LCDLine2">
+ <summary>
+  Gets a string that contains the characters displayed on line 2 of the LCD.
+ </summary>
+ <value>
+   Type: <see cref="T:System.String" /><br />
+   A string of characters displayed on line 2 of the LCD.
+ </value>
+ <remarks>
+ </remarks>
+</member>
+<member name="P:FUTEK_USB_DLL.USB_DLL.LCDLine3">
+ <summary>
+  Gets a string that contains the characters displayed on line 3 of the LCD.
+ </summary>
+ <value>
+   Type: <see cref="T:System.String" /><br />
+   A string of characters displayed on line 3 of the LCD.
+ </value>
+ <remarks>
+ </remarks>
+</member>
+<member name="P:FUTEK_USB_DLL.USB_DLL.LCDLine4">
+ <summary>
+  Gets a string that contains the characters displayed on line 4 of the LCD.
+ </summary>
+ <value>
+   Type: <see cref="T:System.String" /><br />
+   A string of characters displayed on line 4 of the LCD.
+ </value>
+ <remarks>
+ </remarks>
+</member>
+<member name="P:FUTEK_USB_DLL.USB_DLL.DataLogging_Counter">
+ <summary>
+  Gets a value indicating the count associated with the sample number recorded during data logging.
+ </summary>
+ <value>
+   Type: <see cref="T:System.Int32" /><br />
+   The value must be between <see cref="F:System.UInt16.MinValue" />. and <see cref="F:System.UInt16.MaxValue" />.
+ </value>
+ <remarks>
+ </remarks>
+</member>
+<member name="P:FUTEK_USB_DLL.USB_DLL.DataLogging_Value1">
+ <summary>
+  Gets a value indicating the analog-to-digital converter (ADC) value associated with the sample number recorded during data logging.
+ </summary>
+ <value>
+   Type: <see cref="T:System.Int32" /><br />
+   The value must be between 0 and 16,777,215.
+ </value>
+ <remarks>
+ </remarks>
+</member>
+<member name="P:FUTEK_USB_DLL.USB_DLL.DataLogging_Value2">
+ <summary>
+  Gets a value indicating the elapsed time in milliseconds associated with the sample number recorded during data logging.
+ </summary>
+ <value>
+   Type: <see cref="T:System.Int32" /><br />
+   The value must be between 0 and 16,777,215.
+ </value>
+ <remarks>
+ </remarks>
+</member>
+<member name="P:FUTEK_USB_DLL.USB_DLL.FastDataLoggingCounter(System.Int32,System.Int32)">
+ <summary>
+  Gets or sets a value indicating the index of the fast data logging counter.
+ </summary>
+ <param name="deviceNumber">
+   Type: <see cref="T:System.Int32" /><br />
+   A number indicating a specific USB device.
+ </param>
+ <param name="outputNumber">
+   Type: <see cref="T:System.Int32" /><br />
+   A number indicating a specific output from the USB device.
+ </param>
+ <value>
+   Type: <see cref="T:System.Int32" /><br />
+   The value must be between 0 and <see cref="F:System.Int32.MaxValue" />.
+ </value>
+ <remarks>
+ </remarks>
+</member>
+<member name="P:FUTEK_USB_DLL.USB_DLL.FastDataLoggingSampleNumber(System.Int32,System.Int32,System.Int32)">
+ <summary>
+  Gets a value indicating the counter value associated with each sample contained in the fast data logging packet.
+ </summary>
+ <param name="deviceNumber">
+   Type: <see cref="T:System.Int32" /><br />
+   A number indicating a specific USB device.
+ </param>
+ <param name="outputNumber">
+   Type: <see cref="T:System.Int32" /><br />
+   A number indicating a specific output from the USB device.
+ </param> 
+ <param name="sampleNumber">
+   Type: <see cref="T:System.Int32" /><br />
+   A number indicating a specific sample from the USB device.
+ </param>
+ <value>
+   Type: <see cref="T:System.Int32" /><br />
+   The value must be between 0 and <see cref="F:System.Int32.MaxValue" />.
+ </value>
+ <remarks>
+ </remarks>
+</member>
+<member name="P:FUTEK_USB_DLL.USB_DLL.FastDataLoggingNumberOfSamples(System.Int32,System.Int32,System.Int32)">
+ <summary>
+  Gets a value indicating the number of samples contained in the fast data logging packet.
+ </summary>
+ <param name="deviceNumber">
+   Type: <see cref="T:System.Int32" /><br />
+   A number indicating a specific USB device.
+ </param>
+ <param name="outputNumber">
+   Type: <see cref="T:System.Int32" /><br />
+   A number indicating a specific output from the USB device.
+ </param> 
+ <param name="sampleNumber">
+   Type: <see cref="T:System.Int32" /><br />
+   A number indicating a specific sample from the USB device.
+ </param>
+ <value>
+   Type: <see cref="T:System.Byte" /><br />
+   The value must be between <see cref="F:System.Byte.MinValue" />. and <see cref="F:System.Byte.MaxValue" />.
+ </value>
+ <remarks>
+ </remarks>
+</member>
+<member name="P:FUTEK_USB_DLL.USB_DLL.FastDataLoggingADCValue(System.Int32,System.Int32,System.Int32)">
+ <summary>
+  Gets a value indicating the analog-to-digital converter (ADC) value associated with each sample contained in the fast data logging packet.
+ </summary>
+ <param name="deviceNumber">
+   Type: <see cref="T:System.Int32" /><br />
+   A number indicating a specific USB device.
+ </param>
+ <param name="outputNumber">
+   Type: <see cref="T:System.Int32" /><br />
+   A number indicating a specific output from the USB device.
+ </param> 
+ <param name="sampleNumber">
+   Type: <see cref="T:System.Int32" /><br />
+   A number indicating a specific sample from the USB device.
+ </param>
+ <value>
+   Type: <see cref="T:System.Int32" /><br />
+   The value must be between 0 and 16,777,215.
+ </value>
+ <remarks>
+ </remarks>
+</member>
+<member name="P:FUTEK_USB_DLL.USB_DLL.FastDataLoggingDateAndTime(System.Int32,System.Int32,System.Int32)">
+ <summary>
+  Gets a value indicating the date and time associated with fast data logging packet.
+ </summary>
+ <value>
+   Type: <see cref="T:System.DateTime" /><br />
+   The value must be between 0 and <see cref="F:System.Int32.MaxValue" />.
+ </value>
+ <remarks>
+ </remarks>
+</member>
+<member name="P:FUTEK_USB_DLL.USB_DLL.DataHighByte">
+ <summary>
+  Gets a value indicating the high byte read from the EEPROM Register of the USB device.
+ </summary>
+ <value>
+   Type: <see cref="T:System.Byte" /><br />
+   The value must be between <see cref="F:System.Byte.MinValue" />. and <see cref="F:System.Byte.MaxValue" />.
+ </value>
+ <remarks>
+ </remarks>
+</member>
+<member name="P:FUTEK_USB_DLL.USB_DLL.DataLowByte">
+ <summary>
+  Gets a value indicating the low byte read from the EEPROM Register of the USB device.
+ </summary>
+ <value>
+   Type: <see cref="T:System.Byte" /><br />
+   The value must be between <see cref="F:System.Byte.MinValue" />. and <see cref="F:System.Byte.MaxValue" />.
+ </value>
+ <remarks>
+ </remarks>
+</member>
+<member name="P:FUTEK_USB_DLL.USB_DLL.AngleValue">
+ <summary>
+  Gets a value indicating the angle value associated with the rotation.
+ </summary>
+ <value>
+   Type: <see cref="T:System.Int32" /><br />
+   The value must be between -8,388,608 and +8,388,607.
+ </value>
+ <remarks>
+ </remarks>
+</member>
+<member name="P:FUTEK_USB_DLL.USB_DLL.RPMValue">
+ <summary>
+  Gets a value indicating the revolutions per minute (RPM) value associated with the rotation.
+ </summary>
+ <value>
+   Type: <see cref="T:System.Int32" /><br />
+   The value must be between -8,388,608 and +8,388,607.
+ </value>
+ <remarks>
+ </remarks>
+</member>
+<member name="P:FUTEK_USB_DLL.USB_DLL.DestinationMACAddress1">
+ <summary>
+  Gets a value indicating the first byte of the destination's MAC address.
+ </summary>
+ <value>
+   Type: <see cref="T:System.Byte" /><br />
+   The value must be between <see cref="F:System.Byte.MinValue" />. and <see cref="F:System.Byte.MaxValue" />.
+ </value>
+ <remarks>
+ </remarks>
+</member>
+<member name="P:FUTEK_USB_DLL.USB_DLL.DestinationMACAddress2">
+ <summary>
+  Gets a value indicating the second byte of the destination's MAC address.
+ </summary>
+ <value>
+   Type: <see cref="T:System.Byte" /><br />
+   The value must be between <see cref="F:System.Byte.MinValue" />. and <see cref="F:System.Byte.MaxValue" />.
+ </value>
+ <remarks>
+ </remarks>
+</member>
+<member name="P:FUTEK_USB_DLL.USB_DLL.DestinationMACAddress3">
+ <summary>
+  Gets a value indicating the third byte of the destination's MAC address.
+ </summary>
+ <value>
+   Type: <see cref="T:System.Byte" /><br />
+   The value must be between <see cref="F:System.Byte.MinValue" />. and <see cref="F:System.Byte.MaxValue" />.
+ </value>
+ <remarks>
+ </remarks>
+</member>
+<member name="P:FUTEK_USB_DLL.USB_DLL.DestinationMACAddress4">
+ <summary>
+  Gets a value indicating the fourth byte of the destination's MAC address.
+ </summary>
+ <value>
+   Type: <see cref="T:System.Byte" /><br />
+   The value must be between <see cref="F:System.Byte.MinValue" />. and <see cref="F:System.Byte.MaxValue" />.
+ </value>
+ <remarks>
+ </remarks>
+</member>
+<member name="P:FUTEK_USB_DLL.USB_DLL.DestinationMACAddress5">
+ <summary>
+  Gets a value indicating the fifth byte of the destination's MAC address.
+ </summary>
+ <value>
+   Type: <see cref="T:System.Byte" /><br />
+   The value must be between <see cref="F:System.Byte.MinValue" />. and <see cref="F:System.Byte.MaxValue" />.
+ </value>
+ <remarks>
+ </remarks>
+</member>
+<member name="P:FUTEK_USB_DLL.USB_DLL.DestinationMACAddress6">
+ <summary>
+  Gets a value indicating the sixth byte of the destination's MAC address.
+ </summary>
+ <value>
+   Type: <see cref="T:System.Byte" /><br />
+   The value must be between <see cref="F:System.Byte.MinValue" />. and <see cref="F:System.Byte.MaxValue" />.
+ </value>
+ <remarks>
+ </remarks>
+</member>
+<member name="P:FUTEK_USB_DLL.USB_DLL.DestinationIPAddress1">
+ <summary>
+  Gets a value indicating the first byte of the destination's IP address.
+ </summary>
+ <value>
+   Type: <see cref="T:System.Byte" /><br />
+   The value must be between <see cref="F:System.Byte.MinValue" />. and <see cref="F:System.Byte.MaxValue" />.
+ </value>
+ <remarks>
+ </remarks>
+</member>
+<member name="P:FUTEK_USB_DLL.USB_DLL.DestinationIPAddress2">
+ <summary>
+  Gets a value indicating the second byte of the destination's IP address.
+ </summary>
+ <value>
+   Type: <see cref="T:System.Byte" /><br />
+   The value must be between <see cref="F:System.Byte.MinValue" />. and <see cref="F:System.Byte.MaxValue" />.
+ </value>
+ <remarks>
+ </remarks>
+</member>
+<member name="P:FUTEK_USB_DLL.USB_DLL.DestinationIPAddress3">
+ <summary>
+  Gets a value indicating the third byte of the destination's IP address.
+ </summary>
+ <value>
+   Type: <see cref="T:System.Byte" /><br />
+   The value must be between <see cref="F:System.Byte.MinValue" />. and <see cref="F:System.Byte.MaxValue" />.
+ </value>
+ <remarks>
+ </remarks>
+</member>
+<member name="P:FUTEK_USB_DLL.USB_DLL.DestinationIPAddress4">
+ <summary>
+  Gets a value indicating the fourth byte of the destination's IP address.
+ </summary>
+ <value>
+   Type: <see cref="T:System.Byte" /><br />
+   The value must be between <see cref="F:System.Byte.MinValue" />. and <see cref="F:System.Byte.MaxValue" />.
+ </value>
+ <remarks>
+ </remarks>
+</member>
+<member name="P:FUTEK_USB_DLL.USB_DLL.DestinationPortNumber1">
+ <summary>
+  Gets a value indicating the first byte of the destination's port number.
+ </summary>
+ <value>
+   Type: <see cref="T:System.Byte" /><br />
+   The value must be between <see cref="F:System.Byte.MinValue" />. and <see cref="F:System.Byte.MaxValue" />.
+ </value>
+ <remarks>
+ </remarks>
+</member>
+<member name="P:FUTEK_USB_DLL.USB_DLL.DestinationPortNumber2">
+ <summary>
+  Gets a value indicating the second byte of the destination's port number.
+ </summary>
+ <value>
+   Type: <see cref="T:System.Byte" /><br />
+   The value must be between <see cref="F:System.Byte.MinValue" />. and <see cref="F:System.Byte.MaxValue" />.
+ </value>
+ <remarks>
+ </remarks>
+</member>
+<member name="P:FUTEK_USB_DLL.USB_DLL.SourceMACAddress1">
+ <summary>
+  Gets a value indicating the first byte of the source's MAC address.
+ </summary>
+ <value>
+   Type: <see cref="T:System.Byte" /><br />
+   The value must be between <see cref="F:System.Byte.MinValue" />. and <see cref="F:System.Byte.MaxValue" />.
+ </value>
+ <remarks>
+ </remarks>
+</member>
+<member name="P:FUTEK_USB_DLL.USB_DLL.SourceMACAddress2">
+ <summary>
+  Gets a value indicating the second byte of the source's MAC address.
+ </summary>
+ <value>
+   Type: <see cref="T:System.Byte" /><br />
+   The value must be between <see cref="F:System.Byte.MinValue" />. and <see cref="F:System.Byte.MaxValue" />.
+ </value>
+ <remarks>
+ </remarks>
+</member>
+<member name="P:FUTEK_USB_DLL.USB_DLL.SourceMACAddress3">
+ <summary>
+  Gets a value indicating the third byte of the source's MAC address.
+ </summary>
+ <value>
+   Type: <see cref="T:System.Byte" /><br />
+   The value must be between <see cref="F:System.Byte.MinValue" />. and <see cref="F:System.Byte.MaxValue" />.
+ </value>
+ <remarks>
+ </remarks>
+</member>
+<member name="P:FUTEK_USB_DLL.USB_DLL.SourceMACAddress4">
+ <summary>
+  Gets a value indicating the fourth byte of the source's MAC address.
+ </summary>
+ <value>
+   Type: <see cref="T:System.Byte" /><br />
+   The value must be between <see cref="F:System.Byte.MinValue" />. and <see cref="F:System.Byte.MaxValue" />.
+ </value>
+ <remarks>
+ </remarks>
+</member>
+<member name="P:FUTEK_USB_DLL.USB_DLL.SourceMACAddress5">
+ <summary>
+  Gets a value indicating the fifth byte of the source's MAC address.
+ </summary>
+ <value>
+   Type: <see cref="T:System.Byte" /><br />
+   The value must be between <see cref="F:System.Byte.MinValue" />. and <see cref="F:System.Byte.MaxValue" />.
+ </value>
+ <remarks>
+ </remarks>
+</member>
+<member name="P:FUTEK_USB_DLL.USB_DLL.SourceMACAddress6">
+ <summary>
+  Gets a value indicating the sixth byte of the source's MAC address.
+ </summary>
+ <value>
+   Type: <see cref="T:System.Byte" /><br />
+   The value must be between <see cref="F:System.Byte.MinValue" />. and <see cref="F:System.Byte.MaxValue" />.
+ </value>
+ <remarks>
+ </remarks>
+</member>
+<member name="P:FUTEK_USB_DLL.USB_DLL.SourceIPAddress1">
+ <summary>
+  Gets a value indicating the first byte of the source's IP address.
+ </summary>
+ <value>
+   Type: <see cref="T:System.Byte" /><br />
+   The value must be between <see cref="F:System.Byte.MinValue" />. and <see cref="F:System.Byte.MaxValue" />.
+ </value>
+ <remarks>
+ </remarks>
+</member>
+<member name="P:FUTEK_USB_DLL.USB_DLL.SourceIPAddress2">
+ <summary>
+  Gets a value indicating the second byte of the source's IP address.
+ </summary>
+ <value>
+   Type: <see cref="T:System.Byte" /><br />
+   The value must be between <see cref="F:System.Byte.MinValue" />. and <see cref="F:System.Byte.MaxValue" />.
+ </value>
+ <remarks>
+ </remarks>
+</member>
+<member name="P:FUTEK_USB_DLL.USB_DLL.SourceIPAddress3">
+ <summary>
+  Gets a value indicating the third byte of the source's IP address.
+ </summary>
+ <value>
+   Type: <see cref="T:System.Byte" /><br />
+   The value must be between <see cref="F:System.Byte.MinValue" />. and <see cref="F:System.Byte.MaxValue" />.
+ </value>
+ <remarks>
+ </remarks>
+</member>
+<member name="P:FUTEK_USB_DLL.USB_DLL.SourceIPAddress4">
+ <summary>
+  Gets a value indicating the fourth byte of the source's IP address.
+ </summary>
+ <value>
+   Type: <see cref="T:System.Byte" /><br />
+   The value must be between <see cref="F:System.Byte.MinValue" />. and <see cref="F:System.Byte.MaxValue" />.
+ </value>
+ <remarks>
+ </remarks>
+</member>
+<member name="P:FUTEK_USB_DLL.USB_DLL.SourcePortNumber1">
+ <summary>
+  Gets a value indicating the first byte of the source's port number.
+ </summary>
+ <value>
+   Type: <see cref="T:System.Byte" /><br />
+   The value must be between <see cref="F:System.Byte.MinValue" />. and <see cref="F:System.Byte.MaxValue" />.
+ </value>
+ <remarks>
+ </remarks>
+</member>
+<member name="P:FUTEK_USB_DLL.USB_DLL.SourcePortNumber2">
+ <summary>
+  Gets a value indicating the second byte of the source's port number.
+ </summary>
+ <value>
+   Type: <see cref="T:System.Byte" /><br />
+   The value must be between <see cref="F:System.Byte.MinValue" />. and <see cref="F:System.Byte.MaxValue" />.
+ </value>
+ <remarks>
+ </remarks>
+</member>
+<member name="P:FUTEK_USB_DLL.USB_DLL.VirtualMode">
+ <summary>
+   Gets or sets a value indicating if virtual mode is enabled.
+ </summary>
+ <value>
+   Type: <see cref="T:System.Boolean" />  
+   True if enabled, otherwise false.
+ </value>
+ <remarks>
+ </remarks>
+</member>
+<member name="P:FUTEK_USB_DLL.USB_DLL.VirtualSerialNumber">
+ <summary>
+   Gets a value indicating the serial number of the virtual USB device.
+ </summary>
+ <value>
+   Type: <see cref="T:System.Int32" />  
+   The value must be between 0 and <see cref="F:System.Int32.MaxValue" />.
+ </value>
+ <remarks>
+ </remarks>
+</member>
+<member name="M:FUTEK_USB_DLL.USB_DLL.Open_Device_Connection(System.String)">
+ <summary>
+   Opens a connection with the USB device using the serial number assigned in the EEPROM of the USB FIFO IC and assigns a value to the <see cref="P:FUTEK_USB_DLL.USB_DLL.DeviceHandle" /> and <see cref="P:FUTEK_USB_DLL.USB_DLL.DeviceStatus" />.<br />
+   The <see cref="P:FUTEK_USB_DLL.USB_DLL.DeviceHandle" /> will be required for subsequent use with many of the other commands.
+ </summary>
+ 
+ <param name="SerialNumber">
+   Type: <see cref="T:System.String" /><br />
+   The serial number associated with the USB device.
+ </param>
+ 
+ <remarks>
+   The <paramref name="SerialNumber" /> of the USB device will most likely be one of two values:<br />
+   1. The serial number that is engraved on the USB device<br />
+   2. The serial number that is engraved on the sensor mated with the USB device during a system calibration<br />
+ </remarks>
+ 
+ <seealso cref="M:HowToFindSerialNumber" cat="Related"></seealso>
+ <seealso cref="M:DeviceStatusCodes" cat="Related"></seealso>
+ <seealso cref="M:FUTEK_USB_DLL.USB_DLL.Close_Device_Connection(System.IntPtr)" cat="Related"></seealso>
+</member>
+<member name="M:FUTEK_USB_DLL.USB_DLL.Close_Device_Connection(System.IntPtr)">
+ <summary>
+   Closes a connection with the USB device and assigns a value to the <see cref="P:FUTEK_USB_DLL.USB_DLL.DeviceStatus" />.
+ </summary>
+ 
+ <param name="DeviceHandle">
+   Type: <see cref="T:System.IntPtr" /><br />
+   The handle associated with the USB device.
+ </param>
+ 
+ <remarks>
+   This method should be used when you have finished communicating with the USB device. 
+   It is always recommended to close the device connection prior to closing an application.
+ </remarks>
+ 
+ <seealso cref="M:FUTEK_USB_DLL.USB_DLL.Open_Device_Connection(System.String)" cat="Related"></seealso>
+</member>
+<member name="M:FUTEK_USB_DLL.USB_DLL.Slave_Activity_Inquiry(System.IntPtr)">
+ <summary>
+   Verifies the communication data link with the USB device.
+ </summary>
+ 
+ <param name="DeviceHandle">
+   Type: <see cref="T:System.IntPtr" /><br />
+   The handle associated with the USB device.
+ </param>
+     
+ <returns>
+   Type: <see cref="T:System.String" /><br />
+   A value equal to 0; otherwise <strong>Error</strong>
+ </returns>
+ 
+ <remarks>
+   This function does not change any settings in the EEPROM or assign any properties a value.<br />
+   It is for testing / debugging purposes only.
+ </remarks>
+ 
+ <seealso></seealso>
+</member>
+<member name="M:FUTEK_USB_DLL.USB_DLL.Set_Sensor_Identification_Number(System.IntPtr,System.Int32,System.Byte)">
+ <summary>
+   <strong>Warning: The use of this function can affect the factory calibration of the USB device.</strong><br />
+   Sets the serial number stored in the EEPROM of the microcontroller.
+ </summary>
+ 
+ <param name="DeviceHandle">
+   Type: <see cref="T:System.IntPtr" /><br />
+   The handle associated with the USB device.
+ </param>
+ 
+ <param name="SerialNumber">
+   Type: <see cref="T:System.Int32" /><br />
+   The serial number associated with the USB device.<br />
+   The value must be between 0 and 16,777,215.
+ </param>
+ 
+ <param name="ChannelNumber">
+   Type: <see cref="T:System.Byte" /><br />
+   The channel number associated with the USB device.
+ </param>
+ 
+ <returns>
+   Type: <see cref="T:System.String" /><br />
+   A value equal to 0; otherwise <strong>Error</strong>
+ </returns>
+ 
+ <remarks>
+ </remarks>
+ 
+ <seealso cref="M:FUTEK_USB_DLL.USB_DLL.Get_Sensor_Identification_Number(System.IntPtr, System.Byte)" cat="Related"></seealso>
+</member>
+<member name="M:FUTEK_USB_DLL.USB_DLL.Set_Unit_Code(System.IntPtr,System.Int32,System.Byte)">
+ <summary>
+   <strong>Warning: The use of this function can affect the factory calibration of the USB device.</strong><br />
+   Sets the engineering unit code stored in the EEPROM of the microcontroller.
+ </summary>
+ 
+ <param name="DeviceHandle">
+   Type: <see cref="T:System.IntPtr" /><br />
+   The handle associated with the USB device.
+ </param>
+ 
+ <param name="UnitCode">
+   Type: <see cref="T:System.Int32" /><br />
+   The unit code associated with the USB device.
+ </param>
+ 
+ <param name="ChannelNumber">
+   Type: <see cref="T:System.Byte" /><br />
+   The channel number associated with the USB device.
+ </param>
+ 
+ <returns>
+   Type: <see cref="T:System.String" /><br />
+   A value equal to 0; otherwise <strong>Error</strong>
+ </returns>
+ 
+ <remarks>
+ </remarks>
+ 
+ <seealso cref="M:UnitCodes" cat="Related"></seealso>
+ <seealso cref="M:FUTEK_USB_DLL.USB_DLL.Get_Unit_Code(System.IntPtr, System.Byte)" cat="Related"></seealso>
+</member>
+<member name="M:FUTEK_USB_DLL.USB_DLL.Set_Decimal_Point(System.IntPtr,System.Int32,System.Byte)">
+ <summary>
+   <strong>Warning: The use of this function can affect the factory calibration of the USB device.</strong><br />
+   Sets the decimal point format stored in the EEPROM of the microcontroller.
+ </summary>
+ 
+ <param name="DeviceHandle">
+   Type: <see cref="T:System.IntPtr" /><br />
+   The handle associated with the USB device.
+ </param>
+ 
+ <param name="DecimalPoint">
+   Type: <see cref="T:System.Int32" /><br />
+   The decimal point format associated with the USB device.<br />
+   The value must be between 0 and 5.
+ </param>
+ 
+ <param name="ChannelNumber">
+   Type: <see cref="T:System.Byte" /><br />
+   The channel number associated with the USB device.
+ </param>
+ 
+ <returns>
+   Type: <see cref="T:System.String" /><br />
+   A value equal to 0; otherwise <strong>Error</strong>
+ </returns>
+ 
+ <remarks>
+   The numeric values assigned by <see cref="M:FUTEK_USB_DLL.USB_DLL.Set_Load_of_Loading_Point(System.IntPtr,System.Int32,System.Int32,System.Byte)" /> and returned by <see cref="M:FUTEK_USB_DLL.USB_DLL.Get_Load_of_Loading_Point(System.IntPtr,System.Int32,System.Byte)" /> should be formatted using <paramref name="DecimalPoint" />.
+ </remarks>
+ 
+ <example>
+   <exampleintro>
+     Since only whole numbers can be stored in the EEPROM of the microcontroller, <paramref name="DecimalPoint" /> should be used to format a numeric value using the following expression: <strong>DecimalValue = NumericValue / 10<sup>DecimalPoint</sup></strong><br />
+     If the <strong>NumericValue</strong> = 1000 and the <strong>DecimalPoint</strong> = 2, then the <strong>DecimalValue = </strong> 1000 / 10<sup>2</sup> = 1000 / 100 = 10.00
+   </exampleintro>
+ </example>
+ 
+ <seealso cref="M:CalibrationOverview" cat="Related"></seealso>
+ <seealso cref="M:DecimalPointCodes" cat="Related"></seealso>
+ <seealso cref="M:FUTEK_USB_DLL.USB_DLL.Get_Decimal_Point(System.IntPtr, System.Byte)" cat="Related"></seealso>
+ <seealso cref="M:FUTEK_USB_DLL.USB_DLL.Get_Load_of_Loading_Point(System.IntPtr, System.Int32, System.Byte)" cat="Related"></seealso>
+ <seealso cref="M:FUTEK_USB_DLL.USB_DLL.Set_Load_of_Loading_Point(System.IntPtr, System.Int32, System.Int32, System.Byte)" cat="Related"></seealso>
+</member>
+<member name="M:FUTEK_USB_DLL.USB_DLL.Set_Calibration_Register(System.IntPtr,System.Byte,System.Byte,System.Byte,System.Byte)">
+ <summary>
+   <strong>Warning: The use of this function can affect the factory calibration of the USB device.</strong><br />
+   Sets the calibration registers stored in the EEPROM of the microcontroller including: Resistance, Voltage, Current and Temperature.
+ </summary>
+ 
+ <param name="DeviceHandle">
+   Type: <see cref="T:System.IntPtr" /><br />
+   The handle associated with the USB device.
+ </param>
+ 
+ <param name="Register">
+   Type: <see cref="T:System.Byte" /><br />
+   The calibration register associated with the USB device.<br />
+   The value must be between 0 and 19.
+ </param>
+ 
+ <param name="HighByte">
+   Type: <see cref="T:System.Byte" /><br />
+   The high byte of data to assign the calibration register.
+ </param>
+ 
+ <param name="LowByte">
+   Type: <see cref="T:System.Byte" /><br />
+   The low byte of data to assign the calibration register.
+ </param>
+ 
+ <param name="ChannelNumber">
+   Type: <see cref="T:System.Byte" /><br />
+   The channel number associated with the USB device.
+ </param>
+ 
+ <returns>
+   Type: <see cref="T:System.String" /><br />
+   A value equal to 0; otherwise <strong>Error</strong>
+ </returns>
+ 
+ <remarks>
+   The <paramref name="HighByte" /> and <paramref name="LowByte" /> are used to pass data to the <paramref name="Register" />. Only the following calibration registers require data to be passed:<br />
+   <strong>Register 0x07:</strong> 50% Load + Multimeter Reading (Voltage in Volts)<br />
+   <strong>Register 0x0A:</strong> 50% load + Multimeter Reading (Current in mA)<br />
+   <strong>Register 0x0C:</strong> Temperatures + 00.00 (˚C)<br />
+ </remarks>
+ 
+ <seealso cref="M:CalibrationRegisterCodes" cat="Related"></seealso>
+</member>
+<member name="M:FUTEK_USB_DLL.USB_DLL.Set_Loading_Point(System.IntPtr,System.Int32,System.Byte)">
+ <summary>
+   <strong>Warning: The use of this function can affect the factory calibration of the USB device.</strong><br />
+   Sets the analog-to-digital converter (ADC) value associated with the calibration loading point stored in the EEPROM of the microcontroller.
+ </summary>
+ 
+ <param name="DeviceHandle">
+   Type: <see cref="T:System.IntPtr" /><br />
+   The handle associated with the USB device.
+ </param>
+ 
+ <param name="LoadingPoint">
+   Type: <see cref="T:System.Int32" /><br />
+   The calibration loading point associated with the USB device.<br />
+   The value must be between 0 and 19 (certain models may have fewer loading points).
+ </param>
+ 
+ <param name="ChannelNumber">
+   Type: <see cref="T:System.Byte" /><br />
+   The channel number associated with the USB device.
+ </param>
+ 
+ <returns>
+   Type: <see cref="T:System.String" /><br />
+   A value equal to 0; otherwise <strong>Error</strong>
+ </returns>
+ 
+ <remarks>
+   This function should be used when applying a physical load to the sensor for the purpose of performing a live system calibration of the sensor and the USB device.
+ </remarks>
+ 
+ <seealso cref="M:CalibrationOverview" cat="Related"></seealso>
+ <seealso cref="M:LoadingPointCodes" cat="Related"></seealso>
+ <seealso cref="M:FUTEK_USB_DLL.USB_DLL.Get_Loading_Point(System.IntPtr,System.Int32,System.Byte,System.Int32)" cat="Related"></seealso>
+</member>
+<member name="M:FUTEK_USB_DLL.USB_DLL.Set_Load_of_Loading_Point(System.IntPtr,System.Int32,System.Int32,System.Byte)">
+ <summary>
+   <strong>Warning: The use of this function can affect the factory calibration of the USB device.</strong><br />
+   Sets the load value related to the loading point stored in the EEPROM of the microcontroller.
+ </summary>
+ 
+ <param name="DeviceHandle">
+   Type: <see cref="T:System.IntPtr" /><br />
+   The handle associated with the USB device.
+ </param>
+ 
+ <param name="LoadingPoint">
+   Type: <see cref="T:System.Int32" /><br />
+   The calibration loading point associated with the USB device.<br />
+   The value must be between 0 and 19 (certain models may have fewer loading points).
+ </param>
+ 
+ <param name="LoadValue">
+   Type: <see cref="T:System.Int32" /><br />
+   The physical load value associated with the USB device.<br />
+   The value must be between 0 and 65,535.
+ </param>
+ 
+ <param name="ChannelNumber">
+   Type: <see cref="T:System.Byte" /><br />
+   The channel number associated with the USB device.
+ </param>
+ 
+ <returns>
+   Type: <see cref="T:System.String" /><br />
+   A value equal to 0; otherwise <strong>Error</strong>
+ </returns>
+ 
+ <remarks>
+ </remarks>
+ 
+ <seealso cref="M:CalibrationOverview" cat="Related"></seealso>
+ <seealso cref="M:LoadingPointCodes" cat="Related"></seealso>
+ <seealso cref="M:FUTEK_USB_DLL.USB_DLL.Get_Load_of_Loading_Point(System.IntPtr,System.Int32,System.Byte)" cat="Related"></seealso>
+</member>
+<member name="M:FUTEK_USB_DLL.USB_DLL.Set_Sensor_Configuration(System.IntPtr,System.Int32,System.Byte)">
+ <summary>
+   <strong>Warning: The use of this function can affect the factory calibration of the USB device.</strong><br />
+   Sets the sensor configuration stored in the EEPROM of the microcontroller including: Input / Output Type, Nominal Sensitivity and Nominal Bridge Resistance.
+ </summary>
+ 
+ <param name="DeviceHandle">
+   Type: <see cref="T:System.IntPtr" /><br />
+   The handle associated with the USB device.
+ </param>
+ 
+ <param name="SensorConfiguration">
+   Type: <see cref="T:System.Int32" /><br />
+   The sensor configuration associated with the USB device.
+ </param>
+ 
+ <param name="ChannelNumber">
+   Type: <see cref="T:System.Byte" /><br />
+   The channel number associated with the USB device.
+ </param>
+ 
+ <returns>
+   Type: <see cref="T:System.String" /><br />
+   A value equal to 0; otherwise <strong>Error</strong>
+ </returns>
+ 
+ <remarks>
+ </remarks>
+ 
+ <seealso cref="M:SensorConfigurationCodes" cat="Related"></seealso>
+ <seealso cref="M:FUTEK_USB_DLL.USB_DLL.Get_Sensitivity(System.IntPtr,System.Byte)" cat="Related"></seealso>
+ <seealso cref="M:FUTEK_USB_DLL.USB_DLL.Get_Bridge_Resistance(System.IntPtr,System.Byte)" cat="Related"></seealso>
+</member>
+<member name="M:FUTEK_USB_DLL.USB_DLL.Set_Load_Switch(System.IntPtr,System.Int32,System.Byte)">
+ <summary>
+   <strong>Warning: The use of this function can affect the factory calibration of the USB device.</strong><br />
+   Enables or disables the simulated load applied to the analog-to-digital converter (ADC).
+ </summary>
+ 
+ <param name="DeviceHandle">
+   Type: <see cref="T:System.IntPtr" /><br />
+   The handle associated with the USB device.
+ </param>
+ 
+ <param name="SimulatedLoad">
+   Type: <see cref="T:System.Int32" /><br />
+   The simulated load associated with the USB device.
+ </param>
+ 
+ <param name="ChannelNumber">
+   Type: <see cref="T:System.Byte" /><br />
+   The channel number associated with the USB device.
+ </param>
+ 
+ <returns>
+   Type: <see cref="T:System.String" /><br />
+   A value equal to 0; otherwise <strong>Error</strong>
+ </returns>
+ 
+ <remarks>
+   The <paramref name="SimulatedLoad" /> provides a known, electrical, unbalancing of a strain gage bridge similar to a shunt calibration.<br />
+   This will be in addition to any input from the sensor, therefore all preloads should be removed prior to enabling the simulated load.
+ </remarks>
+ 
+ <seealso cref="M:SimulatedLoadCodes" cat="Related"></seealso>
+</member>
+<member name="M:FUTEK_USB_DLL.USB_DLL.Set_Number_of_Loading_Points(System.IntPtr,System.Int32,System.Byte)">
+ <summary>
+   <strong>Warning: The use of this function can affect the factory calibration of the USB device.</strong><br />
+   Sets the number of loading point values stored in the EEPROM of the microcontroller.
+ </summary>
+ 
+ <param name="DeviceHandle">
+   Type: <see cref="T:System.IntPtr" /><br />
+   The handle associated with the USB device.
+ </param>
+ 
+ <param name="NumberOfLoadingPoints">
+   Type: <see cref="T:System.Int32" /><br />
+   The number of calibration loading points associated with the USB device.<br />
+   The value must be between 0 and 19 (certain models may have fewer loading points).
+ </param>
+ 
+ <param name="ChannelNumber">
+   Type: <see cref="T:System.Byte" /><br />
+   The channel number associated with the USB device.
+ </param>
+ 
+ <returns>
+   Type: <see cref="T:System.String" /><br />
+   A value equal to 0; otherwise <strong>Error</strong>
+ </returns>
+ 
+ <remarks>
+   The <paramref name="NumberOfLoadingPoints" /> is used to assign the total number of points that are recorded and stored in memory at the time of calibration.<br />
+   In order to avoid unexpected behavior, each loading point must have a valid loading point value (ADC Count) and load value (physical load).
+ </remarks>
+ 
+ <seealso cref="M:CalibrationOverview" cat="Related"></seealso>
+ <seealso cref="M:LoadingPointCodes" cat="Related"></seealso>
+ <seealso cref="M:FUTEK_USB_DLL.USB_DLL.Get_Load_of_Loading_Point(System.IntPtr,System.Int32,System.Byte)" cat="Related"></seealso>
+ <seealso cref="M:FUTEK_USB_DLL.USB_DLL.Set_Load_of_Loading_Point(System.IntPtr,System.Int32,System.Int32,System.Byte)" cat="Related"></seealso>
+ <seealso cref="M:FUTEK_USB_DLL.USB_DLL.Get_Loading_Point(System.IntPtr,System.Int32,System.Byte,System.Int32)" cat="Related"></seealso>
+ <seealso cref="M:FUTEK_USB_DLL.USB_DLL.Set_Loading_Point(System.IntPtr,System.Int32,System.Byte)" cat="Related"></seealso>
+</member>
+<member name="M:FUTEK_USB_DLL.USB_DLL.Set_ADC_Configuration(System.IntPtr,System.Byte,System.Byte)">
+ <summary>
+   <strong>Warning: The use of this function can affect the factory calibration of the USB device.</strong><br />
+   Sets the sampling rate of the analog-to-digital converter (ADC) stored in the EEPROM of the microcontroller.
+ </summary>
+ 
+ <param name="DeviceHandle">
+   Type: <see cref="T:System.IntPtr" /><br />
+   The handle associated with the USB device.
+ </param>
+ 
+ <param name="SamplingRate">
+   Type: <see cref="T:System.Byte" /><br />
+   The sampling rate associated with the USB device.
+ </param>
+ 
+ <param name="ChannelNumber">
+   Type: <see cref="T:System.Byte" /><br />
+   The channel number associated with the USB device.
+ </param>
+ 
+ <returns>
+   Type: <see cref="T:System.String" /><br />
+   A value equal to 0; otherwise <strong>Error</strong>
+ </returns>
+ 
+ <remarks>
+   The <paramref name="SamplingRate" /> is used to configure the analog-to-digital converter (ADC) and applies to the conversion rate of the hardware.<br />
+   The rate at which data is recorded or collected by software will vary depending on the design of the software and the performance of the hardware that is running it.
+ </remarks>
+ 
+ <seealso cref="M:ADCConfigurationCodes" cat="Related"></seealso>
+ <seealso cref="M:FUTEK_USB_DLL.USB_DLL.Get_ADC_Sampling_Rate_Setting(System.IntPtr,System.Byte)" cat="Related"></seealso>
+ <seealso cref="M:FUTEK_USB_DLL.USB_DLL.Get_ADC_PGA_Setting(System.IntPtr,System.Byte)" cat="Related"></seealso>
+ <seealso cref="M:FUTEK_USB_DLL.USB_DLL.Set_ADC_Configuration2(System.IntPtr,System.Int32,System.Byte)" cat="Related"></seealso>
+</member>
+<member name="M:FUTEK_USB_DLL.USB_DLL.Set_ADC_Configuration2(System.IntPtr,System.Int32,System.Byte)">
+ <summary>
+   <strong>Warning: The use of this function can affect the factory calibration of the USB device.</strong><br />
+   Sets the gain and the sampling rate of the analog-to-digital converter (ADC) stored in the EEPROM of the microcontroller.
+ </summary>
+ 
+ <param name="DeviceHandle">
+   Type: <see cref="T:System.IntPtr" /><br />
+   The handle associated with the USB device.
+ </param>
+ 
+ <param name="ADCConfiguration">
+   Type: <see cref="T:System.Int32" /><br />
+   The gain and sampling rate associated with the USB device.
+ </param>
+ 
+ <param name="ChannelNumber">
+   Type: <see cref="T:System.Byte" /><br />
+   The channel number associated with the USB device.
+ </param>
+ 
+ <returns>
+   Type: <see cref="T:System.String" /><br />
+   A value equal to 0; otherwise <strong>Error</strong>
+ </returns>
+ 
+ <remarks>
+   The <paramref name="ADCConfiguration" /> is used to configure the gain and the sampling rate of the analog-to-digital converter (ADC) and applies to the conversion rate of the hardware.<br />
+   The rate at which data is recorded or collected by software will vary depending on the design of the software and the performance of the hardware that is running it.
+ </remarks>
+ 
+ <seealso cref="M:ADCConfigurationCodes" cat="Related"></seealso>
+ <seealso cref="M:FUTEK_USB_DLL.USB_DLL.Get_ADC_Sampling_Rate_Setting(System.IntPtr,System.Byte)" cat="Related"></seealso>
+ <seealso cref="M:FUTEK_USB_DLL.USB_DLL.Get_ADC_PGA_Setting(System.IntPtr,System.Byte)" cat="Related"></seealso>
+ <seealso cref="M:FUTEK_USB_DLL.USB_DLL.Set_ADC_Configuration(System.IntPtr,System.Byte,System.Byte)" cat="Related"></seealso>
+</member>
+<member name="M:FUTEK_USB_DLL.USB_DLL.Set_Average_Setting(System.IntPtr,System.Int32,System.Byte)">
+ <summary>
+   <strong>Warning: The use of this function can affect the factory calibration of the USB device.</strong><br />
+   Enables or disables the average applied to the analog-to-digital converter (ADC) values.
+ </summary>
+ 
+ <param name="DeviceHandle">
+   Type: <see cref="T:System.IntPtr" /><br />
+   The handle associated with the USB device.
+ </param>
+ 
+ <param name="AverageSetting">
+   Type: <see cref="T:System.Int32" /><br />
+   The average setting associated with the USB device.
+ </param>
+ 
+ <param name="ChannelNumber">
+   Type: <see cref="T:System.Byte" /><br />
+   The channel number associated with the USB device.
+ </param>
+ 
+ <returns>
+   Type: <see cref="T:System.String" /><br />
+   A value equal to 0; otherwise <strong>Error</strong>
+ </returns>
+ 
+ <remarks>
+   The <paramref name="AverageSetting" /> can be used to disable averaging or to enable a moving or mean average.<br />
+   The number of sample that are used in the average can be selected from 2 to 256 samples.
+ </remarks>
+ 
+ <seealso cref="M:AverageCodes" cat="Related"></seealso>
+ <seealso cref="M:FUTEK_USB_DLL.USB_DLL.Get_Average_Setting(System.IntPtr,System.Byte)" cat="Related"></seealso>
+</member>
+<member name="M:FUTEK_USB_DLL.USB_DLL.Set_Voltage_Output(System.IntPtr,System.Int32,System.Byte)">
+ <summary>
+   <strong>Warning: The use of this function can affect the factory calibration of the USB device.</strong><br />
+   Sets the voltage output of the USB device.
+ </summary>
+ 
+ <param name="DeviceHandle">
+   Type: <see cref="T:System.IntPtr" /><br />
+   The handle associated with the USB device.
+ </param>
+ 
+ <param name="VoltageOutput">
+   Type: <see cref="T:System.Int32" /><br />
+   The voltage output associated with the USB device.
+ </param>
+ 
+ <param name="ChannelNumber">
+   Type: <see cref="T:System.Byte" /><br />
+   The channel number associated with the USB device.
+ </param>
+ 
+ <returns>
+   Type: <see cref="T:System.String" /><br />
+   A value equal to 0; otherwise <strong>Error</strong>
+ </returns>
+ 
+ <remarks>
+   The <paramref name="VoltageOutput" /> can be used to set the voltage output that is used as a supply voltage to the sensor.
+ </remarks>
+ 
+ <seealso cref="M:VoltageOutputCodes" cat="Related"></seealso>
+ <seealso cref="M:FUTEK_USB_DLL.USB_DLL.Get_Voltage_Output(System.IntPtr,System.Byte)" cat="Related"></seealso>
+</member>
+<member name="M:FUTEK_USB_DLL.USB_DLL.Set_Digital_Components(System.IntPtr,System.Byte,System.Byte,System.Byte,System.Byte)">
+ <summary>
+   <strong>Warning: The use of this function can affect the factory calibration of the USB device.</strong><br />
+   Sets the digital components of the USB device.
+ </summary>
+ 
+ <param name="DeviceHandle">
+   Type: <see cref="T:System.IntPtr" /><br />
+   The handle associated with the USB device.
+ </param>
+ 
+ <param name="SwitchNumber">
+   Type: <see cref="T:System.Byte" /><br />
+   The switch number associated with the USB device.
+ </param>
+ 
+ <param name="HighByte">
+   Type: <see cref="T:System.Byte" /><br />
+   The high byte of data to assign the digital component.
+ </param>
+ 
+ <param name="LowByte">
+   Type: <see cref="T:System.Byte" /><br />
+   The low byte of data to assign the digital component.
+ </param>
+ 
+ <param name="ChannelNumber">
+   Type: <see cref="T:System.Byte" /><br />
+   The channel number associated with the USB device.
+ </param>
+ 
+ <returns>
+   Type: <see cref="T:System.String" /><br />
+   A value equal to 0; otherwise <strong>Error</strong>
+ </returns>
+ 
+ <remarks>
+   The <paramref name="SwitchNumber" /> can be used to select which digital component is going to be assigned a value.
+ </remarks>
+ 
+ <seealso cref="M:SwitchNumberCodes" cat="Related"></seealso>
+ <seealso cref="M:DigitalComponentCodes" cat="Related"></seealso>
+</member>
+<member name="M:FUTEK_USB_DLL.USB_DLL.Set_Calibration_Mode(System.IntPtr,System.Byte,System.Byte,System.Byte)">
+ <summary>
+   <strong>Warning: The use of this function can affect the factory calibration of the USB device.</strong><br />
+   Sets the calibration mode associated with the digital components of the USB device.
+ </summary>
+ 
+ <param name="DeviceHandle">
+   Type: <see cref="T:System.IntPtr" /><br />
+   The handle associated with the USB device.
+ </param>
+ 
+ <param name="PotentiometerNumber">
+   Type: <see cref="T:System.Byte" /><br />
+   The potentiometer number associated with the USB device.
+ </param>
+ 
+ <param name="Adjustment">
+   Type: <see cref="T:System.Byte" /><br />
+   The adjustment associated with the USB device.
+ </param>
+ 
+ <param name="ChannelNumber">
+   Type: <see cref="T:System.Byte" /><br />
+   The channel number associated with the USB device.
+ </param>
+ 
+ <returns>
+   Type: <see cref="T:System.String" /><br />
+   A value equal to 0; otherwise <strong>Error</strong>
+ </returns>
+ 
+ <remarks>
+   The <paramref name="PotentiometerNumber" /> can be used to select which potentiometer is going to be assigned a value.<br />
+   The <paramref name="Adjustment" /> can be used to select the calibration mode, direction and size of the adjustment.
+ </remarks>
+ 
+ <seealso cref="M:SwitchNumberCodes" cat="Related"></seealso>
+ <seealso cref="M:DigitalComponentCodes" cat="Related"></seealso>
+</member>
+<member name="M:FUTEK_USB_DLL.USB_DLL.Set_Channel_Configuration(System.IntPtr,System.Byte,System.Byte)">
+ <summary>
+   <strong>Warning: The use of this function can affect the factory calibration of the USB device.</strong><br />
+   Sets the channel configuration associated with the USB device.
+ </summary>
+ 
+ <param name="deviceHandle">
+   Type: <see cref="T:System.IntPtr" /><br />
+   The handle associated with the USB device.
+ </param>
+ 
+ <param name="channelConfiguration">
+   Type: <see cref="T:System.Byte" /><br />
+   The channelConfiguration associated with the USB device.
+ </param>
+ 
+ <param name="channelNumber">
+   Type: <see cref="T:System.Byte" /><br />
+   The channel number associated with the USB device.
+ </param>
+ 
+ <returns>
+   Type: <see cref="T:System.String" /><br />
+   A value equal to 0; otherwise <strong>Error</strong>
+ </returns>
+ 
+ <remarks>
+   The <paramref name="channelConfiguration" /> can be used to enable or disable each channel and the Active SounD.<br />
+ </remarks>
+ 
+ <seealso cref="M:" cat="Related"></seealso>
+</member>
+<member name="M:FUTEK_USB_DLL.USB_DLL.Set_Sensitivity(System.IntPtr,System.Int32,System.Byte)">
+ <summary>
+   <strong>Warning: The use of this function can affect the factory calibration of the USB device.</strong><br />
+   Sets the nominal sensitivity value stored in the EEPROM of the microcontroller.
+ </summary>
+ 
+ <param name="DeviceHandle">
+   Type: <see cref="T:System.IntPtr" /><br />
+   The handle associated with the USB device.
+ </param>
+ 
+ <param name="Sensitivity">
+   Type: <see cref="T:System.Int32" /><br />
+   The nominal sensitivity associated with the USB device.<br />
+   The value must be between 0 and 3.
+ </param>
+ 
+ <param name="ChannelNumber">
+   Type: <see cref="T:System.Byte" /><br />
+   The channel number associated with the USB device.
+ </param>
+ 
+ <returns>
+   Type: <see cref="T:System.String" /><br />
+   A value equal to 0; otherwise <strong>Error</strong>
+ </returns>
+ 
+ <remarks>
+   The <paramref name="Sensitivity" /> is a nominal value that represents the sensor's rated output expressed in mV/V.<br />
+   It is for reference only and does not affect the calibration of the USB device.
+ </remarks>
+ 
+ <seealso cref="M:SensorConfigurationCodes" cat="Related"></seealso>
+ <seealso cref="M:FUTEK_USB_DLL.USB_DLL.Get_Sensitivity(System.IntPtr,System.Byte)" cat="Related"></seealso>
+ <seealso cref="M:FUTEK_USB_DLL.USB_DLL.Get_Bridge_Resistance(System.IntPtr,System.Byte)" cat="Related"></seealso>
+ <seealso cref="M:FUTEK_USB_DLL.USB_DLL.Set_Sensor_Configuration(System.IntPtr,System.Int32,System.Byte)" cat="Related"></seealso>
+</member>
+<member name="M:FUTEK_USB_DLL.USB_DLL.Set_Bridge_Resistance(System.IntPtr,System.Int32,System.Byte)">
+ <summary>
+   <strong>Warning: The use of this function can affect the factory calibration of the USB device.</strong><br />
+   Sets the nominal bridge resistance value stored in the EEPROM of the microcontroller.
+ </summary>
+ 
+ <param name="DeviceHandle">
+   Type: <see cref="T:System.IntPtr" /><br />
+   The handle associated with the USB device.
+ </param>
+ 
+ <param name="BridgeResistance">
+   The nominal bridge resistance associated with the USB device.<br />
+   The value must be between 0 and 3.
+ </param>
+ 
+ <param name="ChannelNumber">
+   Type: <see cref="T:System.Byte" /><br />
+   The channel number associated with the USB device.
+ </param>
+ 
+ <returns>
+   Type: <see cref="T:System.String" /><br />
+   A value equal to 0; otherwise <strong>Error</strong>
+ </returns>
+ 
+ <remarks>
+   The <paramref name="BridgeResistance" /> is a nominal value that represents the sensor's bridge resistance expressed in ohms (Ω).<br />
+   It is for reference only and does not affect the calibration of the USB device.
+ </remarks>
+ 
+ <seealso cref="M:SensorConfigurationCodes" cat="Related"></seealso>
+ <seealso cref="M:FUTEK_USB_DLL.USB_DLL.Get_Sensitivity(System.IntPtr,System.Byte)" cat="Related"></seealso>
+ <seealso cref="M:FUTEK_USB_DLL.USB_DLL.Get_Bridge_Resistance(System.IntPtr,System.Byte)" cat="Related"></seealso>
+ <seealso cref="M:FUTEK_USB_DLL.USB_DLL.Set_Sensor_Configuration(System.IntPtr,System.Int32,System.Byte)" cat="Related"></seealso>
+</member>
+<member name="M:FUTEK_USB_DLL.USB_DLL.Set_Baud_Rate(System.IntPtr,System.Int32,System.Byte)">
+ <summary>
+   <strong>Warning: The use of this function can affect the factory calibration of the USB device.</strong><br />
+   Sets the Baud rate value stored in the EEPROM of the microcontroller.
+ </summary>
+ 
+ <param name="DeviceHandle">
+   Type: <see cref="T:System.IntPtr" /><br />
+   The handle associated with the USB device.
+ </param>
+ 
+ <param name="BaudRate">
+   The Baud rate value associated with the USB device.<br />
+   The value must be between 0 and 3.
+ </param>
+ 
+ <param name="ChannelNumber">
+   Type: <see cref="T:System.Byte" /><br />
+   The channel number associated with the USB device.
+ </param>
+ 
+ <returns>
+   Type: <see cref="T:System.String" /><br />
+   A value equal to 0; otherwise <strong>Error</strong>
+ </returns>
+ 
+ <remarks>
+   The <paramref name="BaudRate" /> is a value that represents the Baud rate expressed in bits per second.<br />
+ </remarks>
+ 
+ <seealso cref="M:FUTEK_USB_DLL.USB_DLL.Get_Baud_Rate(System.IntPtr,System.Byte)" cat="Related"></seealso>
+ <seealso cref="M:FUTEK_USB_DLL.USB_DLL.Get_RS232_Output_Format(System.IntPtr,System.Byte)" cat="Related"></seealso>
+ <seealso cref="M:FUTEK_USB_DLL.USB_DLL.Set_RS232_Output_Format(System.IntPtr,System.Int32,System.Byte)" cat="Related"></seealso>
+</member>
+<member name="M:FUTEK_USB_DLL.USB_DLL.Set_RS232_Output_Format(System.IntPtr,System.Int32,System.Byte)">
+ <summary>
+   <strong>Warning: The use of this function can affect the factory calibration of the USB device.</strong><br />
+   Sets the RS-232 output format value stored in the EEPROM of the microcontroller.
+ </summary>
+ 
+ <param name="DeviceHandle">
+   Type: <see cref="T:System.IntPtr" /><br />
+   The handle associated with the USB device.
+ </param>
+ 
+ <param name="RS232OutputFormat">
+   The RS-232 output format value associated with the USB device.<br />
+   The value must be between 0 and 3.
+ </param>
+ 
+ <param name="ChannelNumber">
+   Type: <see cref="T:System.Byte" /><br />
+   The channel number associated with the USB device.
+ </param>
+ 
+ <returns>
+   Type: <see cref="T:System.String" /><br />
+   A value equal to 0; otherwise <strong>Error</strong>
+ </returns>
+ 
+ <remarks>
+   The <paramref name="RS232OutputFormat" /> is a value that represents the RS-232 output format and if the output is on or off.<br />
+ </remarks>
+ 
+ <seealso cref="M:FUTEK_USB_DLL.USB_DLL.Get_Baud_Rate(System.IntPtr,System.Byte)" cat="Related"></seealso>
+ <seealso cref="M:FUTEK_USB_DLL.USB_DLL.Get_RS232_Output_Format(System.IntPtr,System.Byte)" cat="Related"></seealso>
+ <seealso cref="M:FUTEK_USB_DLL.USB_DLL.Set_Baud_Rate(System.IntPtr,System.Int32,System.Byte)" cat="Related"></seealso>
+</member>
+<member name="M:FUTEK_USB_DLL.USB_DLL.Set_Direction(System.IntPtr,System.Int32,System.Byte)">
+ <summary>
+   <strong>Warning: The use of this function can affect the factory calibration of the USB device.</strong><br />
+   Sets the direction value stored in the EEPROM of the microcontroller.
+ </summary>
+ 
+ <param name="DeviceHandle">
+   Type: <see cref="T:System.IntPtr" /><br />
+   The handle associated with the USB device.
+ </param>
+ 
+ <param name="Direction">
+   Type: <see cref="T:System.Int32" /><br />
+   The direction associated with the USB device.<br />
+   The value must be between 0 and 5 for direction 1 and between 16 and 21 for direction 2.
+ </param>
+ 
+ <param name="ChannelNumber">
+   Type: <see cref="T:System.Byte" /><br />
+   The channel number associated with the USB device.
+ </param>
+ 
+ <returns>
+   Type: <see cref="T:System.String" /><br />
+   A value equal to 0; otherwise <strong>Error</strong>
+ </returns>
+ 
+ <remarks>
+   The <paramref name="Direction" /> is a value that indicates the direction type and the number of directions used during calibration.
+ </remarks>
+ 
+ <seealso cref="M:DirectionCodes" cat="Related"></seealso>
+ <seealso cref="M:FUTEK_USB_DLL.USB_DLL.Get_Direction(System.IntPtr,System.Byte)" cat="Related"></seealso>
+</member>
+<member name="M:FUTEK_USB_DLL.USB_DLL.Set_Zero_Correction(System.IntPtr,System.Int32,System.Int32,System.Byte,System.Int32)">
+ <summary>
+   <strong>Warning: The use of this function can affect the factory calibration of the USB device.</strong><br />
+   Sets the new loading point value based on a zero correction for fixturing stored in the EEPROM of the microcontroller.
+ </summary>
+ 
+ <param name="DeviceHandle">
+   Type: <see cref="T:System.IntPtr" /><br />
+   The handle associated with the USB device.
+ </param>
+ 
+ <param name="Point">
+   Type: <see cref="T:System.Int32" /><br />
+   The loading point associated with the USB device.<br />
+   The value must be between 0 and 19 (certain models may have fewer loading points).
+ </param>
+ 
+ <param name="ZeroCorrectionValue">
+   Type: <see cref="T:System.Int32" /><br />
+   The the new value to assign to the loading point.<br />
+   The value must be between 0 and 16,777,215.
+ </param>
+ 
+ <param name="ChannelNumber">
+   Type: <see cref="T:System.Byte" /><br />
+   The channel number associated with the USB device.
+ </param>
+ 
+ <param name="TypeOfCalibration">
+   Type: <see cref="T:System.Int32" /><br />
+   The type of calibration associated with the USB device.
+ </param>
+ 
+ <returns>
+   Type: <see cref="T:System.String" /><br />
+   A value equal to 0; otherwise <strong>Error</strong>
+ </returns>
+ 
+ <remarks>
+   This function should be used when the loading point value includes an offset due to the calibration fixture.
+   The <paramref name="ZeroCorrectionValue" /> should represent the loading point value after the value of the fixturing is subtracted.
+   This command should be used after <see cref="M:FUTEK_USB_DLL.USB_DLL.Set_Loading_Point(System.IntPtr,System.Int32,System.Byte)" /> has assigned the loading point value.
+   Please refer to <see cref="M:FUTEK_USB_DLL.USB_DLL.Get_Loading_Point(System.IntPtr,System.Int32,System.Byte,System.Int32)" /> in order to determine the value that is currently assigned to the loading point.
+ </remarks>
+ 
+ <example>
+   <exampleintro>
+     If the loading point value = 8,388,608 without any fixturing and the loading point value = 8,388,908 with the fixturing, then the difference is 300 counts.
+     Therefore, each loading point that is taken with the fixturing should then have 300 counts subtracted from its loading point value.
+     The result of the subtraction is the value that should be assigned as the <paramref name="ZeroCorrectionValue" />.
+   </exampleintro>
+ </example>
+ 
+ <seealso></seealso>
+</member>
+<member name="M:FUTEK_USB_DLL.USB_DLL.Set_Shunt_Value(System.IntPtr,System.Int32,System.Byte)">
+ <summary>
+   <strong>Warning: The use of this function can affect the factory calibration of the USB device.</strong><br />
+   Sets the shunt value stored in the EEPROM of the microcontroller.
+ </summary>
+ 
+ <param name="DeviceHandle">
+   Type: <see cref="T:System.IntPtr" /><br />
+   The handle associated with the USB device.
+ </param>
+ 
+ <param name="ShuntValue">
+   Type: <see cref="T:System.Int32" /><br />
+   The value associated with a simulated load.<br />
+   The value must be between 0 and 16,777,215.
+ </param>
+ 
+ <param name="ChannelNumber">
+   Type: <see cref="T:System.Byte" /><br />
+   The channel number associated with the USB device.
+ </param>
+ 
+ <returns>
+   Type: <see cref="T:System.String" /><br />
+   A value equal to 0; otherwise <strong>Error</strong>
+ </returns>
+ 
+ <remarks>
+   The <paramref name="ShuntValue" /> is an analog-to-digital converter (ADC) value representing the simulated load that is applied to the USB device.<br />
+   This function should be used when there is zero load applied to the sensor.<br />
+   The <see cref="M:FUTEK_USB_DLL.USB_DLL.Set_Load_Switch(System.IntPtr,System.Int32,System.Byte)" /> should be enabled before this function is called and disabled after this function is called.
+ </remarks>
+ 
+ <seealso cref="M:FUTEK_USB_DLL.USB_DLL.Get_Shunt_Value(System.IntPtr,System.Byte)" cat="Related"></seealso>
+ <seealso cref="M:FUTEK_USB_DLL.USB_DLL.Set_Load_Switch(System.IntPtr,System.Int32,System.Byte)" cat="Related"></seealso>
+</member>
+<member name="M:FUTEK_USB_DLL.USB_DLL.Set_Calibration_Code(System.IntPtr,System.Int32,System.Byte)">
+ <summary>
+   <strong>Warning: The use of this function can affect the factory calibration of the USB device.</strong><br />
+   Sets the calibration code stored in the EEPROM of the microcontroller.
+ </summary>
+ 
+ <param name="DeviceHandle">
+   Type: <see cref="T:System.IntPtr" /><br />
+   The handle associated with the USB device.
+ </param>
+ 
+ <param name="CalibrationCode">
+   Type: <see cref="T:System.Int32" /><br />
+   The calibration code associated with the USB device.<br />
+   The value must be between 0 and 255.
+ </param>
+ 
+ <param name="ChannelNumber">
+   Type: <see cref="T:System.Byte" /><br />
+   The channel number associated with the USB device.
+ </param>
+ 
+ <returns>
+   Type: <see cref="T:System.String" /><br />
+   A value equal to 0; otherwise <strong>Error</strong>
+ </returns>
+ 
+ <remarks>
+   The <paramref name="CalibrationCode" /> is a value representing the operator who performed the calibration of the USB device.
+ </remarks>
+ 
+ <seealso cref="M:FUTEK_USB_DLL.USB_DLL.Get_Calibration_Code(System.IntPtr,System.Byte)" cat="Related"></seealso>
+ <seealso cref="M:FUTEK_USB_DLL.USB_DLL.Get_Calibration_Day(System.IntPtr,System.Byte)" cat="Related"></seealso>
+ <seealso cref="M:FUTEK_USB_DLL.USB_DLL.Get_Calibration_Month(System.IntPtr,System.Byte)" cat="Related"></seealso>
+ <seealso cref="M:FUTEK_USB_DLL.USB_DLL.Get_Calibration_Year(System.IntPtr,System.Byte)" cat="Related"></seealso>
+ <seealso cref="M:FUTEK_USB_DLL.USB_DLL.Set_Calibration_Code(System.IntPtr,System.Int32,System.Byte)" cat="Related"></seealso>
+ <seealso cref="M:FUTEK_USB_DLL.USB_DLL.Set_Calibration_Day(System.IntPtr,System.Int32,System.Byte)" cat="Related"></seealso>
+ <seealso cref="M:FUTEK_USB_DLL.USB_DLL.Set_Calibration_Month(System.IntPtr,System.Int32,System.Byte)" cat="Related"></seealso>
+ <seealso cref="M:FUTEK_USB_DLL.USB_DLL.Set_Calibration_Year(System.IntPtr,System.Int32,System.Byte)" cat="Related"></seealso>
+</member>
+<member name="M:FUTEK_USB_DLL.USB_DLL.Set_Calibration_Day(System.IntPtr,System.Int32,System.Byte)">
+ <summary>
+   <strong>Warning: The use of this function can affect the factory calibration of the USB device.</strong><br />
+   Sets the calibration day stored in the EEPROM of the microcontroller.
+ </summary>
+ 
+ <param name="DeviceHandle">
+   Type: <see cref="T:System.IntPtr" /><br />
+   The handle associated with the USB device.
+ </param>
+ 
+ <param name="CalibrationDay">
+   Type: <see cref="T:System.Int32" /><br />
+   The calibration day associated with the USB device.<br />
+   The value must be between 1 and 31.
+ </param>
+ 
+ <param name="ChannelNumber">
+   Type: <see cref="T:System.Byte" /><br />
+   The channel number associated with the USB device.
+ </param>
+ 
+ <returns>
+   Type: <see cref="T:System.String" /><br />
+   A value equal to 0; otherwise <strong>Error</strong>
+ </returns>
+ 
+ <remarks>
+   The <paramref name="CalibrationDay" /> is a value representing the day of the month when calibration of the USB device was performed.
+ </remarks>
+ 
+ <seealso cref="M:FUTEK_USB_DLL.USB_DLL.Get_Calibration_Code(System.IntPtr,System.Byte)" cat="Related"></seealso>
+ <seealso cref="M:FUTEK_USB_DLL.USB_DLL.Get_Calibration_Day(System.IntPtr,System.Byte)" cat="Related"></seealso>
+ <seealso cref="M:FUTEK_USB_DLL.USB_DLL.Get_Calibration_Month(System.IntPtr,System.Byte)" cat="Related"></seealso>
+ <seealso cref="M:FUTEK_USB_DLL.USB_DLL.Get_Calibration_Year(System.IntPtr,System.Byte)" cat="Related"></seealso>
+ <seealso cref="M:FUTEK_USB_DLL.USB_DLL.Set_Calibration_Code(System.IntPtr,System.Int32,System.Byte)" cat="Related"></seealso>
+ <seealso cref="M:FUTEK_USB_DLL.USB_DLL.Set_Calibration_Day(System.IntPtr,System.Int32,System.Byte)" cat="Related"></seealso>
+ <seealso cref="M:FUTEK_USB_DLL.USB_DLL.Set_Calibration_Month(System.IntPtr,System.Int32,System.Byte)" cat="Related"></seealso>
+ <seealso cref="M:FUTEK_USB_DLL.USB_DLL.Set_Calibration_Year(System.IntPtr,System.Int32,System.Byte)" cat="Related"></seealso>
+</member>
+<member name="M:FUTEK_USB_DLL.USB_DLL.Set_Calibration_Month(System.IntPtr,System.Int32,System.Byte)">
+ <summary>
+   <strong>Warning: The use of this function can affect the factory calibration of the USB device.</strong><br />
+   Sets the calibration month stored in the EEPROM of the microcontroller.
+ </summary>
+ 
+ <param name="DeviceHandle">
+   Type: <see cref="T:System.IntPtr" /><br />
+   The handle associated with the USB device.
+ </param>
+ 
+ <param name="CalibrationMonth">
+   Type: <see cref="T:System.Int32" /><br />
+   The calibration month associated with the USB device.<br />
+   The value must be between 1 and 12.
+ </param>
+ 
+ <param name="ChannelNumber">
+   Type: <see cref="T:System.Byte" /><br />
+   The channel number associated with the USB device.
+ </param>
+ 
+ <returns>
+   Type: <see cref="T:System.String" /><br />
+   A value equal to 0; otherwise <strong>Error</strong>
+ </returns>
+ 
+ <remarks>
+   The <paramref name="CalibrationMonth" /> is a value representing the month when calibration of the USB device was performed.
+ </remarks>
+ 
+ <seealso cref="M:FUTEK_USB_DLL.USB_DLL.Get_Calibration_Code(System.IntPtr,System.Byte)" cat="Related"></seealso>
+ <seealso cref="M:FUTEK_USB_DLL.USB_DLL.Get_Calibration_Day(System.IntPtr,System.Byte)" cat="Related"></seealso>
+ <seealso cref="M:FUTEK_USB_DLL.USB_DLL.Get_Calibration_Month(System.IntPtr,System.Byte)" cat="Related"></seealso>
+ <seealso cref="M:FUTEK_USB_DLL.USB_DLL.Get_Calibration_Year(System.IntPtr,System.Byte)" cat="Related"></seealso>
+ <seealso cref="M:FUTEK_USB_DLL.USB_DLL.Set_Calibration_Code(System.IntPtr,System.Int32,System.Byte)" cat="Related"></seealso>
+ <seealso cref="M:FUTEK_USB_DLL.USB_DLL.Set_Calibration_Day(System.IntPtr,System.Int32,System.Byte)" cat="Related"></seealso>
+ <seealso cref="M:FUTEK_USB_DLL.USB_DLL.Set_Calibration_Month(System.IntPtr,System.Int32,System.Byte)" cat="Related"></seealso>
+ <seealso cref="M:FUTEK_USB_DLL.USB_DLL.Set_Calibration_Year(System.IntPtr,System.Int32,System.Byte)" cat="Related"></seealso>
+</member>
+<member name="M:FUTEK_USB_DLL.USB_DLL.Set_Calibration_Year(System.IntPtr,System.Int32,System.Byte)">
+ <summary>
+   <strong>Warning: The use of this function can affect the factory calibration of the USB device.</strong><br />
+   Sets the calibration year stored in the EEPROM of the microcontroller.
+ </summary>
+ 
+ <param name="DeviceHandle">
+   Type: <see cref="T:System.IntPtr" /><br />
+   The handle associated with the USB device.
+ </param>
+ 
+ <param name="CalibrationYear">
+   Type: <see cref="T:System.Int32" /><br />
+   The calibration day associated with the USB device.<br />
+   The value must be between 0 and 255.
+ </param>
+ 
+ <param name="ChannelNumber">
+   Type: <see cref="T:System.Byte" /><br />
+   The channel number associated with the USB device.
+ </param>
+ 
+ <returns>
+   Type: <see cref="T:System.String" /><br />
+   A value equal to 0; otherwise <strong>Error</strong>
+ </returns>
+ 
+ <remarks>
+   The <paramref name="CalibrationYear" /> is a numeric value representing the year when calibration of the USB device was performed.<br />
+   It is zero indexed from the year 2000.
+ </remarks>
+ 
+ <example>
+   <exampleintro>
+     If the <paramref name="CalibrationYear" /> = 15, then the calibration was performed in the year 2015.
+   </exampleintro>
+ </example>
+ 
+ <seealso cref="M:FUTEK_USB_DLL.USB_DLL.Get_Calibration_Code(System.IntPtr,System.Byte)" cat="Related"></seealso>
+ <seealso cref="M:FUTEK_USB_DLL.USB_DLL.Get_Calibration_Day(System.IntPtr,System.Byte)" cat="Related"></seealso>
+ <seealso cref="M:FUTEK_USB_DLL.USB_DLL.Get_Calibration_Month(System.IntPtr,System.Byte)" cat="Related"></seealso>
+ <seealso cref="M:FUTEK_USB_DLL.USB_DLL.Get_Calibration_Year(System.IntPtr,System.Byte)" cat="Related"></seealso>
+ <seealso cref="M:FUTEK_USB_DLL.USB_DLL.Set_Calibration_Code(System.IntPtr,System.Int32,System.Byte)" cat="Related"></seealso>
+ <seealso cref="M:FUTEK_USB_DLL.USB_DLL.Set_Calibration_Day(System.IntPtr,System.Int32,System.Byte)" cat="Related"></seealso>
+ <seealso cref="M:FUTEK_USB_DLL.USB_DLL.Set_Calibration_Month(System.IntPtr,System.Int32,System.Byte)" cat="Related"></seealso>
+ <seealso cref="M:FUTEK_USB_DLL.USB_DLL.Set_Calibration_Year(System.IntPtr,System.Int32,System.Byte)" cat="Related"></seealso>
+</member>
+<member name="M:FUTEK_USB_DLL.USB_DLL.Set_Pulses_Per_Rotation(System.IntPtr,System.Int32,System.Byte)">
+ <summary>
+   <strong>Warning: The use of this function can affect the factory calibration of the USB device.</strong><br />
+   Sets the number of pulses per rotatioin stored in the EEPROM of the microcontroller.
+ </summary>
+ 
+ <param name="DeviceHandle">
+   Type: <see cref="T:System.IntPtr" /><br />
+   The handle associated with the USB device.
+ </param>
+ 
+ <param name="PulsesPerRotation">
+   Type: <see cref="T:System.Int32" /><br />
+   The number of pulses per rotation associated with the encoder of a torque sensor.<br />
+   The value must be between 0 and 65,535.
+ </param>
+ 
+ <param name="ChannelNumber">
+   Type: <see cref="T:System.Byte" /><br />
+   The channel number associated with the USB device.
+ </param>
+ 
+ <returns>
+   Type: <see cref="T:System.String" /><br />
+   A value equal to 0; otherwise <strong>Error</strong>
+ </returns>
+ 
+ <remarks>
+ </remarks>
+ 
+ <seealso cref="M:FUTEK_USB_DLL.USB_DLL.Get_Pulses_Per_Rotation(System.IntPtr,System.Byte)" cat="Related"></seealso>
+</member>
+<member name="M:FUTEK_USB_DLL.USB_DLL.Set_CrossTalk(System.IntPtr,System.Int32,System.Byte)">
+ <summary>
+   <strong>Warning: The use of this function can affect the factory calibration of the USB device.</strong><br />
+   Sets the crosstalk value stored in the EEPROM of the microcontroller.
+ </summary>
+ 
+ <param name="DeviceHandle">
+   Type: <see cref="T:System.IntPtr" /><br />
+   The handle associated with the USB device.
+ </param>
+ 
+ <param name="CrossTalk">
+   Type: <see cref="T:System.Int32" /><br />
+   The crosstalk associated with the USB device.<br />
+   The value must be between 0 and 1.
+ </param>
+ 
+ <param name="ChannelNumber">
+   Type: <see cref="T:System.Byte" /><br />
+   The channel number associated with the USB device.
+ </param>
+ 
+ <returns>
+   Type: <see cref="T:System.String" /><br />
+   A value equal to 0; otherwise <strong>Error</strong>
+ </returns>
+ 
+ <remarks>
+   The <paramref name="CrossTalk" /> is a value indicating...
+ </remarks>
+ 
+ <seealso cref="M:FUTEK_USB_DLL.USB_DLL.Get_CrossTalk(System.IntPtr,System.Byte)" cat="Related"></seealso>
+</member>
+<member name="M:FUTEK_USB_DLL.USB_DLL.Set_Number_of_Active_Channels(System.IntPtr,System.Int32,System.Byte)">
+ <summary>
+   <strong>Warning: The use of this function can affect the factory calibration of the USB device.</strong><br />
+   Sets the number of active channels stored in the EEPROM of the microcontroller.
+ </summary>
+ 
+ <param name="DeviceHandle">
+   Type: <see cref="T:System.IntPtr" /><br />
+   The handle associated with the USB device.
+ </param>
+ 
+ <param name="NumberOfActiveChannels">
+   Type: <see cref="T:System.Int32" /><br />
+   The number of active channels associated with the USB device.<br />
+   The value must be between 0 and 3.
+ </param>
+ 
+ <param name="ChannelNumber">
+   Type: <see cref="T:System.Byte" /><br />
+   The channel number associated with the USB device.
+ </param>
+ 
+ <returns>
+   Type: <see cref="T:System.String" /><br />
+   A value equal to 0; otherwise <strong>Error</strong>
+ </returns>
+ 
+ <remarks>
+   The <paramref name="NumberOfActiveChannels" /> is a value indicating...
+ </remarks>
+ 
+ <seealso cref="M:FUTEK_USB_DLL.USB_DLL.Get_Number_of_Active_Channels(System.IntPtr,System.Byte)" cat="Related"></seealso>
+</member>
+<member name="M:FUTEK_USB_DLL.USB_DLL.Set_Type_of_Calibration(System.IntPtr,System.Int32,System.Byte)">
+ <summary>
+   <strong>Warning: The use of this function can affect the factory calibration of the USB device.</strong><br />
+   Sets the type of calibration stored in the EEPROM of the microcontroller.
+ </summary>
+ 
+ <param name="DeviceHandle">
+   Type: <see cref="T:System.IntPtr" /><br />
+   The handle associated with the USB device.
+ </param>
+ 
+ <param name="TypeOfCalibration">
+   Type: <see cref="T:System.Int32" /><br />
+   The type of calibration associated with the USB device.<br />
+   The value must be between 0 and 1.
+ </param>
+ 
+ <param name="ChannelNumber">
+   Type: <see cref="T:System.Byte" /><br />
+   The channel number associated with the USB device.
+ </param>
+ 
+ <returns>
+   Type: <see cref="T:System.String" /><br />
+   A value equal to 0; otherwise <strong>Error</strong>
+ </returns>
+ 
+ <remarks>
+   The <paramref name="TypeOfCalibration" /> is a value indicating...
+ </remarks>
+ 
+ <seealso cref="M:FUTEK_USB_DLL.USB_DLL.Get_Type_of_Calibration(System.IntPtr,System.Byte)" cat="Related"></seealso>
+</member>
+<member name="M:FUTEK_USB_DLL.USB_DLL.Set_Active_Page_Number(System.IntPtr,System.Int32,System.Byte)">
+ <summary>
+   <strong>Warning: The use of this function can affect the factory calibration of the USB device.</strong><br />
+   Sets the active page number stored in the EEPROM of the microcontroller.
+ </summary>
+ 
+ <param name="DeviceHandle">
+   Type: <see cref="T:System.IntPtr" /><br />
+   The handle associated with the USB device.
+ </param>
+ 
+ <param name="ActivePageNumber">
+   Type: <see cref="T:System.Int32" /><br />
+   The active page number associated with the USB device.<br />
+   The value must be between 0 and 7.
+ </param>
+ 
+ <param name="ChannelNumber">
+   Type: <see cref="T:System.Byte" /><br />
+   The channel number associated with the USB device.
+ </param>
+ 
+ <returns>
+   Type: <see cref="T:System.String" /><br />
+   A value equal to 0; otherwise <strong>Error</strong>
+ </returns>
+ 
+ <remarks>
+   The <paramref name="ActivePageNumber" /> is a value indicating...
+ </remarks>
+ 
+ <seealso cref="M:FUTEK_USB_DLL.USB_DLL.Get_Active_Page_Number(System.IntPtr,System.Byte)" cat="Related"></seealso>
+</member>
+<member name="M:FUTEK_USB_DLL.USB_DLL.Set_TEDS_Error_Detection(System.IntPtr,System.Byte,System.Byte)">
+ <summary>
+   <strong>Warning: The use of this function can affect the factory calibration of the USB device.</strong><br />
+   Sets the TEDS error detection stored in the EEPROM of the microcontroller.
+ </summary>
+ 
+ <param name="DeviceHandle">
+   Type: <see cref="T:System.IntPtr" /><br />
+   The handle associated with the USB device.
+ </param>
+ 
+ <param name="TEDSErrorDetection">
+   Type: <see cref="T:System.Byte" /><br />
+   The TEDS error detection associated with the USB device.<br />
+   The value must be between 0 and 1.
+ </param>
+ 
+ <param name="channelNumber">
+   Type: <see cref="T:System.Byte" /><br />
+   The channel number associated with the USB device.
+ </param>
+ 
+ <returns>
+   Type: <see cref="T:System.String" /><br />
+   A value equal to 0; otherwise <strong>Error</strong>
+ </returns>
+ 
+ <remarks>
+   The <paramref name="TEDSErrorDetection" /> is a value indicating...
+ </remarks>
+ 
+ <seealso cref="M:" cat="Related"></seealso>
+</member>
+<member name="M:FUTEK_USB_DLL.USB_DLL.Set_Active_Sound(System.IntPtr,System.Byte,System.Byte)">
+ <summary>
+   <strong>Warning: The use of this function can affect the factory calibration of the USB device.</strong><br />
+   Sets the active sound stored in the EEPROM of the microcontroller.
+ </summary>
+ 
+ <param name="DeviceHandle">
+   Type: <see cref="T:System.IntPtr" /><br />
+   The handle associated with the USB device.
+ </param>
+ 
+ <param name="activeSound">
+   Type: <see cref="T:System.Byte" /><br />
+   The active sound associated with the USB device.<br />
+   The value must be between 0 and 1.
+ </param>
+ 
+ <param name="channelNumber">
+   Type: <see cref="T:System.Byte" /><br />
+   The channel number associated with the USB device.
+ </param>
+ 
+ <returns>
+   Type: <see cref="T:System.String" /><br />
+   A value equal to 0; otherwise <strong>Error</strong>
+ </returns>
+ 
+ <remarks>
+   The <paramref name="activeSound" /> is a value indicating...
+ </remarks>
+ 
+ <seealso cref="M:" cat="Related"></seealso>
+</member>
+<member name="M:FUTEK_USB_DLL.USB_DLL.Set_Enabled_Channels(System.IntPtr,System.Byte,System.Byte)">
+ <summary>
+   <strong>Warning: The use of this function can affect the factory calibration of the USB device.</strong><br />
+   Sets the enabled channels stored in the EEPROM of the microcontroller.
+ </summary>
+ 
+ <param name="DeviceHandle">
+   Type: <see cref="T:System.IntPtr" /><br />
+   The handle associated with the USB device.
+ </param>
+ 
+ <param name="enabledChannels">
+   Type: <see cref="T:System.Byte" /><br />
+   The enabled channels associated with the USB device.<br />
+   The value must be between 0 and 1.
+ </param>
+ 
+ <param name="channelNumber">
+   Type: <see cref="T:System.Byte" /><br />
+   The channel number associated with the USB device.
+ </param>
+ 
+ <returns>
+   Type: <see cref="T:System.String" /><br />
+   A value equal to 0; otherwise <strong>Error</strong>
+ </returns>
+ 
+ <remarks>
+   The <paramref name="enabledChannels" /> is a value indicating...
+ </remarks>
+ 
+ <seealso cref="M:" cat="Related"></seealso>
+</member>
+<member name="M:FUTEK_USB_DLL.USB_DLL.Set_Destination_MAC_Address(System.IntPtr,System.Byte,System.Byte,System.Byte,System.Byte,System.Byte,System.Byte,System.Byte)">
+ <summary>
+   <strong>Warning: The use of this function can affect the factory calibration of the USB device.</strong><br />
+   Sets the destination MAC address stored in the EEPROM of the microcontroller.
+ </summary>
+ 
+ <param name="DeviceHandle">
+   Type: <see cref="T:System.IntPtr" /><br />
+   The handle associated with the USB device.
+ </param>
+ 
+ <param name="Address1">
+   Type: <see cref="T:System.Byte" /><br />
+   The first byte of the address.
+ </param>
+ 
+ <param name="Address2">
+   Type: <see cref="T:System.Byte" /><br />
+   The second byte of the address.
+ </param>
+ 
+ <param name="Address3">
+   Type: <see cref="T:System.Byte" /><br />
+   The third byte of the address.
+ </param>
+ 
+ <param name="Address4">
+   Type: <see cref="T:System.Byte" /><br />
+   The fourth byte of the address.
+ </param>
+ 
+ <param name="Address5">
+   Type: <see cref="T:System.Byte" /><br />
+   The fifth byte of the address.
+ </param>
+ 
+ <param name="Address6">
+   Type: <see cref="T:System.Byte" /><br />
+   The sixth byte of the address.
+ </param>
+ 
+ <param name="ChannelNumber">
+   Type: <see cref="T:System.Byte" /><br />
+   The channel number associated with the USB device.
+ </param>
+ 
+ <returns>
+   Type: <see cref="T:System.String" /><br />
+   A value equal to 0; otherwise <strong>Error</strong>
+ </returns>
+ 
+ <remarks>
+ </remarks>
+ 
+ <seealso cref="M:FUTEK_USB_DLL.USB_DLL.Get_Destination_MAC_Address(System.IntPtr,System.Byte)" cat="Related"></seealso>
+</member>
+<member name="M:FUTEK_USB_DLL.USB_DLL.Set_Destination_IP_Address(System.IntPtr,System.Byte,System.Byte,System.Byte,System.Byte,System.Byte)">
+ <summary>
+   <strong>Warning: The use of this function can affect the factory calibration of the USB device.</strong><br />
+   Sets the destination IP address stored in the EEPROM of the microcontroller.
+ </summary>
+ 
+ <param name="DeviceHandle">
+   Type: <see cref="T:System.IntPtr" /><br />
+   The handle associated with the USB device.
+ </param>
+ 
+ <param name="Address1">
+   Type: <see cref="T:System.Byte" /><br />
+   The first byte of the address.
+ </param>
+ 
+ <param name="Address2">
+   Type: <see cref="T:System.Byte" /><br />
+   The second byte of the address.
+ </param>
+ 
+ <param name="Address3">
+   Type: <see cref="T:System.Byte" /><br />
+   The third byte of the address.
+ </param>
+ 
+ <param name="Address4">
+   Type: <see cref="T:System.Byte" /><br />
+   The fourth byte of the address.
+ </param>
+ 
+ <param name="ChannelNumber">
+   Type: <see cref="T:System.Byte" /><br />
+   The channel number associated with the USB device.
+ </param>
+ 
+ <returns>
+   Type: <see cref="T:System.String" /><br />
+   A value equal to 0; otherwise <strong>Error</strong>
+ </returns>
+ 
+ <remarks>
+ </remarks>
+ 
+ <seealso cref="M:FUTEK_USB_DLL.USB_DLL.Get_Destination_IP_Address(System.IntPtr,System.Byte)" cat="Related"></seealso>
+</member>
+<member name="M:FUTEK_USB_DLL.USB_DLL.Set_Destination_Port_Number(System.IntPtr,System.Int32,System.Byte)">
+ <summary>
+   <strong>Warning: The use of this function can affect the factory calibration of the USB device.</strong><br />
+   Sets the destination port number stored in the EEPROM of the microcontroller.
+ </summary>
+ 
+ <param name="DeviceHandle">
+   Type: <see cref="T:System.IntPtr" /><br />
+   The handle associated with the USB device.
+ </param>
+ 
+ <param name="PortNumber">
+   Type: <see cref="T:System.Int32" /><br />
+   The port number associated with the device.
+ </param>
+ 
+ <param name="ChannelNumber">
+   Type: <see cref="T:System.Byte" /><br />
+   The channel number associated with the USB device.
+ </param>
+ 
+ <returns>
+   Type: <see cref="T:System.String" /><br />
+   A value equal to 0; otherwise <strong>Error</strong>
+ </returns>
+ 
+ <remarks>
+ </remarks>
+ 
+ <seealso cref="M:FUTEK_USB_DLL.USB_DLL.Get_Destination_Port_Number(System.IntPtr,System.Byte)" cat="Related"></seealso>
+</member>
+<member name="M:FUTEK_USB_DLL.USB_DLL.Set_Source_IP_Address(System.IntPtr,System.Byte,System.Byte,System.Byte,System.Byte,System.Byte)">
+ <summary>
+   <strong>Warning: The use of this function can affect the factory calibration of the USB device.</strong><br />
+   Sets the source IP address stored in the EEPROM of the microcontroller.
+ </summary>
+ 
+ <param name="DeviceHandle">
+   Type: <see cref="T:System.IntPtr" /><br />
+   The handle associated with the USB device.
+ </param>
+ 
+ <param name="Address1">
+   Type: <see cref="T:System.Byte" /><br />
+   The first byte of the address.
+ </param>
+ 
+ <param name="Address2">
+   Type: <see cref="T:System.Byte" /><br />
+   The second byte of the address.
+ </param>
+ 
+ <param name="Address3">
+   Type: <see cref="T:System.Byte" /><br />
+   The third byte of the address.
+ </param>
+ 
+ <param name="Address4">
+   Type: <see cref="T:System.Byte" /><br />
+   The fourth byte of the address.
+ </param>
+ 
+ <param name="ChannelNumber">
+   Type: <see cref="T:System.Byte" /><br />
+   The channel number associated with the USB device.
+ </param>
+ 
+ <returns>
+   Type: <see cref="T:System.String" /><br />
+   A value equal to 0; otherwise <strong>Error</strong>
+ </returns>
+ 
+ <remarks>
+ </remarks>
+ 
+ <seealso cref="M:FUTEK_USB_DLL.USB_DLL.Get_Source_IP_Address(System.IntPtr,System.Byte)" cat="Related"></seealso>
+</member>
+<member name="M:FUTEK_USB_DLL.USB_DLL.Set_Source_Port_Number(System.IntPtr,System.Int32,System.Byte)">
+ <summary>
+   <strong>Warning: The use of this function can affect the factory calibration of the USB device.</strong><br />
+   Sets the source port number stored in the EEPROM of the microcontroller.
+ </summary>
+ 
+ <param name="DeviceHandle">
+   Type: <see cref="T:System.IntPtr" /><br />
+   The handle associated with the USB device.
+ </param>
+ 
+ <param name="PortNumber">
+   Type: <see cref="T:System.Int32" /><br />
+   The port number associated with the device.
+ </param>
+ 
+ <param name="ChannelNumber">
+   Type: <see cref="T:System.Byte" /><br />
+   The channel number associated with the USB device.
+ </param>
+ 
+ <returns>
+   Type: <see cref="T:System.String" /><br />
+   A value equal to 0; otherwise <strong>Error</strong>
+ </returns>
+ 
+ <remarks>
+ </remarks>
+ 
+ <seealso cref="M:FUTEK_USB_DLL.USB_DLL.Get_Source_Port_Number(System.IntPtr,System.Byte)" cat="Related"></seealso>
+</member>
+<member name="M:FUTEK_USB_DLL.USB_DLL.Reset_Angle(System.IntPtr,System.Byte)">
+ <summary>
+   <strong>Warning: The use of this function can affect the factory calibration of the USB device.</strong><br />
+   Resets the angle value stored in the EEPROM of the microcontroller.
+ </summary>
+ 
+ <param name="DeviceHandle">
+   Type: <see cref="T:System.IntPtr" /><br />
+   The handle associated with the USB device.
+ </param>
+ 
+ <param name="ChannelNumber">
+   Type: <see cref="T:System.Byte" /><br />
+   The channel number associated with the USB device.
+ </param>
+ 
+ <returns>
+   Type: <see cref="T:System.String" /><br />
+   A value equal to 0; otherwise <strong>Error</strong>
+ </returns>
+ 
+ <remarks>
+   This function is used to reset the angle value from a torque sensor's encoder measurement.
+ </remarks>
+ 
+ <seealso></seealso>
+</member>
+<member name="M:FUTEK_USB_DLL.USB_DLL.Get_Offset_Value(System.IntPtr,System.Byte)">
+ <summary>
+   Gets the offset value stored in the EEPROM of the microcontroller.
+ </summary>
+ 
+ <param name="DeviceHandle">
+   Type: <see cref="T:System.IntPtr" /><br />
+   The handle associated with the USB device.
+ </param>
+ 
+ <param name="ChannelNumber">
+   Type: <see cref="T:System.Byte" /><br />
+   The channel number associated with the USB device.
+ </param>
+ 
+ <returns>
+   Type: <see cref="T:System.String" /><br />
+   A value between -16,777,216 and 16,777,215; otherwise <strong>Error</strong>
+ </returns>
+ 
+ <remarks>
+ </remarks>
+ 
+ <seealso></seealso>
+</member>
+<member name="M:FUTEK_USB_DLL.USB_DLL.Get_Fullscale_Value(System.IntPtr,System.Byte)">
+ <summary>
+   Gets the fullscale value stored in the EEPROM of the microcontroller.
+ </summary>
+ 
+ <param name="DeviceHandle">
+   Type: <see cref="T:System.IntPtr" /><br />
+   The handle associated with the USB device.
+ </param>
+ 
+ <param name="ChannelNumber">
+   Type: <see cref="T:System.Byte" /><br />
+   The channel number associated with the USB device.
+ </param>
+ 
+ <returns>
+   Type: <see cref="T:System.String" /><br />
+   A value between -16,777,216 and 16,777,215; otherwise <strong>Error</strong>
+ </returns>
+ 
+ <remarks>
+ </remarks>
+ 
+ <seealso></seealso>
+</member>
+<member name="M:FUTEK_USB_DLL.USB_DLL.Normal_Data_Request(System.IntPtr,System.Byte)">
+ <summary>
+   Gets the latest analog-to-digital converter (ADC) value from the USB device.
+ </summary>
+ 
+ <param name="DeviceHandle">
+   Type: <see cref="T:System.IntPtr" /><br />
+   The handle associated with the USB device.
+ </param>
+ 
+ <param name="ChannelNumber">
+   Type: <see cref="T:System.Byte" /><br />
+   The channel number associated with the USB device.
+ </param>
+ 
+ <returns>
+   Type: <see cref="T:System.String" /><br />
+   A value between -16,777,216 and 16,777,215; otherwise <strong>Error</strong>
+ </returns>
+ 
+ <remarks>
+ </remarks>
+ 
+ <seealso></seealso>
+</member>
+<member name="M:FUTEK_USB_DLL.USB_DLL.Fast_Data_Request(System.IntPtr,System.Int32,System.Int32,System.String,System.String,System.String,System.Byte)">
+ <summary>
+   Gets the latest analog-to-digital converter (ADC) values in the buffer of the USB device.
+ </summary>
+ 
+ <param name="DeviceHandle">
+   Type: <see cref="T:System.IntPtr" /><br />
+   The handle associated with the USB device.
+ </param>
+ 
+ <param name="DelimitedStyle">
+   Type: <see cref="T:System.Int32" /><br />
+   The delimited style including the delimiter and terminator characters.
+ </param>
+ 
+ <param name="DeviceNumber">
+   Type: <see cref="T:System.Int32" /><br />
+   The device number associated with the USB device.
+ </param>
+ 
+ <param name="BoardType">
+   Type: <see cref="T:System.String" /><br />
+   The type of board associated with the USB device.
+ </param>
+ 
+ <param name="SamplingRate">
+   Type: <see cref="T:System.String" /><br />
+   The sampling rate associated with the USB device.
+ </param>
+ 
+ <param name="FirmwareVersion">
+   Type: <see cref="T:System.String" /><br />
+   The firmware version associated with the USB device.
+ </param>
+ 
+ <param name="ChannelNumber">
+   Type: <see cref="T:System.Byte" /><br />
+   The channel number associated with the USB device.
+ </param>
+ 
+ <returns>
+   Type: <see cref="T:System.String" /><br />
+   A string of samples contained in the buffer; otherwise <strong>Error</strong>
+ </returns>
+ 
+ <remarks>
+   The returned value should be a string of data which will vary in size depending on how many samples are in the buffer.<br />
+   If there are no ADC Values in the buffer, then the response will be an empty string.
+ </remarks>
+ 
+ <example>
+   <exampleintro>
+     If the <paramref name="DelimitedStyle" /> is zero, then the return value will have the following format:<br />
+     <strong>Counter [,] Number of Samples [,] ADC Value [,] Place Holder [,] Place Holder [,] Place Holder [,] Date [,] Time</strong>
+     <para></para> 
+     0,14,13214336,,,,Tuesday, October 18,2011,2:29:27 PM<br />
+     1,14,13214336,,,,Tuesday, October 18,2011,2:29:27 PM<br />
+     2,14,13214336,,,,Tuesday, October 18,2011,2:29:27 PM<br />
+     3,14,13214336,,,,Tuesday, October 18,2011,2:29:27 PM<br />
+     4,14,13214080,,,,Tuesday, October 18,2011,2:29:27 PM<br />
+     5,14,13214592,,,,Tuesday, October 18,2011,2:29:27 PM<br />
+     6,14,13214336,,,,Tuesday, October 18,2011,2:29:27 PM<br />
+     7,14,13214080,,,,Tuesday, October 18,2011,2:29:27 PM<br />
+     8,14,13214336,,,,Tuesday, October 18,2011,2:29:27 PM<br />
+     9,14,13214336,,,,Tuesday, October 18,2011,2:29:27 PM<br />
+     10,14,13213824,,,,Tuesday, October 18,2011,2:29:27 PM<br />
+     11,14,13214080,,,,Tuesday, October 18,2011,2:29:27 PM<br />
+     12,14,13214336,,,,Tuesday, October 18,2011,2:29:27 PM<br />
+     13,14,13214336,,,,Tuesday, October 18,2011,2:29:27 PM<br />
+     <para></para> 
+     If the <paramref name="DelimitedStyle" /> is one, then the return value will have the following format:<br />
+     <strong>Counter [tab] Number of Samples [tab] ADC Value [tab] Place Holder [tab] Place Holder [tab] Place Holder [tab] Date [tab] Time</strong>
+     <para></para> 
+     0	14	13214336				Tuesday, October 18,2011	2:29:27 PM<br />
+     1	14	13214336				Tuesday, October 18,2011	2:29:27 PM<br />
+     2	14	13214336				Tuesday, October 18,2011	2:29:27 PM<br />
+     3	14	13214336				Tuesday, October 18,2011	2:29:27 PM<br />
+     4	14	13214080				Tuesday, October 18,2011	2:29:27 PM<br />
+     5	14	13214592				Tuesday, October 18,2011	2:29:27 PM<br />
+     6	14	13214336				Tuesday, October 18,2011	2:29:27 PM<br />
+     7	14	13214080				Tuesday, October 18,2011	2:29:27 PM<br />
+     8	14	13214336				Tuesday, October 18,2011	2:29:27 PM<br />
+     9	14	13214336				Tuesday, October 18,2011	2:29:27 PM<br />
+     10	14	13213824				Tuesday, October 18,2011	2:29:27 PM<br />
+     11	14	13214080				Tuesday, October 18,2011	2:29:27 PM<br />
+     12	14	13214336				Tuesday, October 18,2011	2:29:27 PM<br />
+     13	14	13214336				Tuesday, October 18,2011	2:29:27 PM<br />
+     <para></para> 
+     The three Place Holders are used to reserve the location to insert the calculated tracking, peak and valley values based on the ADC Value.
+   </exampleintro>
+ </example>
+ 
+ <seealso cref="M:DelimitedStyleCodes" cat="Related"></seealso>
+ <seealso cref="M:TypeOfBoardCodes" cat="Related"></seealso>
+ <seealso cref="M:ADCConfigurationCodes" cat="Related"></seealso>
+ <seealso cref="M:FUTEK_USB_DLL.USB_DLL.Get_Type_of_Board(System.IntPtr)" cat="Related"></seealso>
+ <seealso cref="M:FUTEK_USB_DLL.USB_DLL.Get_ADC_Sampling_Rate_Setting(System.IntPtr,System.Byte)" cat="Related"></seealso>
+ <seealso cref="M:FUTEK_USB_DLL.USB_DLL.Get_Firmware_Version(System.IntPtr)" cat="Related"></seealso>
+</member>
+<member name="M:FUTEK_USB_DLL.USB_DLL.Version_of_Board(System.IntPtr)">
+ <summary>
+   Gets the version of board from the USB device.
+ </summary>
+ 
+ <param name="DeviceHandle">
+   Type: <see cref="T:System.IntPtr" /><br />
+   The handle associated with the USB device.
+ </param>
+ 
+ <returns>
+   Type: <see cref="T:System.String" /><br />
+   A value equal to 0; otherwise <strong>Error</strong>
+ </returns>
+ 
+ <remarks>
+ </remarks>
+ 
+ <seealso cref="M:TypeOfBoardCodes" cat="Related"></seealso>
+ <seealso cref="M:FUTEK_USB_DLL.USB_DLL.Get_Type_of_Board(System.IntPtr)" cat="Related"></seealso>
+ <seealso cref="M:FUTEK_USB_DLL.USB_DLL.Get_Hardware_Version(System.IntPtr)" cat="Related"></seealso>
+ <seealso cref="M:FUTEK_USB_DLL.USB_DLL.Get_Firmware_Version(System.IntPtr)" cat="Related"></seealso>
+ <seealso cref="M:FUTEK_USB_DLL.USB_DLL.Get_Firmware_Year(System.IntPtr)" cat="Related"></seealso>
+ <seealso cref="M:FUTEK_USB_DLL.USB_DLL.Get_Firmware_Month(System.IntPtr)" cat="Related"></seealso>
+</member>
+<member name="M:FUTEK_USB_DLL.USB_DLL.Reset_Board(System.IntPtr)">
+ <summary>
+   Resets the microcontroller.
+ </summary>
+ 
+ <param name="DeviceHandle">
+   Type: <see cref="T:System.IntPtr" /><br />
+   The handle associated with the USB device.
+ </param>
+ 
+ <returns>
+   Type: <see cref="T:System.String" /><br />
+   A value equal to 0; otherwise <strong>Error</strong>
+ </returns>
+ 
+ <remarks>
+   This function may take several seconds to respond.
+ </remarks>
+ 
+ <seealso></seealso>
+</member>
+<member name="M:FUTEK_USB_DLL.USB_DLL.Reset_Board2(System.IntPtr)">
+ <summary>
+   Resets the microcontroller.
+ </summary>
+ 
+ <param name="DeviceHandle">
+   Type: <see cref="T:System.IntPtr" /><br />
+   The handle associated with the USB device.
+ </param>
+ 
+ <returns>
+   Type: <see cref="T:System.String" /><br />
+   A value equal to 0; otherwise <strong>Error</strong>
+ </returns>
+ 
+ <remarks>
+   This function may take longer than 10 seconds to respond.
+ </remarks>
+ 
+ <seealso></seealso>
+</member>
+<member name="M:FUTEK_USB_DLL.USB_DLL.Get_Display_Page(System.IntPtr)">
+ <summary>
+   Gets the display page from the USB device.
+ </summary>
+ 
+ <param name="DeviceHandle">
+   Type: <see cref="T:System.IntPtr" /><br />
+   The handle associated with the USB device.
+ </param>
+ 
+ <returns>
+   Type: <see cref="T:System.String" /><br />
+   A value equal to 0; otherwise <strong>Error</strong>
+ </returns>
+ 
+ <remarks>
+   This function assigns a string of data for each line of the LCD to the following properties: <see cref="P:FUTEK_USB_DLL.USB_DLL.LCDLine1" />, <see cref="P:FUTEK_USB_DLL.USB_DLL.LCDLine2" />, <see cref="P:FUTEK_USB_DLL.USB_DLL.LCDLine3" /> and <see cref="P:FUTEK_USB_DLL.USB_DLL.LCDLine4" />.<br />
+   This function assigns a string of data containing all four lines of the LCD to the following property: <see cref="P:FUTEK_USB_DLL.USB_DLL.DisplayPage" />.
+ </remarks>
+ 
+ <seealso></seealso>
+</member>
+<member name="M:FUTEK_USB_DLL.USB_DLL.Get_Internal_Register(System.IntPtr,System.Int32)">
+ <summary>
+   Gets the internal register value stored in the EEPROM of the microcontroller.
+ </summary>
+ 
+ <param name="DeviceHandle">
+   Type: <see cref="T:System.IntPtr" /><br />
+   The handle associated with the USB device.
+ </param>
+ 
+ <param name="Register">
+   Type: <see cref="T:System.Int32" /><br />
+   The internal register associated with the USB device.
+ </param>
+ 
+ <returns>
+   Type: <see cref="T:System.String" /><br />
+   A value greater than or equal to 0 and less than or equal to 16,777,215; otherwise <strong>Error</strong>
+ </returns>
+ 
+ <remarks>
+ </remarks>
+ 
+ <seealso cref="M:InternalRegisterCodes" cat="Related"></seealso>
+ <seealso cref="M:InputEnableFlags" cat="Related"></seealso>
+ <seealso cref="M:OutputEnableFlags" cat="Related"></seealso>
+</member>
+<member name="M:FUTEK_USB_DLL.USB_DLL.Get_Data_Logging(System.IntPtr,System.Int32)">
+ <summary>
+   Gets the data logging value stored in memory and assigns a value to the <see cref="P:FUTEK_USB_DLL.USB_DLL.DataLogging_Counter" />, <see cref="P:FUTEK_USB_DLL.USB_DLL.DataLogging_Value1" /> and <see cref="P:FUTEK_USB_DLL.USB_DLL.DataLogging_Value2" />.
+ </summary>
+ 
+ <param name="DeviceHandle">
+   Type: <see cref="T:System.IntPtr" /><br />
+   The handle associated with the USB device.
+ </param>
+ 
+ <param name="Counter">
+   Type: <see cref="T:System.Int32" /><br />
+   The counter associated with the USB device.
+ </param>
+ 
+ <returns>
+   Type: <see cref="T:System.String" /><br />
+   A value equal to 0; otherwise <strong>Error</strong>
+ </returns>
+ 
+ <remarks>
+ </remarks>
+ 
+ <seealso></seealso>
+</member>
+<member name="M:FUTEK_USB_DLL.USB_DLL.Create_Back_Up(System.IntPtr,System.Int32,System.Int32)">
+ <summary>
+ Create_Back_Up is a Function that is used to Create a Backup in Memory.
+ </summary>
+ <returns>
+ <para>
+ If successful:
+ <para>
+ Return Value = 0
+ <para>
+ <para>
+ If Unsuccessful, the Return Value will be:
+ <para>
+ Return Value = "Error"; An Error occured when attempting Create_Back_Up
+ </para></para></para></para></para>
+ </returns>
+</member>
+<member name="M:FUTEK_USB_DLL.USB_DLL.Restore_Back_Up(System.IntPtr,System.Int32,System.Int32)">
+ <summary>
+ Restore_Back_Up is a Function that is used to Restore the Backup in Memory.
+ </summary>
+ <returns>
+ <para>
+ If successful:
+ <para>
+ Return Value = 0
+ <para>
+ <para>
+ If Unsuccessful, the Return Value will be:
+ <para>
+ Return Value = "Error"; An Error occured when attempting Restore_Back_Up
+ </para></para></para></para></para>
+ </returns>
+</member>
+<member name="M:FUTEK_USB_DLL.USB_DLL.Get_Rotation_Values(System.IntPtr)">
+ <summary>
+ Get_Rotation_Values is a Function that that is used to to get the Angle Value.
+ </summary>
+ <returns>
+ <para>
+ If successful:
+ <para>
+ Return Value = 0
+ <para>
+ <para>
+ If Unsuccessful, the Return Value will be:
+ <para>
+ Return Value = "Error"; An Error occured when attempting to Get_Rotation_Values
+ </para></para></para></para></para>
+ </returns>
+</member>
+<member name="M:FUTEK_USB_DLL.USB_DLL.Get_Device_Count">
+ <summary>
+ Get_Device_Count is a Function that is used to get the USB Device count.  
+ It also assigns a value representing the DeviceStatus of the USB Device.
+ </summary>
+ <remarks>
+ <para>
+ If successful:
+ <para>
+ DeviceStatus = 0;
+ <para>
+ Return Value = The number of USB Devices connected;
+ <para>
+ <para>
+ If Unsuccessful:
+ <para>
+ DeviceStatus = ErrorCode;
+ <para>
+ Return Value = "Error";
+ </para></para></para></para></para></para>
+ </para>
+ </remarks>
+</member>
+<member name="M:FUTEK_USB_DLL.USB_DLL.Get_Device_Serial_Number(System.String)">
+ <summary>
+ Get_Device_Serial_Number is a Function that is used to get the USB Device Serial Number.  
+ It also assigns a value representing the DeviceStatus of the USB Device.
+ </summary>
+ <remarks>
+ <para>
+ If successful:
+ <para>
+ DeviceStatus = 0;
+ <para>
+ Return Value = The Serial Number of the USB Device;
+ <para>
+ <para>
+ If Unsuccessful:
+ <para>
+ DeviceStatus = ErrorCode;
+ <para>
+ Return Value = "Error";
+ </para></para></para></para></para></para>
+ </para>
+ </remarks>
+</member>
+<member name="M:FUTEK_USB_DLL.USB_DLL.Get_Loading_Point(System.IntPtr,System.Int32,System.Byte,System.Int32)">
+ <summary>
+ Get_Loading_Point is a Function that that is used to to get the Loading Point of the USB Device.
+ </summary>
+ <returns>
+ <para>
+ If successful:
+ <para>
+ Return Value = -16777216 to +16777215
+ <para>
+ Return Value = ""; There is no value at that Loading Point
+ <para> 
+ <para>
+ If Unsuccessful, the Return Value will be:
+ <para>
+ Return Value = "Negative Overflow";
+ <para>
+ Return Value = "Positive Overflow";
+ <para>
+ Return Value = "Error"; An Error occured when attempting to Get_Loading_Point
+ </para></para></para></para></para></para>
+ </para></para>
+ </returns>
+</member>
+<member name="M:FUTEK_USB_DLL.USB_DLL.Get_Offset_Load(System.IntPtr,System.Byte)">
+ <summary>
+ Get_Offset_Load is a Function that that is used to to get the Offset Load of the USB Device.
+ </summary>
+ <returns>
+ <para>
+ If successful:
+ <para>
+ Return Value = 0 to 65535
+ <para>
+ <para>
+ If Unsuccessful, the Return Value will be:
+ <para>
+ Return Value = "Error"; An Error occured when attempting to Get_Offset_Load
+ </para></para></para></para></para>
+ </returns>
+</member>
+<member name="M:FUTEK_USB_DLL.USB_DLL.Get_Load_of_Loading_Point(System.IntPtr,System.Int32,System.Byte)">
+ <summary>
+ Get_Load_of_Loading_Point is a Function that that is used to to get the Load of Loading Point of the USB Device.
+ </summary>
+ <returns>
+ <para>
+ If successful:
+ <para>
+ Return Value = 0 to 65535
+ <para>
+ <para>
+ If Unsuccessful, the Return Value will be:
+ <para>
+ Return Value = "Error"; An Error occured when attempting to Get_Load_of_Loading_Point
+ </para></para></para></para></para>
+ </returns>
+</member>
+<member name="M:FUTEK_USB_DLL.USB_DLL.Get_Fullscale_Load(System.IntPtr,System.Byte)">
+ <summary>
+ Get_Fullscale_Load is a Function that that is used to to get the Fullscale Load of the USB Device.
+ </summary>
+ <returns>
+ <para>
+ If successful:
+ <para>
+ Return Value = 0 to 65535
+ <para>
+ <para>
+ If Unsuccessful, the Return Value will be:
+ <para>
+ Return Value = "Error"; An Error occured when attempting to Get_Fullscale_Load
+ </para></para></para></para></para>
+ </returns>
+</member>
+<member name="M:FUTEK_USB_DLL.USB_DLL.Get_Number_of_Loading_Points(System.IntPtr,System.Byte)">
+ <summary>
+ Get_Number_of_Loading_Points is a Function that that is used to to get the Number of Loading Points stored in the USB Device.
+ </summary>
+ <returns>
+ <para>
+ If successful:
+ <para>
+ Return Value = 0 to 255
+ <para>
+ <para>
+ If Unsuccessful, the Return Value will be:
+ <para>
+ Return Value = "Error"; An Error occured when attempting to Get_Number_of_Loading_Points
+ </para></para></para></para></para>
+ </returns>
+</member>
+<member name="M:FUTEK_USB_DLL.USB_DLL.Get_Output_Type(System.IntPtr,System.Byte)">
+ <summary>
+ Get_Output_Type is a Function that returns a value representing 
+ the Sensor Output Type.
+ </summary>
+ <returns>
+ <para>
+ If successful, The Return Value will be:
+ <para>
+ Return Value = Number between 0 and 5;
+ <para>
+ <para>
+ If Unsuccessful, the Return Value will be:
+ <para>
+ Return Value = "Error"; An Error occured when attempting to Get_Output_Type
+ </para></para></para></para></para>
+ </returns>
+</member>
+<member name="M:FUTEK_USB_DLL.USB_DLL.Get_Sensitivity(System.IntPtr,System.Byte)">
+ <summary>
+ Get_Sensitivity is a Function that returns a value representing 
+ the Sensitivity of the USB Device.
+ </summary>
+ <returns>
+ <para>
+ If successful, The Return Value will be:
+ <para>
+ Return Value = Number between 0 and 3;
+ <para>
+ <para>
+ If Unsuccessful, the Return Value will be:
+ <para>
+ Return Value = "Error"; An Error occured when attempting to Get_Sensitivity
+ </para></para></para></para></para>
+ </returns>
+</member>
+<member name="M:FUTEK_USB_DLL.USB_DLL.Get_Bridge_Resistance(System.IntPtr,System.Byte)">
+ <summary>
+ Get_Bridge_Resistance is a Function that returns a value representing 
+ the Bridge Resistance of the USB Device.
+ </summary>
+ <returns>
+ <para>
+ If successful, The Return Value will be:
+ <para>
+ Return Value = Number between 0 and 3;
+ <para>
+ <para>
+ If Unsuccessful, the Return Value will be:
+ <para>
+ Return Value = "Error"; An Error occured when attempting to Get_Bridge_Resistance
+ </para></para></para></para></para>
+ </returns>
+</member>
+<member name="M:FUTEK_USB_DLL.USB_DLL.Get_Baud_Rate(System.IntPtr,System.Byte)">
+ <summary>
+ Get_Baud_Rate is a Function that returns a value representing 
+ the Baud Rate (bits per second).
+ </summary>
+ <returns>
+ <para>
+ If successful, The Return Value will be:
+ <para>
+ Return Value = Number between 0 and 3;
+ <para>
+ <para>
+ If Unsuccessful, the Return Value will be:
+ <para>
+ Return Value = "Error"; An Error occured when attempting to Get_Baud_Rate
+ </para></para></para></para></para>
+ </returns>
+</member>
+<member name="M:FUTEK_USB_DLL.USB_DLL.Get_RS232_Output_Format(System.IntPtr,System.Byte)">
+ <summary>
+ Get_RS232_Output_Format is a Function that returns a value representing 
+ the RS-232 output format.
+ </summary>
+ <returns>
+ <para>
+ If successful, The Return Value will be:
+ <para>
+ Return Value = Number between 0 and 3;
+ <para>
+ <para>
+ If Unsuccessful, the Return Value will be:
+ <para>
+ Return Value = "Error"; An Error occured when attempting to Get_RS232_Output_Format
+ </para></para></para></para></para>
+ </returns>
+</member>
+<member name="M:FUTEK_USB_DLL.USB_DLL.Get_ADC_Configuration(System.Byte,System.Byte)">
+ <summary>
+ Get_ADC_Configuration is a Function that that is used to to get the ADC Configuration of the USB Device.
+ It also assigns a value representing the PGA_Setting and the Sampling_Rate_Setting of the USB Device.
+ </summary>
+ <returns>
+ <para>
+ If successful:
+ <para>
+ PGA_Setting = ADC PGA Setting
+ <para>
+ Sampling_Rate_Setting = ADC Sampling Rate Setting
+ <para>
+ Return Value = "Finished"
+ <para>
+ <para>
+ If Unsuccessful, the Return Value will be:
+ <para>
+ Return Value = "Error"; An Error occured when attempting to Get_ADC_Configuration
+ </para></para></para></para></para></para>
+ </para>
+ </returns>
+</member>
+<member name="M:FUTEK_USB_DLL.USB_DLL.Get_ADC_PGA_Setting(System.IntPtr,System.Byte)">
+ <summary>
+ Get_ADC_PGA_Setting is a Function that returns a value representing 
+ the ADC PGA (Programmable Gain Amplifier) Setting.
+ </summary>
+ <returns>
+ <para>
+ If successful, The Return Value will be:
+ <para>
+ <para>
+ For USB100 and USB200:
+ <para>
+ Return Value = "Error"; There is no PGA Setting for this Type of Board
+ <para>
+ <para>
+ For USB110 and USB210:
+ <para>
+ Return Value = (00H); PGA Setting Gain = 1
+ <para>
+ Return Value = (01H); PGA Setting Gain = 2
+ <para>
+ Return Value = (02H); PGA Setting Gain = 4
+ <para>
+ Return Value = (03H); PGA Setting Gain = 8
+ <para>
+ Return Value = (04H); PGA Setting Gain = 16
+ <para>
+ Return Value = (05H); PGA Setting Gain = 32
+ <para>
+ Return Value = (06H); PGA Setting Gain = 64
+ <para>
+ Return Value = (07H); PGA Setting Gain = 128
+ <para>
+ <para>
+ If Unsuccessful, the Return Value will be:
+ <para>
+ Return Value = "Error"; An Error occured when attempting to Get_ADC_PGA_Setting
+ </para></para></para></para></para></para>
+ </para></para></para></para></para></para>
+ </para></para></para></para></para>
+ </returns>
+</member>
+<member name="M:FUTEK_USB_DLL.USB_DLL.Get_ADC_Sampling_Rate_Setting(System.IntPtr,System.Byte)">
+ <summary>
+ Get_ADC_Sampling_Rate_Setting is a Function that returns a value representing 
+ the ADC Sampling Rate.
+ </summary>
+ <returns>
+ <para>
+ If successful, The Return Value will be:
+ <para>
+ <para>
+ For USB100 and USB200:
+ <para>
+ Return Value = (00H); External Input, 50/60 Hz Rejection, 5 Samples Per Second 
+ <para>
+ Return Value = (01H); External Input, 50/60 Hz Rejection, 10 Samples Per Second 
+ <para>
+ Return Value = (02H); External Input, 50 Hz Rejection, 5 Samples Per Second 
+ <para>
+ Return Value = (03H); External Input, 50 Hz Rejection, 10 Samples Per Second 
+ <para>
+ Return Value = (04H); External Input, 60 Hz Rejection, 5 Samples Per Second 
+ <para>
+ Return Value = (05H); External Input, 60 Hz Rejection, 10 Samples Per Second 
+ <para>
+ Return Value = (06H); Reserved, Do Not Use
+ <para>
+ Return Value = (07H); Reserved, Do Not Use
+ <para>
+ Return Value = (08H); Temperature Input, 50/60 Hz Rejection
+ <para>
+ Return Value = (09H); Reserved, Do Not Use
+ <para>
+ Return Value = (0AH); Temperature Input, 50 Hz Rejection
+ <para>
+ Return Value = (0BH); Reserved, Do Not Use
+ <para>
+ Return Value = (0CH); Temperature Input, 60 Hz Rejection
+ <para>
+ Return Value = (0DH); Reserved, Do Not Use 
+ <para>
+ Return Value = (0EH); Reserved, Do Not Use
+ <para>
+ Return Value = (0FH); Reserved, Do Not Use
+ <para>
+ <para>
+ For USB110 and USB210:
+ <para>
+ Return Value = (00H); 5 Samples Per Second 
+ <para>
+ Return Value = (01H); 10 Samples Per Second 
+ <para>
+ Return Value = (02H); 20 Samples Per Second 
+ <para>
+ Return Value = (03H); 25 Samples Per Second 
+ <para>
+ Return Value = (04H); 30 Samples Per Second 
+ <para>
+ Return Value = (05H); 50 Samples Per Second 
+ <para>
+ Return Value = (06H); 60 Samples Per Second 
+ <para>
+ Return Value = (07H); 80 Samples Per Second 
+ <para>
+ Return Value = (08H); 100 Samples Per Second 
+ <para>
+ Return Value = (09H); 150 Samples Per Second 
+ <para>
+ Return Value = (0AH); 200 Samples Per Second 
+ <para>
+ Return Value = (0BH); 250 Samples Per Second 
+ <para>
+ Return Value = (0CH); 300 Samples Per Second 
+ <para>
+ Return Value = (0DH); 500 Samples Per Second 
+ <para>
+ Return Value = (0EH); 750 Samples Per Second 
+ <para>
+ Return Value = (0FH); 1000 Samples Per Second 
+ <para>
+ <para>
+ For USB220:
+ <para>
+ Return Value = (00H); 5 Samples Per Second 
+ <para>
+ Return Value = (01H); 10 Samples Per Second 
+ <para>
+ Return Value = (02H); 15 Samples Per Second 
+ <para>
+ Return Value = (03H); 20 Samples Per Second 
+ <para>
+ Return Value = (04H); 25 Samples Per Second 
+ <para>
+ Return Value = (05H); 30 Samples Per Second 
+ <para>
+ Return Value = (06H); 50 Samples Per Second 
+ <para>
+ Return Value = (07H); 60 Samples Per Second 
+ <para>
+ Return Value = (08H); 100 Samples Per Second 
+ <para>
+ Return Value = (09H); 300 Samples Per Second 
+ <para>
+ Return Value = (0AH); 600 Samples Per Second 
+ <para>
+ Return Value = (0BH); 960 Samples Per Second 
+ <para>
+ Return Value = (0CH); 1200 Samples Per Second 
+ <para>
+ Return Value = (0DH); 1600 Samples Per Second 
+ <para>
+ Return Value = (0EH); 2400 Samples Per Second 
+ <para>
+ Return Value = (0FH); 4800 Samples Per Second 
+ <para>
+ <para>
+ For USB230:
+ <para>
+ Return Value = (00H); 2.5 Samples Per Second 
+ <para>
+ Return Value = (01H); 5 Samples Per Second 
+ <para>
+ Return Value = (02H); 10 Samples Per Second 
+ <para>
+ Return Value = (03H); 15 Samples Per Second 
+ <para>
+ Return Value = (04H); 25 Samples Per Second 
+ <para>
+ Return Value = (05H); 30 Samples Per Second 
+ <para>
+ Return Value = (06H); 50 Samples Per Second 
+ <para>
+ Return Value = (07H); 60 Samples Per Second 
+ <para>
+ Return Value = (08H); 100 Samples Per Second 
+ <para>
+ Return Value = (09H); 500 Samples Per Second 
+ <para>
+ Return Value = (0AH); 1000 Samples Per Second 
+ <para>
+ Return Value = (0BH); 2000 Samples Per Second 
+ <para>
+ Return Value = (0CH); 3750 Samples Per Second 
+ <para>
+ Return Value = (0DH); 7500 Samples Per Second 
+ <para>
+ Return Value = (0EH); 15000 Samples Per Second 
+ <para>
+ Return Value = (0FH); 30000 Samples Per Second 
+ <para>
+ <para>
+ If Unsuccessful, the Return Value will be:
+ <para>
+ Return Value = "Error"; An Error occured when attempting to Get_ADC_Sampling_Rate_Setting
+ </para></para></para></para></para></para>
+ </para></para></para></para></para></para>
+ </para></para></para></para></para></para>
+ </para></para></para></para></para></para>
+ </para></para></para></para></para></para>
+ </para></para></para></para></para></para>
+ </para></para></para></para></para></para>
+ </para></para></para></para></para></para>
+ </para></para></para></para></para></para>
+ </para></para></para></para></para></para>
+ </para></para></para></para></para></para>
+ </para></para></para></para></para></para>
+ </para></para></para></para>
+ </returns>
+</member>
+<member name="M:FUTEK_USB_DLL.USB_DLL.Get_Sensor_Identification_Number(System.IntPtr,System.Byte)">
+ <summary>
+ Get_Sensor_Identification_Number is a Function that returns a value representing 
+ the Sensor Identification Number of the USB Device.
+ </summary>
+ <returns>
+ <para>
+ If successful, The Return Value will be:
+ <para>
+ Return Value = Number between 0 and 16777215;
+ <para>
+ <para>
+ If Unsuccessful, the Return Value will be:
+ <para>
+ Return Value = "Error"; An Error occured when attempting to Get_Sensor_Identification_Number
+ </para></para></para></para></para>
+ </returns>
+</member>
+<member name="M:FUTEK_USB_DLL.USB_DLL.Get_Unit_Code(System.IntPtr,System.Byte)">
+ <summary>
+ Get_Unit_Code is a Function that returns a value representing 
+ the Unit Code of the USB Device.
+ </summary>
+ <returns>
+ <para>
+ If successful, The Return Value will be:
+ <para>
+ Return Value = Number between 0 and 255;
+ <para>
+ <para>
+ If Unsuccessful, the Return Value will be:
+ <para>
+ Return Value = "Error"; An Error occured when attempting to Get_Unit_Code
+ </para></para></para></para></para>
+ </returns>
+</member>
+<member name="M:FUTEK_USB_DLL.USB_DLL.Get_Direction(System.IntPtr,System.Byte)">
+ <summary>
+ Get_Direction is a Function that returns a value representing 
+ the Direction of the USB Device.
+ </summary>
+ <returns>
+ <para>
+ If successful, The Return Value will be:
+ <para>
+ Return Value = Number between 0 and 255;
+ <para>
+ <para>
+ If Unsuccessful, the Return Value will be:
+ <para>
+ Return Value = "Error"; An Error occured when attempting to Get_Direction
+ </para></para></para></para></para>
+ </returns>
+</member>
+<member name="M:FUTEK_USB_DLL.USB_DLL.Get_Shunt_Value(System.IntPtr,System.Byte)">
+ <summary>
+ Get_Shunt_Value is a Function that returns a value representing 
+ the Absolute Shunt Value of the USB Device.
+ </summary>
+ <returns>
+ <para>
+ If successful, The Return Value will be:
+ <para>
+ Return Value = Number between 0 and 255;
+ <para>
+ <para>
+ If Unsuccessful, the Return Value will be:
+ <para>
+ Return Value = "Error"; An Error occured when attempting to Get_Shunt_Value
+ </para></para></para></para></para>
+ </returns>
+</member>
+<member name="M:FUTEK_USB_DLL.USB_DLL.Get_Decimal_Point(System.IntPtr,System.Byte)">
+ <summary>
+ Get_Decimal_Point is a Function that returns a value representing 
+ the Decimal Point of the USB Device.
+ </summary>
+ <returns>
+ <para>
+ If successful, The Return Value will be:
+ <para>
+ Return Value = Number between 0 and 255;
+ <para>
+ <para>
+ If Unsuccessful, the Return Value will be:
+ <para>
+ Return Value = "Error"; An Error occured when attempting to Get_Decimal_Point
+ </para></para></para></para></para>
+ </returns>
+</member>
+<member name="M:FUTEK_USB_DLL.USB_DLL.Get_Calibration_Code(System.IntPtr,System.Byte)">
+ <summary>
+ Get_Calibration_Code is a Function that returns a value representing 
+ the Calibration Technician used during Calibration of the USB Device.
+ </summary>
+ <returns>
+ <para>
+ If successful, The Return Value will be:
+ <para>
+ Return Value = Number between 0 and 255;
+ <para>
+ <para>
+ If Unsuccessful, the Return Value will be:
+ <para>
+ Return Value = "Error"; An Error occured when attempting to Get_Calibration_Code
+ </para></para></para></para></para>
+ </returns>
+</member>
+<member name="M:FUTEK_USB_DLL.USB_DLL.Get_Calibration_Day(System.IntPtr,System.Byte)">
+ <summary>
+ Get_Calibration_Day is a Function that returns a value representing 
+ the Calibration Day of the USB Device.
+ </summary>
+ <returns>
+ <para>
+ If successful, The Return Value will be:
+ <para>
+ Return Value = Number between 0 and 255;
+ <para>
+ <para>
+ If Unsuccessful, the Return Value will be:
+ <para>
+ Return Value = "Error"; An Error occured when attempting to Get_Calibration_Day
+ </para></para></para></para></para>
+ </returns>
+</member>
+<member name="M:FUTEK_USB_DLL.USB_DLL.Get_Calibration_Month(System.IntPtr,System.Byte)">
+ <summary>
+ Get_Calibration_Month is a Function that returns a value representing 
+ the Calibration Month of the USB Device.
+ </summary>
+ <returns>
+ <para>
+ If successful, The Return Value will be:
+ <para>
+ Return Value = Number between 0 and 255;
+ <para>
+ <para>
+ If Unsuccessful, the Return Value will be:
+ <para>
+ Return Value = "Error"; An Error occured when attempting to Get_Calibration_Month
+ </para></para></para></para></para>
+ </returns>
+</member>
+<member name="M:FUTEK_USB_DLL.USB_DLL.Get_Calibration_Year(System.IntPtr,System.Byte)">
+ <summary>
+ Get_Calibration_Year is a Function that returns a value representing 
+ the Calibration Year of the USB Device.
+ </summary>
+ <returns>
+ <para>
+ If successful, The Return Value will be:
+ <para>
+ Return Value = Number between 0 and 255;
+ <para>
+ <para>
+ If Unsuccessful, the Return Value will be:
+ <para>
+ Return Value = "Error"; An Error occured when attempting to Get_Calibration_Year
+ </para></para></para></para></para>
+ </returns>
+</member>
+<member name="M:FUTEK_USB_DLL.USB_DLL.Get_Pulses_Per_Rotation(System.IntPtr,System.Byte)">
+ <summary>
+ Get_Pulses_Per_Rotation is a Function that returns a value representing 
+ the Pulses Per Rotation of the USB Device.
+ </summary>
+ <returns>
+ <para>
+ If successful, The Return Value will be:
+ <para>
+ Return Value = Number between 0 and 65535;
+ <para>
+ <para>
+ If Unsuccessful, the Return Value will be:
+ <para>
+ Return Value = "Error"; An Error occured when attempting to Get_Pulses_Per_Rotation
+ </para></para></para></para></para>
+ </returns>
+</member>
+<member name="M:FUTEK_USB_DLL.USB_DLL.Get_Voltage_Output(System.IntPtr,System.Byte)">
+ <summary>
+ Get_Voltage_Output is a Function that returns a value representing 
+ the Voltage Output of the USB Device.
+ </summary>
+ <returns>
+ <para>
+ If successful, The Return Value will be:
+ <para>
+ Return Value = Number between 0 and 255;
+ <para>
+ <para>
+ If Unsuccessful, the Return Value will be:
+ <para>
+ Return Value = "Error"; An Error occured when attempting to Get_Voltage_Output
+ </para></para></para></para></para>
+ </returns>
+</member>
+<member name="M:FUTEK_USB_DLL.USB_DLL.Get_CrossTalk(System.IntPtr,System.Byte)">
+ <summary>
+ Get_CrossTalk is a Function that returns a value representing 
+ the CrossTalk of the USB Device.
+ </summary>
+ <returns>
+ <para>
+ If successful, The Return Value will be:
+ <para>
+ Return Value = Number between 0 and 1;
+ <para>
+ <para>
+ If Unsuccessful, the Return Value will be:
+ <para>
+ Return Value = "Error"; An Error occured when attempting to Get_CrossTalk
+ </para></para></para></para></para>
+ </returns>
+</member>
+<member name="M:FUTEK_USB_DLL.USB_DLL.Get_Number_of_Active_Channels(System.IntPtr,System.Byte)">
+ <summary>
+ Get_Number_of_Active_Channels is a Function that returns a value representing 
+ the Number Of Active Channels of the USB Device.
+ </summary>
+ <returns>
+ <para>
+ If successful, The Return Value will be:
+ <para>
+ Return Value = Number between 0 and 3;
+ <para>
+ <para>
+ If Unsuccessful, the Return Value will be:
+ <para>
+ Return Value = "Error"; An Error occured when attempting to Get_Number_of_Active_Channels
+ </para></para></para></para></para>
+ </returns>
+</member>
+<member name="M:FUTEK_USB_DLL.USB_DLL.Get_Type_of_Calibration(System.IntPtr,System.Byte)">
+ <summary>
+ Get_Type_of_Calibration is a Function that returns a value representing 
+ the Type of Calibration of the USB Device.
+ </summary>
+ <returns>
+ <para>
+ If successful, The Return Value will be:
+ <para>
+ Return Value = Number between 0 and 1;
+ <para>
+ <para>
+ If Unsuccessful, the Return Value will be:
+ <para>
+ Return Value = "Error"; An Error occured when attempting to Get_Type_of_Calibration
+ </para></para></para></para></para>
+ </returns>
+</member>
+<member name="M:FUTEK_USB_DLL.USB_DLL.Get_Active_Page_Number(System.IntPtr,System.Byte)">
+ <summary>
+ Get_Active_Page_Number is a Function that returns a value representing 
+ the Active Page Number of the USB Device.
+ </summary>
+ <returns>
+ <para>
+ If successful, The Return Value will be:
+ <para>
+ Return Value = Number between 0 and 7;
+ <para>
+ <para>
+ If Unsuccessful, the Return Value will be:
+ <para>
+ Return Value = "Error"; An Error occured when attempting to Get_Active_Page_Number
+ </para></para></para></para></para>
+ </returns>
+</member>
+<member name="M:FUTEK_USB_DLL.USB_DLL.Get_Channel_Configuration(System.IntPtr,System.Byte)">
+ <summary>
+   Gets the channel configuration stored in the EEPROM of the microcontroller.
+ </summary>
+ 
+ <param name="deviceHandle">
+   Type: <see cref="T:System.IntPtr" /><br />
+   The handle associated with the USB device.
+ </param>
+ 
+ <param name="channelNumber">
+   Type: <see cref="T:System.Byte" /><br />
+   The channel number associated with the USB device.
+ </param>
+ 
+ <returns>
+   Type: <see cref="T:System.String" /><br />
+   A value between 0 and 255; otherwise <strong>Error</strong>
+ </returns>
+ 
+ <remarks>
+ </remarks>
+ 
+ <seealso cref="M:" cat="Related"></seealso>
+</member>
+<member name="M:FUTEK_USB_DLL.USB_DLL.Get_TEDS_Error_Detection(System.IntPtr,System.Byte)">
+ <summary>
+   Gets the TEDS error detection stored in the EEPROM of the microcontroller.
+ </summary>
+ 
+ <param name="deviceHandle">
+   Type: <see cref="T:System.IntPtr" /><br />
+   The handle associated with the USB device.
+ </param>
+ 
+ <param name="channelNumber">
+   Type: <see cref="T:System.Byte" /><br />
+   The channel number associated with the USB device.
+ </param>
+ 
+ <returns>
+   Type: <see cref="T:System.String" /><br />
+   A value between 0 and 1; otherwise <strong>Error</strong>
+ </returns>
+ 
+ <remarks>
+ </remarks>
+ 
+ <seealso cref="M:" cat="Related"></seealso>
+</member>
+<member name="M:FUTEK_USB_DLL.USB_DLL.Get_Active_Sound(System.IntPtr,System.Byte)">
+ <summary>
+   Gets the active sound stored in the EEPROM of the microcontroller.
+ </summary>
+ 
+ <param name="deviceHandle">
+   Type: <see cref="T:System.IntPtr" /><br />
+   The handle associated with the USB device.
+ </param>
+ 
+ <param name="channelNumber">
+   Type: <see cref="T:System.Byte" /><br />
+   The channel number associated with the USB device.
+ </param>
+ 
+ <returns>
+   Type: <see cref="T:System.String" /><br />
+   A value between 0 and 1; otherwise <strong>Error</strong>
+ </returns>
+ 
+ <remarks>
+ </remarks>
+ 
+ <seealso cref="M:" cat="Related"></seealso>
+</member>
+<member name="M:FUTEK_USB_DLL.USB_DLL.Get_Enabled_Channels(System.IntPtr,System.Byte)">
+ <summary>
+   Gets the enabled channels stored in the EEPROM of the microcontroller.
+ </summary>
+ 
+ <param name="deviceHandle">
+   Type: <see cref="T:System.IntPtr" /><br />
+   The handle associated with the USB device.
+ </param>
+ 
+ <param name="channelNumber">
+   Type: <see cref="T:System.Byte" /><br />
+   The channel number associated with the USB device.
+ </param>
+ 
+ <returns>
+   Type: <see cref="T:System.String" /><br />
+   A value between 0 and 15; otherwise <strong>Error</strong>
+ </returns>
+ 
+ <remarks>
+ </remarks>
+ 
+ <seealso cref="M:" cat="Related"></seealso>
+</member>
+<member name="M:FUTEK_USB_DLL.USB_DLL.Get_Destination_MAC_Address(System.IntPtr,System.Byte)">
+ <summary>
+ Get_Destination_MAC_Address is a Function that returns a value representing 
+ the Destination MAC Address of the Device.
+ </summary>
+ <returns>
+ <para>
+ If successful, The Return Value will be:
+ <para>
+ Return Value = 0;
+ <para>
+ <para>
+ If Unsuccessful, the Return Value will be:
+ <para>
+ Return Value = "Error"; An Error occured when attempting to Get_Destination_MAC_Address
+ </para></para></para></para></para>
+ </returns>
+</member>
+<member name="M:FUTEK_USB_DLL.USB_DLL.Get_Destination_IP_Address(System.IntPtr,System.Byte)">
+ <summary>
+ Get_Destination_IP_Address is a Function that returns a value representing 
+ the Destination IP Address of the Device.
+ </summary>
+ <returns>
+ <para>
+ If successful, The Return Value will be:
+ <para>
+ Return Value = 0;
+ <para>
+ <para>
+ If Unsuccessful, the Return Value will be:
+ <para>
+ Return Value = "Error"; An Error occured when attempting to Get_Destination_IP_Address
+ </para></para></para></para></para>
+ </returns>
+</member>
+<member name="M:FUTEK_USB_DLL.USB_DLL.Get_Destination_Port_Number(System.IntPtr,System.Byte)">
+ <summary>
+ Get_Destination_Port_Number is a Function that returns a value representing 
+ the Destination Port Number of the Device.
+ </summary>
+ <returns>
+ <para>
+ If successful, The Return Value will be:
+ <para>
+ Return Value = 0;
+ <para>
+ <para>
+ If Unsuccessful, the Return Value will be:
+ <para>
+ Return Value = "Error"; An Error occured when attempting to Get_Destination_Port_Number
+ </para></para></para></para></para>
+ </returns>
+</member>
+<member name="M:FUTEK_USB_DLL.USB_DLL.Get_Source_MAC_Address(System.IntPtr,System.Byte)">
+ <summary>
+ Get_Source_MAC_Address is a Function that returns a value representing 
+ the Source MAC Address of the Device.
+ </summary>
+ <returns>
+ <para>
+ If successful, The Return Value will be:
+ <para>
+ Return Value = 0;
+ <para>
+ <para>
+ If Unsuccessful, the Return Value will be:
+ <para>
+ Return Value = "Error"; An Error occured when attempting to Get_Source_MAC_Address
+ </para></para></para></para></para>
+ </returns>
+</member>
+<member name="M:FUTEK_USB_DLL.USB_DLL.Get_Source_IP_Address(System.IntPtr,System.Byte)">
+ <summary>
+ Get_Source_IP_Address is a Function that returns a value representing 
+ the Source IP Address of the Device.
+ </summary>
+ <returns>
+ <para>
+ If successful, The Return Value will be:
+ <para>
+ Return Value = 0;
+ <para>
+ <para>
+ If Unsuccessful, the Return Value will be:
+ <para>
+ Return Value = "Error"; An Error occured when attempting to Get_Source_IP_Address
+ </para></para></para></para></para>
+ </returns>
+</member>
+<member name="M:FUTEK_USB_DLL.USB_DLL.Get_Source_Port_Number(System.IntPtr,System.Byte)">
+ <summary>
+ Get_Source_Port_Number is a Function that returns a value representing 
+ the Source Port Number of the Device.
+ </summary>
+ <returns>
+ <para>
+ If successful, The Return Value will be:
+ <para>
+ Return Value = 0;
+ <para>
+ <para>
+ If Unsuccessful, the Return Value will be:
+ <para>
+ Return Value = "Error"; An Error occured when attempting to Get_Source_Port_Number
+ </para></para></para></para></para>
+ </returns>
+</member>
+<member name="M:FUTEK_USB_DLL.USB_DLL.Get_Excitation(System.IntPtr,System.Byte)">
+ <summary>
+ Get_Excitation is a Function that returns a value representing 
+ the Excitation of the Device.
+ </summary>
+ <returns>
+ <para>
+ If successful, The Return Value will be:
+ <para>
+ Return Value = Number between 0 and 255;
+ <para>
+ <para>
+ If Unsuccessful, the Return Value will be:
+ <para>
+ Return Value = "Error"; An Error occured when attempting to Get_Excitation
+ </para></para></para></para></para>
+ </returns>
+</member>
+<member name="M:FUTEK_USB_DLL.USB_DLL.Get_Analog_Voltage_Output(System.IntPtr,System.Byte)">
+ <summary>
+ Get_Analog_Voltage_Output is a Function that returns a value representing 
+ the Analog Voltage Output of the Device.
+ </summary>
+ <returns>
+ <para>
+ If successful, The Return Value will be:
+ <para>
+ Return Value = Number between 0 and 255;
+ <para>
+ <para>
+ If Unsuccessful, the Return Value will be:
+ <para>
+ Return Value = "Error"; An Error occured when attempting to Get_Analog_Voltage_Output
+ </para></para></para></para></para>
+ </returns>
+</member>
+<member name="M:FUTEK_USB_DLL.USB_DLL.Get_Gain_Switch(System.IntPtr,System.Byte)">
+ <summary>
+ Get_Gain_Switch is a Function that returns a value representing 
+ the Gain Switch of the Device.
+ </summary>
+ <returns>
+ <para>
+ If successful, The Return Value will be:
+ <para>
+ Return Value = Number between 0 and 255;
+ <para>
+ <para>
+ If Unsuccessful, the Return Value will be:
+ <para>
+ Return Value = "Error"; An Error occured when attempting to Get_Gain_Switch
+ </para></para></para></para></para>
+ </returns>
+</member>
+<member name="M:FUTEK_USB_DLL.USB_DLL.Get_Polarity(System.IntPtr,System.Byte)">
+ <summary>
+ Get_Polarity is a Function that returns a value representing 
+ the Polarity of the Device.
+ </summary>
+ <returns>
+ <para>
+ If successful, The Return Value will be:
+ <para>
+ Return Value = Number between 0 and 255;
+ <para>
+ <para>
+ If Unsuccessful, the Return Value will be:
+ <para>
+ Return Value = "Error"; An Error occured when attempting to Get_Polarity
+ </para></para></para></para></para>
+ </returns>
+</member>
+<member name="M:FUTEK_USB_DLL.USB_DLL.Get_Shunt_Resistor(System.IntPtr,System.Byte)">
+ <summary>
+ Get_Shunt_Resistor is a Function that returns a value representing 
+ the Shunt Resistor of the Device.
+ </summary>
+ <returns>
+ <para>
+ If successful, The Return Value will be:
+ <para>
+ Return Value = Number between 0 and 255;
+ <para>
+ <para>
+ If Unsuccessful, the Return Value will be:
+ <para>
+ Return Value = "Error"; An Error occured when attempting to Get_Shunt_Resistor
+ </para></para></para></para></para>
+ </returns>
+</member>
+<member name="M:FUTEK_USB_DLL.USB_DLL.Get_Sensor_Sensitivity(System.IntPtr,System.Byte)">
+ <summary>
+ Get_Sensor_Sensitivity is a Function that returns a value representing 
+ the Sensor Sensitivity of the Device.
+ </summary>
+ <returns>
+ <para>
+ If successful, The Return Value will be:
+ <para>
+ Return Value = Number between 0 and 65535;
+ <para>
+ <para>
+ If Unsuccessful, the Return Value will be:
+ <para>
+ Return Value = "Error"; An Error occured when attempting to Get_Sensor_Sensitivity
+ </para></para></para></para></para>
+ </returns>
+</member>
+<member name="M:FUTEK_USB_DLL.USB_DLL.Get_Zero_Potentiometer(System.IntPtr,System.Byte)">
+ <summary>
+ Get_Zero_Potentiometer is a Function that returns a value representing 
+ the Zero Potentiometer of the Device.
+ </summary>
+ <returns>
+ <para>
+ If successful, The Return Value will be:
+ <para>
+ Return Value = Number between 0 and 65535;
+ <para>
+ <para>
+ If Unsuccessful, the Return Value will be:
+ <para>
+ Return Value = "Error"; An Error occured when attempting to Get_Zero_Potentiometer
+ </para></para></para></para></para>
+ </returns>
+</member>
+<member name="M:FUTEK_USB_DLL.USB_DLL.Get_Span_1_Potentiometer(System.IntPtr,System.Byte)">
+ <summary>
+ Get_Span_1_Potentiometer is a Function that returns a value representing 
+ the Span 1 Potentiometer of the Device.
+ </summary>
+ <returns>
+ <para>
+ If successful, The Return Value will be:
+ <para>
+ Return Value = Number between 0 and 65535;
+ <para>
+ <para>
+ If Unsuccessful, the Return Value will be:
+ <para>
+ Return Value = "Error"; An Error occured when attempting to Get_Span_1_Potentiometer
+ </para></para></para></para></para>
+ </returns>
+</member>
+<member name="M:FUTEK_USB_DLL.USB_DLL.Get_Span_2_Potentiometer(System.IntPtr,System.Byte)">
+ <summary>
+ Get_Span_2_Potentiometer is a Function that returns a value representing 
+ the Span 2 Potentiometer of the Device.
+ </summary>
+ <returns>
+ <para>
+ If successful, The Return Value will be:
+ <para>
+ Return Value = Number between 0 and 65535;
+ <para>
+ <para>
+ If Unsuccessful, the Return Value will be:
+ <para>
+ Return Value = "Error"; An Error occured when attempting to Get_Span_2_Potentiometer
+ </para></para></para></para></para>
+ </returns>
+</member>
+<member name="M:FUTEK_USB_DLL.USB_DLL.Get_Average_Setting(System.IntPtr,System.Byte)">
+ <summary>
+ Get_Average_Setting is a Function that returns a value representing 
+ the Average Setting.
+ </summary>
+ <returns>
+ <para>
+ If successful, The Return Value will be:
+ <para>
+ <para>
+ For USB100 and USB200:
+ <para>
+ Return Value = "Error"; There is no Average Setting for this Type of Board
+ <para>
+ <para>
+ For USB110, USB210, USB220, USB230:
+ <para>
+ <para>
+ Averaging Method: Disable Average
+ <para>
+ Return Value = (00H); Number of Samples to Average = 2
+ <para>
+ Return Value = (01H); Number of Samples to Average = 4
+ <para>
+ Return Value = (02H); Number of Samples to Average = 8
+ <para>
+ Return Value = (03H); Number of Samples to Average = 16
+ <para>
+ Return Value = (04H); Number of Samples to Average = 32
+ <para>
+ Return Value = (05H); Number of Samples to Average = 64
+ <para>
+ Return Value = (06H); Number of Samples to Average = 128
+ <para>
+ Return Value = (07H); Number of Samples to Average = 256
+ <para>
+ <para>
+ Averaging Method: Moving Average
+ <para>
+ Return Value = (10H); Number of Samples to Average = 2
+ <para>
+ Return Value = (11H); Number of Samples to Average = 4
+ <para>
+ Return Value = (12H); Number of Samples to Average = 8
+ <para>
+ Return Value = (13H); Number of Samples to Average = 16
+ <para>
+ Return Value = (14H); Number of Samples to Average = 32
+ <para>
+ Return Value = (15H); Number of Samples to Average = 64
+ <para>
+ Return Value = (16H); Number of Samples to Average = 128
+ <para>
+ Return Value = (17H); Number of Samples to Average = 256
+ <para>
+ <para>
+ Averaging Method: Mean Average
+ <para>
+ Return Value = (20H); Number of Samples to Average = 2
+ <para>
+ Return Value = (21H); Number of Samples to Average = 4
+ <para>
+ Return Value = (22H); Number of Samples to Average = 8
+ <para>
+ Return Value = (23H); Number of Samples to Average = 16
+ <para>
+ Return Value = (24H); Number of Samples to Average = 32
+ <para>
+ Return Value = (25H); Number of Samples to Average = 64
+ <para>
+ Return Value = (26H); Number of Samples to Average = 128
+ <para>
+ Return Value = (27H); Number of Samples to Average = 256
+ <para>
+ <para>
+ If Unsuccessful, the Return Value will be:
+ <para>
+ Return Value = "Error"; An Error occured when attempting to Get_Average_Setting
+ </para></para></para></para></para></para>
+ </para></para></para></para></para></para>
+ </para></para></para></para></para></para>
+ </para></para></para></para></para></para>
+ </para></para></para></para></para></para>
+ </para></para></para></para></para></para>
+ </para></para></para>
+ </returns>
+</member>
+<member name="M:FUTEK_USB_DLL.USB_DLL.Get_Version_of_Board(System.IntPtr)">
+ <summary>
+ <c>Get_Version_of_Board</c> is used to get the Version of Board information from the USB device.
+ This subroutine will assign a value to the 
+ <see cref="F:FUTEK_USB_DLL.USB_DLL.Type_of_Board_Setting"/>,
+ <see cref="F:FUTEK_USB_DLL.USB_DLL.Hardware_Version_Setting"/>,
+ <see cref="F:FUTEK_USB_DLL.USB_DLL.Firmware_Version_Setting"/>,
+ <see cref="F:FUTEK_USB_DLL.USB_DLL.Firmware_Year_Setting"/> and the 
+ <see cref="F:FUTEK_USB_DLL.USB_DLL.Firmware_Month_Setting"/>.
+ These settings will be required for subsequent use with many of the other commands.
+ </summary>
+ <param name="DeviceHandle">Used to indicate the handle associated with the device.</param>
+ <remarks>
+ If successful:
+ <list type="table">
+ <item><description><para>Type_of_Board_Setting = The Type of Board assigned to the device</para></description></item>
+ <item><description><para>Hardware_Version_Setting = The Hardware Version assigned to the device</para></description></item>
+ <item><description><para>Firmware_Version_Setting = The Firmware Version assigned to the device</para></description></item>
+ <item><description><para>Firmware_Year_Setting = The Firmware Year assigned to the device</para></description></item>
+ <item><description><para>Firmware_Month_Setting = The Firmware Month assigned to the device</para></description></item>
+ </list>
+ <para>&#160;</para>
+ If Unsuccessful:
+ <list type="table">
+ <item><description><para>Type_of_Board_Setting = "Error"</para></description></item>
+ <item><description><para>Hardware_Version_Setting = "Error"</para></description></item>
+ <item><description><para>Firmware_Version_Setting = "Error"</para></description></item>
+ <item><description><para>Firmware_Year_Setting = "Error"</para></description></item>
+ <item><description><para>Firmware_Month_Setting = "Error"</para></description></item>
+ </list>
+ <para>&#160;</para>
+ </remarks>
+ <author>FUTEK Advanced Sensor Technology, Inc.</author>
+</member>
+<member name="M:FUTEK_USB_DLL.USB_DLL.Get_Type_of_Board(System.IntPtr)">
+ <summary>
+ Get_Type_of_Board is a Function that returns a value representing 
+ the Type of Board (FUTEK Model Number) of the USB Device.
+ </summary>
+ <returns>
+ <para>
+ If successful, The Return Value will be:
+ <para>
+ Return Value = (00H); The Type of Board is "USB100"
+ <para>
+ Return Value = (01H); The Type of Board is "USB110"
+ <para>
+ Return Value = (02H); The Type of Board is "USB210"
+ <para>
+ Return Value = (03H); The Type of Board is "USB220"
+ <para>
+ Return Value = (04H); The Type of Board is "USB230"
+ <para>
+ Return Value = (05H to FFH); The Type of Board is an "Unknown Type of Board"
+ <para>
+ <para>
+ If Unsuccessful, the Return Value will be:
+ <para>
+ Return Value = "Error"; An Error occured when attempting to Get_Type_of_Board
+ </para></para></para></para></para></para>
+ </para></para></para></para>
+ </returns>
+</member>
+<member name="M:FUTEK_USB_DLL.USB_DLL.Get_Hardware_Version(System.IntPtr)">
+ <summary>
+ Get_Hardware_Version is a Function that returns a value representing 
+ the Hardware Version of the USB Device.
+ </summary>
+ <returns>
+ <para>
+ If successful, The Return Value will be:
+ <para>
+ Return Value = (00H to FFH);
+ <para>
+ <para>
+ If Unsuccessful, the Return Value will be:
+ <para>
+ Return Value = "Error"; An Error occured when attempting to Get_Hardware_Version
+ </para></para></para></para></para>
+ </returns>
+</member>
+<member name="M:FUTEK_USB_DLL.USB_DLL.Get_Firmware_Version(System.IntPtr)">
+ <summary>
+ Get_Firmware_Version is a Function that returns a value representing 
+ the Firmware Version of the USB Device.
+ </summary>
+ <returns>
+ <para>
+ If successful, The Return Value will be:
+ <para>
+ Return Value = (00H to FFH);
+ <para>
+ <para>
+ If Unsuccessful, the Return Value will be:
+ <para>
+ Return Value = "Error"; An Error occured when attempting to Get_Firmware_Version
+ </para></para></para></para></para>
+ </returns>
+</member>
+<member name="M:FUTEK_USB_DLL.USB_DLL.Get_Firmware_Year(System.IntPtr)">
+ <summary>
+ Get_Firmware_Year is a Function that returns a value representing 
+ the Year that the Firmware was created.
+ </summary>
+ <returns>
+ <para>
+ If successful, The Return Value will be:
+ <para>
+ Return Value = (00H); The Year is 2000
+ <para>
+ Return Value = (01H); The Year is 2001
+ <para>
+ Return Value = (02H); The Year is 2002
+ <para>
+ Return Value = (03H); The Year is 2003
+ <para>
+ Return Value = (04H); The Year is 2004
+ <para>
+ Return Value = (05H); The Year is 2005
+ <para>
+ Return Value = (06H); The Year is 2006
+ <para>
+ Return Value = (07H); The Year is 2007
+ <para>
+ Return Value = (08H); The Year is 2008
+ <para>
+ Return Value = (09H); The Year is 2009
+ <para>
+ Return Value = (0AH); The Year is 2010
+ <para>
+ Return Value = (0BH); The Year is 2011
+ <para>
+ Return Value = (0CH); The Year is 2012
+ <para>
+ Return Value = (0DH); The Year is 2013
+ <para>
+ Return Value = (0EH); The Year is 2014
+ <para>
+ Return Value = (0FH); The Year is 2015
+ <para>
+ <para>
+ If Unsuccessful, the Return Value will be:
+ <para>
+ Return Value = "Error"; An Error occured when attempting to Get_Firmware_Year
+ </para></para></para></para></para></para>
+ </para></para></para></para></para></para>
+ </para></para></para></para></para></para>
+ </para></para>
+ </returns>
+</member>
+<member name="M:FUTEK_USB_DLL.USB_DLL.Get_Firmware_Month(System.IntPtr)">
+ <summary>
+ Get_Firmware_Month is a Function that returns a value representing 
+ the Month that the Firmware was created.
+ </summary>
+ <returns>
+ <para>
+ If successful, The Return Value will be:
+ <para>
+ Return Value = (00H); The Month is Invalid
+ <para>
+ Return Value = (01H); The Month is January
+ <para>
+ Return Value = (02H); The Month is February
+ <para>
+ Return Value = (03H); The Month is March
+ <para>
+ Return Value = (04H); The Month is April
+ <para>
+ Return Value = (05H); The Month is May
+ <para>
+ Return Value = (06H); The Month is June
+ <para>
+ Return Value = (07H); The Month is July
+ <para>
+ Return Value = (08H); The Month is August
+ <para>
+ Return Value = (09H); The Month is September
+ <para>
+ Return Value = (0AH); The Month is October
+ <para>
+ Return Value = (0BH); The Month is November
+ <para>
+ Return Value = (0CH); The Month is December
+ <para>
+ Return Value = (0DH); The Month is Invalid
+ <para>
+ Return Value = (0EH); The Month is Invalid
+ <para>
+ Return Value = (0FH); The Month is Invalid
+ <para>
+ <para>
+ If Unsuccessful, the Return Value will be:
+ <para>
+ Return Value = "Error"; An Error occured when attempting to Get_Firmware_Month
+ </para></para></para></para></para></para>
+ </para></para></para></para></para></para>
+ </para></para></para></para></para></para>
+ </para></para>
+ </returns>
+</member>
+<member name="M:FUTEK_USB_DLL.USB_DLL.Change_Battery_Enter(System.IntPtr)">
+ <summary>
+   Controls the "Battery / Enter" button on the keypad of the IHH500.<br />
+   Controls the "Channel / Enter" button on the keypad of the IPM650.
+ </summary>
+ 
+ <param name="DeviceHandle">
+   Type: <see cref="T:System.IntPtr" /><br />
+   The handle associated with the USB device.
+ </param>
+ 
+ <returns>
+   Type: <see cref="T:System.String" /><br />
+   A value equal to 0; otherwise <strong>Error</strong>
+ </returns>
+ 
+ <remarks>
+   This function can be used to remotely control the instrument from a computer.<br />
+   The instrument will behave as if the actual button on the keypad were pressed.
+ </remarks>
+ 
+ <seealso cref="M:FUTEK_USB_DLL.USB_DLL.Change_Battery_Enter(System.IntPtr)" cat="Related"></seealso>
+ <seealso cref="M:FUTEK_USB_DLL.USB_DLL.Change_Tare_Up(System.IntPtr)" cat="Related"></seealso>
+ <seealso cref="M:FUTEK_USB_DLL.USB_DLL.Change_Display_Back(System.IntPtr)" cat="Related"></seealso>
+ <seealso cref="M:FUTEK_USB_DLL.USB_DLL.Change_Reset_Left(System.IntPtr)" cat="Related"></seealso>
+ <seealso cref="M:FUTEK_USB_DLL.USB_DLL.Change_Menu(System.IntPtr)" cat="Related"></seealso>
+ <seealso cref="M:FUTEK_USB_DLL.USB_DLL.Change_Unit_Right(System.IntPtr)" cat="Related"></seealso>
+ <seealso cref="M:FUTEK_USB_DLL.USB_DLL.Change_Shunt_Exit(System.IntPtr)" cat="Related"></seealso>
+ <seealso cref="M:FUTEK_USB_DLL.USB_DLL.Change_Hold_Down(System.IntPtr)" cat="Related"></seealso>
+</member>
+<member name="M:FUTEK_USB_DLL.USB_DLL.Change_Tare_Up(System.IntPtr)">
+ <summary>
+   Controls the "Tare / Up" button on the keypad of the IHH500 or IPM650.
+ </summary>
+ 
+ <param name="DeviceHandle">
+   Type: <see cref="T:System.IntPtr" /><br />
+   The handle associated with the USB device.
+ </param>
+ 
+ <returns>
+   Type: <see cref="T:System.String" /><br />
+   A value equal to 0; otherwise <strong>Error</strong>
+ </returns>
+ 
+ <remarks>
+   This function can be used to remotely control the instrument from a computer.<br />
+   The instrument will behave as if the actual button on the keypad were pressed.
+ </remarks>
+ 
+ <seealso cref="M:FUTEK_USB_DLL.USB_DLL.Change_Battery_Enter(System.IntPtr)" cat="Related"></seealso>
+ <seealso cref="M:FUTEK_USB_DLL.USB_DLL.Change_Tare_Up(System.IntPtr)" cat="Related"></seealso>
+ <seealso cref="M:FUTEK_USB_DLL.USB_DLL.Change_Display_Back(System.IntPtr)" cat="Related"></seealso>
+ <seealso cref="M:FUTEK_USB_DLL.USB_DLL.Change_Reset_Left(System.IntPtr)" cat="Related"></seealso>
+ <seealso cref="M:FUTEK_USB_DLL.USB_DLL.Change_Menu(System.IntPtr)" cat="Related"></seealso>
+ <seealso cref="M:FUTEK_USB_DLL.USB_DLL.Change_Unit_Right(System.IntPtr)" cat="Related"></seealso>
+ <seealso cref="M:FUTEK_USB_DLL.USB_DLL.Change_Shunt_Exit(System.IntPtr)" cat="Related"></seealso>
+ <seealso cref="M:FUTEK_USB_DLL.USB_DLL.Change_Hold_Down(System.IntPtr)" cat="Related"></seealso>
+</member>
+<member name="M:FUTEK_USB_DLL.USB_DLL.Change_Display_Back(System.IntPtr)">
+ <summary>
+   Controls the "Display / Back" button on the keypad of the IHH500 or IPM650.
+ </summary>
+ 
+ <param name="DeviceHandle">
+   Type: <see cref="T:System.IntPtr" /><br />
+   The handle associated with the USB device.
+ </param>
+ 
+ <returns>
+   Type: <see cref="T:System.String" /><br />
+   A value equal to 0; otherwise <strong>Error</strong>
+ </returns>
+ 
+ <remarks>
+   This function can be used to remotely control the instrument from a computer.<br />
+   The instrument will behave as if the actual button on the keypad were pressed.
+ </remarks>
+ 
+ <seealso cref="M:FUTEK_USB_DLL.USB_DLL.Change_Battery_Enter(System.IntPtr)" cat="Related"></seealso>
+ <seealso cref="M:FUTEK_USB_DLL.USB_DLL.Change_Tare_Up(System.IntPtr)" cat="Related"></seealso>
+ <seealso cref="M:FUTEK_USB_DLL.USB_DLL.Change_Display_Back(System.IntPtr)" cat="Related"></seealso>
+ <seealso cref="M:FUTEK_USB_DLL.USB_DLL.Change_Reset_Left(System.IntPtr)" cat="Related"></seealso>
+ <seealso cref="M:FUTEK_USB_DLL.USB_DLL.Change_Menu(System.IntPtr)" cat="Related"></seealso>
+ <seealso cref="M:FUTEK_USB_DLL.USB_DLL.Change_Unit_Right(System.IntPtr)" cat="Related"></seealso>
+ <seealso cref="M:FUTEK_USB_DLL.USB_DLL.Change_Shunt_Exit(System.IntPtr)" cat="Related"></seealso>
+ <seealso cref="M:FUTEK_USB_DLL.USB_DLL.Change_Hold_Down(System.IntPtr)" cat="Related"></seealso>
+</member>
+<member name="M:FUTEK_USB_DLL.USB_DLL.Change_Reset_Left(System.IntPtr)">
+ <summary>
+   Controls the "Reset / Left" button on the keypad of the IHH500 or IPM650.
+ </summary>
+ 
+ <param name="DeviceHandle">
+   Type: <see cref="T:System.IntPtr" /><br />
+   The handle associated with the USB device.
+ </param>
+ 
+ <returns>
+   Type: <see cref="T:System.String" /><br />
+   A value equal to 0; otherwise <strong>Error</strong>
+ </returns>
+ 
+ <remarks>
+   This function can be used to remotely control the instrument from a computer.<br />
+   The instrument will behave as if the actual button on the keypad were pressed.
+ </remarks>
+ 
+ <seealso cref="M:FUTEK_USB_DLL.USB_DLL.Change_Battery_Enter(System.IntPtr)" cat="Related"></seealso>
+ <seealso cref="M:FUTEK_USB_DLL.USB_DLL.Change_Tare_Up(System.IntPtr)" cat="Related"></seealso>
+ <seealso cref="M:FUTEK_USB_DLL.USB_DLL.Change_Display_Back(System.IntPtr)" cat="Related"></seealso>
+ <seealso cref="M:FUTEK_USB_DLL.USB_DLL.Change_Reset_Left(System.IntPtr)" cat="Related"></seealso>
+ <seealso cref="M:FUTEK_USB_DLL.USB_DLL.Change_Menu(System.IntPtr)" cat="Related"></seealso>
+ <seealso cref="M:FUTEK_USB_DLL.USB_DLL.Change_Unit_Right(System.IntPtr)" cat="Related"></seealso>
+ <seealso cref="M:FUTEK_USB_DLL.USB_DLL.Change_Shunt_Exit(System.IntPtr)" cat="Related"></seealso>
+ <seealso cref="M:FUTEK_USB_DLL.USB_DLL.Change_Hold_Down(System.IntPtr)" cat="Related"></seealso>
+</member>
+<member name="M:FUTEK_USB_DLL.USB_DLL.Change_Menu(System.IntPtr)">
+ <summary>
+   Controls the "Menu" button on the keypad of the IHH500 or IPM650.
+ </summary>
+ 
+ <param name="DeviceHandle">
+   Type: <see cref="T:System.IntPtr" /><br />
+   The handle associated with the USB device.
+ </param>
+ 
+ <returns>
+   Type: <see cref="T:System.String" /><br />
+   A value equal to 0; otherwise <strong>Error</strong>
+ </returns>
+ 
+ <remarks>
+   This function can be used to remotely control the instrument from a computer.<br />
+   The instrument will behave as if the actual button on the keypad were pressed.
+ </remarks>
+ 
+ <seealso cref="M:FUTEK_USB_DLL.USB_DLL.Change_Battery_Enter(System.IntPtr)" cat="Related"></seealso>
+ <seealso cref="M:FUTEK_USB_DLL.USB_DLL.Change_Tare_Up(System.IntPtr)" cat="Related"></seealso>
+ <seealso cref="M:FUTEK_USB_DLL.USB_DLL.Change_Display_Back(System.IntPtr)" cat="Related"></seealso>
+ <seealso cref="M:FUTEK_USB_DLL.USB_DLL.Change_Reset_Left(System.IntPtr)" cat="Related"></seealso>
+ <seealso cref="M:FUTEK_USB_DLL.USB_DLL.Change_Menu(System.IntPtr)" cat="Related"></seealso>
+ <seealso cref="M:FUTEK_USB_DLL.USB_DLL.Change_Unit_Right(System.IntPtr)" cat="Related"></seealso>
+ <seealso cref="M:FUTEK_USB_DLL.USB_DLL.Change_Shunt_Exit(System.IntPtr)" cat="Related"></seealso>
+ <seealso cref="M:FUTEK_USB_DLL.USB_DLL.Change_Hold_Down(System.IntPtr)" cat="Related"></seealso>
+</member>
+<member name="M:FUTEK_USB_DLL.USB_DLL.Change_Unit_Right(System.IntPtr)">
+ <summary>
+   Controls the "Unit / Right" button on the keypad of the IHH500 or IPM650.
+ </summary>
+ 
+ <param name="DeviceHandle">
+   Type: <see cref="T:System.IntPtr" /><br />
+   The handle associated with the USB device.
+ </param>
+ 
+ <returns>
+   Type: <see cref="T:System.String" /><br />
+   A value equal to 0; otherwise <strong>Error</strong>
+ </returns>
+ 
+ <remarks>
+   This function can be used to remotely control the instrument from a computer.<br />
+   The instrument will behave as if the actual button on the keypad were pressed.
+ </remarks>
+ 
+ <seealso cref="M:FUTEK_USB_DLL.USB_DLL.Change_Battery_Enter(System.IntPtr)" cat="Related"></seealso>
+ <seealso cref="M:FUTEK_USB_DLL.USB_DLL.Change_Tare_Up(System.IntPtr)" cat="Related"></seealso>
+ <seealso cref="M:FUTEK_USB_DLL.USB_DLL.Change_Display_Back(System.IntPtr)" cat="Related"></seealso>
+ <seealso cref="M:FUTEK_USB_DLL.USB_DLL.Change_Reset_Left(System.IntPtr)" cat="Related"></seealso>
+ <seealso cref="M:FUTEK_USB_DLL.USB_DLL.Change_Menu(System.IntPtr)" cat="Related"></seealso>
+ <seealso cref="M:FUTEK_USB_DLL.USB_DLL.Change_Unit_Right(System.IntPtr)" cat="Related"></seealso>
+ <seealso cref="M:FUTEK_USB_DLL.USB_DLL.Change_Shunt_Exit(System.IntPtr)" cat="Related"></seealso>
+ <seealso cref="M:FUTEK_USB_DLL.USB_DLL.Change_Hold_Down(System.IntPtr)" cat="Related"></seealso>
+</member>
+<member name="M:FUTEK_USB_DLL.USB_DLL.Change_Shunt_Exit(System.IntPtr)">
+ <summary>
+   Controls the "Shunt / Exit" button on the keypad of the IHH500 or IPM650.
+ </summary>
+ 
+ <param name="DeviceHandle">
+   Type: <see cref="T:System.IntPtr" /><br />
+   The handle associated with the USB device.
+ </param>
+ 
+ <returns>
+   Type: <see cref="T:System.String" /><br />
+   A value equal to 0; otherwise <strong>Error</strong>
+ </returns>
+ 
+ <remarks>
+   This function can be used to remotely control the instrument from a computer.<br />
+   The instrument will behave as if the actual button on the keypad were pressed.
+ </remarks>
+ 
+ <seealso cref="M:FUTEK_USB_DLL.USB_DLL.Change_Battery_Enter(System.IntPtr)" cat="Related"></seealso>
+ <seealso cref="M:FUTEK_USB_DLL.USB_DLL.Change_Tare_Up(System.IntPtr)" cat="Related"></seealso>
+ <seealso cref="M:FUTEK_USB_DLL.USB_DLL.Change_Display_Back(System.IntPtr)" cat="Related"></seealso>
+ <seealso cref="M:FUTEK_USB_DLL.USB_DLL.Change_Reset_Left(System.IntPtr)" cat="Related"></seealso>
+ <seealso cref="M:FUTEK_USB_DLL.USB_DLL.Change_Menu(System.IntPtr)" cat="Related"></seealso>
+ <seealso cref="M:FUTEK_USB_DLL.USB_DLL.Change_Unit_Right(System.IntPtr)" cat="Related"></seealso>
+ <seealso cref="M:FUTEK_USB_DLL.USB_DLL.Change_Shunt_Exit(System.IntPtr)" cat="Related"></seealso>
+ <seealso cref="M:FUTEK_USB_DLL.USB_DLL.Change_Hold_Down(System.IntPtr)" cat="Related"></seealso>
+</member>
+<member name="M:FUTEK_USB_DLL.USB_DLL.Change_Hold_Down(System.IntPtr)">
+ <summary>
+   Controls the "Hold / Down" button on the keypad of the IHH500 or IPM650.
+ </summary>
+ 
+ <param name="DeviceHandle">
+   Type: <see cref="T:System.IntPtr" /><br />
+   The handle associated with the USB device.
+ </param>
+ 
+ <returns>
+   Type: <see cref="T:System.String" /><br />
+   A value equal to 0; otherwise <strong>Error</strong>
+ </returns>
+ 
+ <remarks>
+   This function can be used to remotely control the instrument from a computer.<br />
+   The instrument will behave as if the actual button on the keypad were pressed.
+ </remarks>
+ 
+ <seealso cref="M:FUTEK_USB_DLL.USB_DLL.Change_Battery_Enter(System.IntPtr)" cat="Related"></seealso>
+ <seealso cref="M:FUTEK_USB_DLL.USB_DLL.Change_Tare_Up(System.IntPtr)" cat="Related"></seealso>
+ <seealso cref="M:FUTEK_USB_DLL.USB_DLL.Change_Display_Back(System.IntPtr)" cat="Related"></seealso>
+ <seealso cref="M:FUTEK_USB_DLL.USB_DLL.Change_Reset_Left(System.IntPtr)" cat="Related"></seealso>
+ <seealso cref="M:FUTEK_USB_DLL.USB_DLL.Change_Menu(System.IntPtr)" cat="Related"></seealso>
+ <seealso cref="M:FUTEK_USB_DLL.USB_DLL.Change_Unit_Right(System.IntPtr)" cat="Related"></seealso>
+ <seealso cref="M:FUTEK_USB_DLL.USB_DLL.Change_Shunt_Exit(System.IntPtr)" cat="Related"></seealso>
+ <seealso cref="M:FUTEK_USB_DLL.USB_DLL.Change_Hold_Down(System.IntPtr)" cat="Related"></seealso>
+</member>
+<member name="M:FUTEK_USB_DLL.USB_DLL.Read_Memory_Register(System.IntPtr,System.Byte)">
+ <summary>
+   Reads from the microcontroller's memory register.
+ </summary>
+ 
+ <param name="DeviceHandle">
+   Type: <see cref="T:System.IntPtr" /><br />
+   The handle associated with the USB device.
+ </param>
+ 
+ <param name="Address">
+   Type: <see cref="T:System.Byte" /><br />
+   The address associated with the memory register.
+ </param>
+ 
+ <returns>
+   Type: <see cref="T:System.String" /><br />
+   A value between to 0 and 255; otherwise <strong>Error</strong>
+ </returns>
+ 
+ <remarks>
+ </remarks>
+ 
+ <seealso cref="M:FUTEK_USB_DLL.USB_DLL.Write_Memory_Register(System.IntPtr,System.Byte,System.Byte)" cat="Related"></seealso>
+</member>
+<member name="M:FUTEK_USB_DLL.USB_DLL.Write_Memory_Register(System.IntPtr,System.Byte,System.Byte)">
+ <summary>
+   Writes to the microcontroller's memory register.  
+ </summary>
+ 
+ <param name="DeviceHandle">
+   Type: <see cref="T:System.IntPtr" /><br />
+   The handle associated with the USB device.
+ </param>
+ 
+ <param name="Address">
+   Type: <see cref="T:System.Byte" /><br />
+   The address associated with the memory register.
+ </param>
+ 
+ <param name="Data">
+   Type: <see cref="T:System.Byte" /><br />
+   The data associated with the memory register.
+ </param>
+ 
+ <returns>
+   Type: <see cref="T:System.String" /><br />
+   A value equal to 0; otherwise <strong>Error</strong>
+ </returns>
+ 
+ <remarks>
+ </remarks>
+ 
+ <seealso cref="M:FUTEK_USB_DLL.USB_DLL.Read_Memory_Register(System.IntPtr,System.Byte)" cat="Related"></seealso>
+</member>
+<member name="M:FUTEK_USB_DLL.USB_DLL.Read_EEPROM_Register(System.IntPtr,System.Byte)">
+ <summary>
+   Reads from the microcontroller's EEPROM register.
+ </summary>
+ 
+ <param name="DeviceHandle">
+   Type: <see cref="T:System.IntPtr" /><br />
+   The handle associated with the USB device.
+ </param>
+ 
+ <param name="Address">
+   Type: <see cref="T:System.Byte" /><br />
+   The address associated with the EEPROM register.
+ </param>
+ 
+ <returns>
+   Type: <see cref="T:System.String" /><br />
+   A value between to 0 and 65,535; otherwise <strong>Error</strong>
+ </returns>
+ 
+ <remarks>
+ </remarks>
+ 
+ <seealso cref="M:EEPROMRegisters" cat="Related"></seealso>
+ <seealso cref="M:FUTEK_USB_DLL.USB_DLL.Write_EEPROM_Register(System.IntPtr,System.Byte,System.Byte,System.Byte)" cat="Related"></seealso>
+</member>
+<member name="M:FUTEK_USB_DLL.USB_DLL.Write_EEPROM_Register(System.IntPtr,System.Byte,System.Byte,System.Byte)">
+ <summary>
+   Writes to the microcontroller's EEPROM register.  
+ </summary>
+ 
+ <param name="DeviceHandle">
+   Type: <see cref="T:System.IntPtr" /><br />
+   The handle associated with the USB device.
+ </param>
+ 
+ <param name="Address">
+   Type: <see cref="T:System.Byte" /><br />
+   The address associated with the EEPROM register.
+ </param>
+ 
+ <param name="HighByte">
+   Type: <see cref="T:System.Byte" /><br />
+   The high byte of data to assign the EEPROM register.
+ </param>
+ 
+ <param name="LowByte">
+   Type: <see cref="T:System.Byte" /><br />
+   The low byte of data to assign the EEPROM register.
+ </param>
+ 
+ <returns>
+   Type: <see cref="T:System.String" /><br />
+   A value equal to 0; otherwise <strong>Error</strong>
+ </returns>
+ 
+ <remarks>
+ </remarks>
+ 
+ <seealso cref="M:EEPROMRegisters" cat="Related"></seealso>
+ <seealso cref="M:FUTEK_USB_DLL.USB_DLL.Read_EEPROM_Register(System.IntPtr,System.Byte)" cat="Related"></seealso>
+</member>
+<member name="M:FUTEK_USB_DLL.USB_DLL.Read_TEDS_Register(System.IntPtr,System.Byte,System.Byte)">
+ <summary>
+   Reads from the Transducer Electronic Data Sheet (TEDS) register.  
+ </summary>
+ 
+ <param name="DeviceHandle">
+   Type: <see cref="T:System.IntPtr" /><br />
+   The handle associated with the USB device.
+ </param>
+ 
+ <param name="HighAddress">
+   Type: <see cref="T:System.Byte" /><br />
+   The high byte of the address associated with the TEDS register.
+ </param>
+ 
+ <param name="LowAddress">
+   Type: <see cref="T:System.Byte" /><br />
+   The low byte of the address associated with the TEDS register.
+ </param>
+ 
+ <returns>
+   Type: <see cref="T:System.String" /><br />
+   A value between to 0 and 255; otherwise <strong>Error</strong>
+ </returns>
+ 
+ <remarks>
+ </remarks>
+ 
+ <seealso cref="M:FUTEK_USB_DLL.USB_DLL.Write_TEDS_Register(System.IntPtr,System.Byte,System.Byte,System.Byte)" cat="Related"></seealso>
+</member>
+<member name="M:FUTEK_USB_DLL.USB_DLL.Write_TEDS_Register(System.IntPtr,System.Byte,System.Byte,System.Byte)">
+ <summary>
+   Writes to the Transducer Electronic Data Sheet (TEDS) register.  
+ </summary>
+ 
+ <param name="DeviceHandle">
+   Type: <see cref="T:System.IntPtr" /><br />
+   The handle associated with the USB device.
+ </param>
+ 
+ <param name="HighAddress">
+   Type: <see cref="T:System.Byte" /><br />
+   The high byte of the address associated with the TEDS register.
+ </param>
+ 
+ <param name="LowAddress">
+   Type: <see cref="T:System.Byte" /><br />
+   The low byte of the address associated with the TEDS register.
+ </param>
+ 
+ <param name="Data">
+   Type: <see cref="T:System.Byte" /><br />
+   The data to assign the TEDS register.
+ </param>
+ 
+ <returns>
+   Type: <see cref="T:System.String" /><br />
+   A value equal to 0; otherwise <strong>Error</strong>
+ </returns>
+ 
+ <remarks>
+ </remarks>
+ 
+ <seealso cref="M:FUTEK_USB_DLL.USB_DLL.Read_TEDS_Register(System.IntPtr,System.Byte,System.Byte)" cat="Related"></seealso>
+</member>
+<member name="M:FUTEK_USB_DLL.USB_DLL.Read_Channel_Register(System.IntPtr,System.Byte,System.Byte)">
+ <summary>
+   Reads from the microcontroller's channel register.
+ </summary>
+ 
+ <param name="DeviceHandle">
+   Type: <see cref="T:System.IntPtr" /><br />
+   The handle associated with the USB device.
+ </param>
+ 
+ <param name="ChannelNumber">
+   Type: <see cref="T:System.Byte" /><br />
+   The channel number associated with the USB device.
+ </param>
+ 
+ <param name="Address">
+   Type: <see cref="T:System.Byte" /><br />
+   The address associated with the channel register.
+ </param>
+ 
+ <returns>
+   Type: <see cref="T:System.String" /><br />
+   A value between to 0 and 255; otherwise <strong>Error</strong>
+ </returns>
+ 
+ <remarks>
+ </remarks>
+ 
+ <seealso cref="M:FUTEK_USB_DLL.USB_DLL.Write_Channel_Register(System.IntPtr,System.Byte,System.Byte,System.Byte)" cat="Related"></seealso>
+</member>
+<member name="M:FUTEK_USB_DLL.USB_DLL.Write_Channel_Register(System.IntPtr,System.Byte,System.Byte,System.Byte)">
+ <summary>
+   Writes to the microcontroller's channel register.
+ </summary>
+ 
+ <param name="DeviceHandle">
+   Type: <see cref="T:System.IntPtr" /><br />
+   The handle associated with the USB device.
+ </param>
+ 
+ <param name="ChannelNumber">
+   Type: <see cref="T:System.Byte" /><br />
+   The channel number associated with the USB device.
+ </param>
+ 
+ <param name="Address">
+   Type: <see cref="T:System.Byte" /><br />
+   The address associated with the channel register.
+ </param>
+ 
+ <param name="Data">
+   Type: <see cref="T:System.Byte" /><br />
+   The data associated with the channel register.
+ </param>
+ 
+ <returns>
+   Type: <see cref="T:System.String" /><br />
+   A value equal to 0; otherwise <strong>Error</strong>
+ </returns>
+ 
+ <remarks>
+ </remarks>
+ 
+ <seealso cref="M:FUTEK_USB_DLL.USB_DLL.Read_Channel_Register(System.IntPtr,System.Byte,System.Byte)" cat="Related"></seealso>
+</member>
+<member name="M:FUTEK_USB_DLL.USB_DLL.Read_Page_Register(System.IntPtr,System.Byte)">
+ <summary>
+   Reads from the microcontroller's page register.
+ </summary>
+ 
+ <param name="DeviceHandle">
+   Type: <see cref="T:System.IntPtr" /><br />
+   The handle associated with the USB device.
+ </param>
+ 
+ <param name="PageNumber">
+   Type: <see cref="T:System.Byte" /><br />
+   The page number associated with the USB device.
+ </param>
+ 
+ <returns>
+   Type: <see cref="T:System.String" /><br />
+   A value equal to 0; otherwise <strong>Error</strong>
+ </returns>
+ 
+ <remarks>
+ </remarks>
+ 
+ <seealso></seealso>
+</member>
+<member name="M:FUTEK_USB_DLL.USB_DLL.Read_TEDS_Channel_Register(System.IntPtr,System.Byte,System.Byte,System.Byte)">
+ <summary>
+   Reads from the Transducer Electronic Data Sheet (TEDS) channel register.  
+ </summary>
+ 
+ <param name="DeviceHandle">
+   Type: <see cref="T:System.IntPtr" /><br />
+   The handle associated with the USB device.
+ </param>
+ 
+ <param name="ChannelNumber">
+   Type: <see cref="T:System.Byte" /><br />
+   The channel number associated with the USB device.
+ </param>
+ 
+ <param name="HighAddress">
+   Type: <see cref="T:System.Byte" /><br />
+   The high byte of the address associated with the TEDS register.
+ </param>
+ 
+ <param name="LowAddress">
+   Type: <see cref="T:System.Byte" /><br />
+   The low byte of the address associated with the TEDS register.
+ </param>
+ 
+ <returns>
+   Type: <see cref="T:System.String" /><br />
+   A value between to 0 and 255; otherwise <strong>Error</strong>
+ </returns>
+ 
+ <remarks>
+ </remarks>
+ 
+ <seealso cref="M:FUTEK_USB_DLL.USB_DLL.Write_TEDS_Register(System.IntPtr,System.Byte,System.Byte,System.Byte)" cat="Related"></seealso>
+</member>
+<member name="M:FUTEK_USB_DLL.USB_DLL.Write_TEDS_Channel_Register(System.IntPtr,System.Byte,System.Byte,System.Byte,System.Byte)">
+ <summary>
+   Writes to the Transducer Electronic Data Sheet (TEDS) channel register.  
+ </summary>
+ 
+ <param name="DeviceHandle">
+   Type: <see cref="T:System.IntPtr" /><br />
+   The handle associated with the USB device.
+ </param>
+ 
+ <param name="ChannelNumber">
+   Type: <see cref="T:System.Byte" /><br />
+   The channel number associated with the USB device.
+ </param>
+ 
+ <param name="HighAddress">
+   Type: <see cref="T:System.Byte" /><br />
+   The high byte of the address associated with the TEDS register.
+ </param>
+ 
+ <param name="LowAddress">
+   Type: <see cref="T:System.Byte" /><br />
+   The low byte of the address associated with the TEDS register.
+ </param>
+ 
+ <param name="Data">
+   Type: <see cref="T:System.Byte" /><br />
+   The data to assign the TEDS register.
+ </param>
+ 
+ <returns>
+   Type: <see cref="T:System.String" /><br />
+   A value equal to 0; otherwise <strong>Error</strong>
+ </returns>
+ 
+ <remarks>
+ </remarks>
+ 
+ <seealso cref="M:FUTEK_USB_DLL.USB_DLL.Read_TEDS_Register(System.IntPtr,System.Byte,System.Byte)" cat="Related"></seealso>
+</member>
+<member name="M:FUTEK_USB_DLL.USB_DLL.NextPacketNumber">
+ <summary>
+ NextPacketNumber is a Sub Routine that is used to get the Next Packet Number.  
+ </summary>
+</member>
+<member name="M:FUTEK_USB_DLL.USB_DLL.WritePacket(System.Boolean)">
+ <summary>
+ WritePacket is a Sub Routine that is used to Write a Packet to the USB Device.  
+ </summary>
+</member>
+<member name="M:FUTEK_USB_DLL.USB_DLL.ReadPacket(System.Int32)">
+ <summary>
+ ReadPacket is a Sub Routine that is used to Read a Packet from the USB Device.  
+ </summary>
+</member>
+<member name="M:FUTEK_USB_DLL.USB_DLL.ReadPacket2(System.Int32)">
+ <summary>
+ ReadPacket2 is a Sub Routine that is used to Read a Packet from the USB Device.  
+ </summary>
+</member>
+<member name="M:FUTEK_USB_DLL.USB_DLL.ReadFastPacket(System.Double)">
+ <summary>
+ ReadFastPacket is a Sub Routine that is used to Read a Fast Packet from the USB Device.  
+ </summary>
+</member>
+<member name="M:FUTEK_USB_DLL.USB_DLL.Delay(System.Int32)">
+ <summary>
+ Delay is a Sub Routine that is used to create a specified Dealy in milliseconds.  
+ </summary>
+</member>
+<member name="M:FUTEK_USB_DLL.USB_DLL.Delay2(System.Double)">
+ <summary>
+ Delay2 is a Sub Routine that is used to create a specified Dealy in milliseconds.  
+ </summary>
+</member>
+<member name="M:FUTEK_USB_DLL.USB_DLL.Calculate_ADC_Value(System.Byte,System.Byte,System.Byte,System.Byte)">
+ <summary>
+ Calculate_ADC_Value is a Function that that is used to to Calculate the ADC Value.
+ </summary>
+ <returns>
+ <para>
+ If successful:
+ <para>
+ Return Value = -16777216 to +16777215
+ <para>
+ <para>
+ If Unsuccessful, the Return Value will be:
+ <para>
+ Return Value = "Negative Overflow";
+ <para>
+ Return Value = "Positive Overflow";
+ <para>
+ Return Value = "Error"; An Error occured when attempting to Calculate_ADC_Value
+ </para></para></para></para></para></para>
+ </para>
+ </returns>
+</member>
+<member name="M:FUTEK_USB_DLL.USB_DLL.Calculate_IHH_ADC_Value(System.Byte,System.Byte,System.Byte)">
+ <summary>
+ Calculate_IHH_ADC_Value is a Function that that is used to to Calculate the IHH's ADC Value.
+ </summary>
+ <returns>
+ <para>
+ Return Value = 0 to +16777215
+ </para>
+ </returns>
+</member>
+<member name="M:FUTEK_USB_DLL.USB_DLL.Calculate_IHH_ADC_Value2(System.Byte,System.Byte,System.Byte)">
+ <summary>
+ Calculate_IHH_ADC_Value is a Function that that is used to to Calculate the IHH's ADC Value.
+ </summary>
+ <returns>
+ <para>
+ Return Value = -8388608 to +8388607
+ </para>
+ </returns>
+</member>
+<member name="M:FUTEK_USB_DLL.USB_DLL.Calculate_ADC_Value_Fast_Data_Request(System.Byte,System.Byte,System.Byte)">
+ <summary>
+ Calculate_ADC_Value_Fast_Data_Request is a Function that that is used to to Calculate the ADC Value.
+ </summary>
+ <returns>
+ <para>
+ If successful:
+ <para>
+ Return Value = 0 to +16777215
+ <para>
+ <para>
+ If Unsuccessful, the Return Value will be:
+ <para>
+ Return Value = "Error"; An Error occured when attempting to Calculate_ADC_Value_Fast_Data_Request
+ </para></para></para></para></para>
+ </returns>
+</member>
+<member name="M:FUTEK_USB_DLL.USB_DLL.Calculate_ADC_Value_Fast_Data_Request2(System.Byte,System.Byte)">
+ <summary>
+ Calculate_ADC_Value_Fast_Data_Request is a Function that that is used to to Calculate the ADC Value.
+ </summary>
+ <returns>
+ <para>
+ If successful:
+ <para>
+ Return Value = 0 to +16777215
+ <para>
+ <para>
+ If Unsuccessful, the Return Value will be:
+ <para>
+ Return Value = "Error"; An Error occured when attempting to Calculate_ADC_Value_Fast_Data_Request
+ </para></para></para></para></para>
+ </returns>
+</member>
+</members>
+</doc>

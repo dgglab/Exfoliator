@@ -6,7 +6,8 @@ units are in mm, celsius, grams, and seconds
 Pos SER VEL10 VEL10 VEL10 0 20
 Pos PAR -200 -200 -100 0 20
 Pos PAR ZRO ZRO ZRO 0 20
-Pos PAR 78 36 80 0 20
+Pos PAR 79.8 36.4 80 0 20
+Pos PAR -1 0 0 0 20
 Pos SER VEL10 VEL10 VEL5 0 20
 Pos SER 0 0 -10 0 20
 Pos PAR -3 3 0 0 20

@@ -1,0 +1,190 @@
+  FUTEK_USB_DLL.Resources.resources - Embedded, ContainedInManifestFile, 
+ImageRuntimeVersion: v4.0.30319
+Assembly FUTEK USB DLL, Version=2.3.4006.6, Culture=neutral, PublicKeyToken=f3414154ebd85214: 
+	hash=SHA1, flags=PublicKey
+Assembly mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089: 
+	hash=None, flags=None
+Assembly Microsoft.VisualBasic, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a: 
+	hash=None, flags=None
+Assembly System, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089: 
+	hash=None, flags=None
+Class FUTEK_USB_DLL.USB_DLL: AutoLayout, AnsiClass, Class, Public
+    Void .ctor(): PrivateScope, Public, SpecialName, RTSpecialName
+  Fields:
+    System.Globalization.CultureInfo CultureInformation : Public
+    System.String CurrentDate : Public
+    System.String CurrentTime : Public
+    System.String TodaysDate : Public
+    System.String DeviceHandle : Public
+    System.String DeviceStatus : Public
+    System.String PacketSent : Public
+    System.String PacketReceived : Public
+    System.String ErrorDescription : Public
+    System.String DisplayPage : Public
+    System.String LCDLine1 : Public
+    System.String LCDLine2 : Public
+    System.String LCDLine3 : Public
+    System.String LCDLine4 : Public
+    Int32 DataLogging_Counter : Public
+    Int32 DataLogging_Value1 : Public
+    Int32 DataLogging_Value2 : Public
+    Int32 DataLogging_Value3 : Public
+    Int32 DataLogging_Value4 : Public
+    Int32[,] FastDataLoggingCounter : Public
+    Int32 MaximumNumberOfSamples : Public
+    Int32 ArrayCounter : Public
+    Int32[,,] FastDataLoggingSampleNumber : Public
+    Byte[,,] FastDataLoggingNumberOfSamples : Public
+    Int32[,,] FastDataLoggingADCValue : Public
+    System.DateTime[,,] FastDataLoggingDateAndTime : Public
+    System.DateTime DateAndTime : Public
+    Byte DataSignByte : Public
+    Byte DataHighByte : Public
+    Byte DataMiddleByte : Public
+    Byte DataLowByte : Public
+    Int32 AngleValue : Public
+    Int32 RPMValue : Public
+    Byte DestinationMACAddress1 : Public
+    Byte DestinationMACAddress2 : Public
+    Byte DestinationMACAddress3 : Public
+    Byte DestinationMACAddress4 : Public
+    Byte DestinationMACAddress5 : Public
+    Byte DestinationMACAddress6 : Public
+    Byte DestinationIPAddress1 : Public
+    Byte DestinationIPAddress2 : Public
+    Byte DestinationIPAddress3 : Public
+    Byte DestinationIPAddress4 : Public
+    Byte DestinationPortNumber1 : Public
+    Byte DestinationPortNumber2 : Public
+    Byte SourceMACAddress1 : Public
+    Byte SourceMACAddress2 : Public
+    Byte SourceMACAddress3 : Public
+    Byte SourceMACAddress4 : Public
+    Byte SourceMACAddress5 : Public
+    Byte SourceMACAddress6 : Public
+    Byte SourceIPAddress1 : Public
+    Byte SourceIPAddress2 : Public
+    Byte SourceIPAddress3 : Public
+    Byte SourceIPAddress4 : Public
+    Byte SourcePortNumber1 : Public
+    Byte SourcePortNumber2 : Public
+    Byte PageNumber : Public
+    Byte[] PageRegister : Public
+    Boolean VirtualMode : Public
+    Int32 VirtualSerialNumber : Public
+  Methods:
+    Get_Destination_Port_Number(String, Byte(Optional, HasDefault)): PrivateScope, Public
+    Get_Source_MAC_Address(String, Byte(Optional, HasDefault)): PrivateScope, Public
+    Get_Source_IP_Address(String, Byte(Optional, HasDefault)): PrivateScope, Public
+    Get_Source_Port_Number(String, Byte(Optional, HasDefault)): PrivateScope, Public
+    Get_Excitation(String, Byte(Optional, HasDefault)): PrivateScope, Public
+    Get_Analog_Voltage_Output(String, Byte(Optional, HasDefault)): PrivateScope, Public
+    Get_Gain_Switch(String, Byte(Optional, HasDefault)): PrivateScope, Public
+    Get_Polarity(String, Byte(Optional, HasDefault)): PrivateScope, Public
+    Get_Shunt_Resistor(String, Byte(Optional, HasDefault)): PrivateScope, Public
+    Get_Sensor_Sensitivity(String, Byte(Optional, HasDefault)): PrivateScope, Public
+    Get_Zero_Potentiometer(String, Byte(Optional, HasDefault)): PrivateScope, Public
+    Get_Span_1_Potentiometer(String, Byte(Optional, HasDefault)): PrivateScope, Public
+    Get_Span_2_Potentiometer(String, Byte(Optional, HasDefault)): PrivateScope, Public
+    Get_Average_Setting(String, Byte(Optional, HasDefault)): PrivateScope, Public
+    Get_Type_of_Board(String): PrivateScope, Public
+    Get_Hardware_Version(String): PrivateScope, Public
+    Get_Firmware_Version(String): PrivateScope, Public
+    Get_Firmware_Year(String): PrivateScope, Public
+    Get_Firmware_Month(String): PrivateScope, Public
+    Change_Battery_Enter(String): PrivateScope, Public
+    Change_Tare_Up(String): PrivateScope, Public
+    Change_Display_Back(String): PrivateScope, Public
+    Change_Reset_Left(String): PrivateScope, Public
+    Change_Menu(String): PrivateScope, Public
+    Change_Unit_Right(String): PrivateScope, Public
+    Change_Shunt_Exit(String): PrivateScope, Public
+    Change_Hold_Down(String): PrivateScope, Public
+    Read_Memory_Register(String, Byte): PrivateScope, Public
+    Write_Memory_Register(String, Byte, Byte): PrivateScope, Public
+    Read_EEPROM_Register(String, Byte): PrivateScope, Public
+    Write_EEPROM_Register(String, Byte, Byte, Byte): PrivateScope, Public
+    Read_TEDS_Register(String, Byte, Byte): PrivateScope, Public
+    Write_TEDS_Register(String, Byte, Byte, Byte): PrivateScope, Public
+    Read_Channel_Register(String, Byte, Byte): PrivateScope, Public
+    Write_Channel_Register(String, Byte, Byte, Byte): PrivateScope, Public
+    Read_Page_Register(String, Byte): PrivateScope, Public
+    Open_Device_Connection(String): PrivateScope, Public
+    Close_Device_Connection(String): PrivateScope, Public
+    Slave_Activity_Inquiry(String): PrivateScope, Public
+    Set_Sensor_Identification_Number(String, Int32, Byte(Optional, HasDefault)): PrivateScope, Public
+    Set_Unit_Code(String, Int32, Byte(Optional, HasDefault)): PrivateScope, Public
+    Set_Decimal_Point(String, Int32, Byte(Optional, HasDefault)): PrivateScope, Public
+    Set_Calibration_Register(String, Byte, Byte, Byte, Byte(Optional, HasDefault)): PrivateScope, Public
+    Set_Loading_Point(String, Int32, Byte(Optional, HasDefault)): PrivateScope, Public
+    Set_Load_of_Loading_Point(String, Int32, Int32, Byte(Optional, HasDefault)): PrivateScope, Public
+    Set_Sensor_Configuration(String, Int32, Byte(Optional, HasDefault)): PrivateScope, Public
+    Set_Load_Switch(String, Int32, Byte(Optional, HasDefault)): PrivateScope, Public
+    Set_Number_of_Loading_Points(String, Int32, Byte(Optional, HasDefault)): PrivateScope, Public
+    Set_ADC_Configuration(String, Byte, Byte(Optional, HasDefault)): PrivateScope, Public
+    Set_ADC_Configuration2(String, Int32, Byte(Optional, HasDefault)): PrivateScope, Public
+    Set_Average_Setting(String, Int32, Byte(Optional, HasDefault)): PrivateScope, Public
+    Set_Voltage_Output(String, Int32, Byte(Optional, HasDefault)): PrivateScope, Public
+    Set_Digital_Components(String, Byte, Byte, Byte, Byte(Optional, HasDefault)): PrivateScope, Public
+    Set_Calibration_Mode(String, Byte, Byte, Byte(Optional, HasDefault)): PrivateScope, Public
+    Set_Sensitivity(String, Int32, Byte(Optional, HasDefault)): PrivateScope, Public
+    Set_Bridge_Resistance(String, Int32, Byte(Optional, HasDefault)): PrivateScope, Public
+    Set_Direction(String, Int32, Byte(Optional, HasDefault)): PrivateScope, Public
+    Set_Zero_Correction(String, Int32, Int32, Byte(Optional, HasDefault), Int32(Optional, HasDefault)): PrivateScope, Public
+    Set_Shunt_Value(String, Int32, Byte(Optional, HasDefault)): PrivateScope, Public
+    Set_Calibration_Code(String, Int32, Byte(Optional, HasDefault)): PrivateScope, Public
+    Set_Calibration_Day(String, Int32, Byte(Optional, HasDefault)): PrivateScope, Public
+    Set_Calibration_Month(String, Int32, Byte(Optional, HasDefault)): PrivateScope, Public
+    Set_Calibration_Year(String, Int32, Byte(Optional, HasDefault)): PrivateScope, Public
+    Set_Pulses_Per_Rotation(String, Int32, Byte(Optional, HasDefault)): PrivateScope, Public
+    Set_CrossTalk(String, Int32, Byte(Optional, HasDefault)): PrivateScope, Public
+    Set_Number_of_Active_Channels(String, Int32, Byte(Optional, HasDefault)): PrivateScope, Public
+    Set_Type_of_Calibration(String, Int32, Byte(Optional, HasDefault)): PrivateScope, Public
+    Set_Active_Page_Number(String, Int32, Byte(Optional, HasDefault)): PrivateScope, Public
+    Set_Destination_MAC_Address(String, Byte, Byte, Byte, Byte, Byte, Byte, Byte(Optional, HasDefault)): PrivateScope, Public
+    Set_Destination_IP_Address(String, Byte, Byte, Byte, Byte, Byte(Optional, HasDefault)): PrivateScope, Public
+    Set_Destination_Port_Number(String, Int32, Byte(Optional, HasDefault)): PrivateScope, Public
+    Set_Source_IP_Address(String, Byte, Byte, Byte, Byte, Byte(Optional, HasDefault)): PrivateScope, Public
+    Set_Source_Port_Number(String, Int32, Byte(Optional, HasDefault)): PrivateScope, Public
+    Reset_Angle(String, Byte(Optional, HasDefault)): PrivateScope, Public
+    Get_Offset_Value(String, Byte(Optional, HasDefault)): PrivateScope, Public
+    Get_Fullscale_Value(String, Byte(Optional, HasDefault)): PrivateScope, Public
+    Normal_Data_Request(String, Byte(Optional, HasDefault)): PrivateScope, Public
+    Fast_Data_Request(String, Int32, Int32, String, String, String, Byte(Optional, HasDefault)): PrivateScope, Public
+    Version_of_Board(String): PrivateScope, Public
+    Reset_Board(String): PrivateScope, Public
+    Get_Display_Page(String): PrivateScope, Public
+    Get_Internal_Register(String, Int32): PrivateScope, Public
+    Get_Data_Logging(String, Int32): PrivateScope, Public
+    Create_Back_Up(String, Int32, Int32): PrivateScope, Public
+    Restore_Back_Up(String, Int32, Int32): PrivateScope, Public
+    Get_Rotation_Values(String): PrivateScope, Public
+    Get_Device_Count(): PrivateScope, Public
+    Get_Device_Serial_Number(String): PrivateScope, Public
+    Get_Loading_Point(String, Int32, Byte(Optional, HasDefault), Int32(Optional, HasDefault)): PrivateScope, Public
+    Get_Offset_Load(String, Byte(Optional, HasDefault)): PrivateScope, Public
+    Get_Load_of_Loading_Point(String, Int32, Byte(Optional, HasDefault)): PrivateScope, Public
+    Get_Fullscale_Load(String, Byte(Optional, HasDefault)): PrivateScope, Public
+    Get_Number_of_Loading_Points(String, Byte(Optional, HasDefault)): PrivateScope, Public
+    Get_Output_Type(String, Byte(Optional, HasDefault)): PrivateScope, Public
+    Get_Sensitivity(String, Byte(Optional, HasDefault)): PrivateScope, Public
+    Get_Bridge_Resistance(String, Byte(Optional, HasDefault)): PrivateScope, Public
+    Get_ADC_PGA_Setting(String, Byte(Optional, HasDefault)): PrivateScope, Public
+    Get_ADC_Sampling_Rate_Setting(String, Byte(Optional, HasDefault)): PrivateScope, Public
+    Get_Sensor_Identification_Number(String, Byte(Optional, HasDefault)): PrivateScope, Public
+    Get_Unit_Code(String, Byte(Optional, HasDefault)): PrivateScope, Public
+    Get_Direction(String, Byte(Optional, HasDefault)): PrivateScope, Public
+    Get_Shunt_Value(String, Byte(Optional, HasDefault)): PrivateScope, Public
+    Get_Decimal_Point(String, Byte(Optional, HasDefault)): PrivateScope, Public
+    Get_Calibration_Code(String, Byte(Optional, HasDefault)): PrivateScope, Public
+    Get_Calibration_Day(String, Byte(Optional, HasDefault)): PrivateScope, Public
+    Get_Calibration_Month(String, Byte(Optional, HasDefault)): PrivateScope, Public
+    Get_Calibration_Year(String, Byte(Optional, HasDefault)): PrivateScope, Public
+    Get_Pulses_Per_Rotation(String, Byte(Optional, HasDefault)): PrivateScope, Public
+    Get_Voltage_Output(String, Byte(Optional, HasDefault)): PrivateScope, Public
+    Get_CrossTalk(String, Byte(Optional, HasDefault)): PrivateScope, Public
+    Get_Number_of_Active_Channels(String, Byte(Optional, HasDefault)): PrivateScope, Public
+    Get_Type_of_Calibration(String, Byte(Optional, HasDefault)): PrivateScope, Public
+    Get_Active_Page_Number(String, Byte(Optional, HasDefault)): PrivateScope, Public
+    Get_Destination_MAC_Address(String, Byte(Optional, HasDefault)): PrivateScope, Public
+    Get_Destination_IP_Address(String, Byte(Optional, HasDefault)): PrivateScope, Public

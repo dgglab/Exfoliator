@@ -12,11 +12,11 @@ from camera.autoz_device_manager import DeviceManagerWindow
 #from camera.autoz_camera_viewport import CameraWindow
 # from temperature_controller.dashboard import TemperatureDashboard
 
-from camera.autoz_motion_window_pid import MotionWindow
-
+#from camera.autoz_motion_window_pid import MotionWindow
+from camera.autoz_motion_window_wthread import MotionWindow, weight_thread
 from camera.autoz_logger import Logger, LogWidget
 import temperature_controller.hotplate as hp
-
+from temperature_controller.serial_utils import get_com_ports
 
 
 class RangerMainWindow(QMainWindow):
@@ -119,7 +119,12 @@ class RangerMainWindow(QMainWindow):
         self.addDockWidget(Qt.LeftDockWidgetArea, self.temperature_doc_widget)
 
         self.device_manager_window.device_manager.deviceConnected.connect(self.motion_controller_widget.connect_motor)
-        
+        available_ports = get_com_ports()
+        self.lists = {}
+        self.lists['MMC1'] = QtW.QComboBox()
+        for p in available_ports:
+            self.lists['MMC1'].addItem(p)
+        self.device_manager_window.device_manager.connect_device(dev_type="MMC1", port_list=self.lists['MMC1'])
         
     def onHpBtnPress(self):
         value = self.hp_double_spinner.value()
@@ -134,9 +139,11 @@ class RangerMainWindow(QMainWindow):
         
     def on_hp_poller_timeout(self):
         temp = MotionWindow.get_temp(self,0)
-        weight = MotionWindow.get_weight(self)
+        tarew=0#MotionWindow.tare(self)
+        weight = weight_thread.get_weight(self,saveflag=1)#,tarew=tarew)
         self.hp_current_temp_label.setText(str(temp))
         self.hp_current_weight_label.setText(str(weight))
+        
         
 
 class RangerApp(QApplication):

@@ -104,7 +104,17 @@ class MMC110:
         response = self.serial_connection.read_until(MMC110.read_terminating_symbol).decode('utf-8').strip()
         print("<=", response)
         return response
+    def sendquiet(self, msg: str):
+        """
+        Assumes message strings are utf-8 encoded.
 
+        TODO: add timeout errors. this should raise an exception. Monadic return.
+        """
+        if not type(msg) is bytes:
+            msg = bytes(msg, 'utf-8')
+        self.serial_connection.write(msg + MMC110.write_terminating_symbol)
+        response = self.serial_connection.read_until(MMC110.read_terminating_symbol).decode('utf-8').strip()
+        return response
 
     def detect_axes(self, early_stop_n=10):
         """

@@ -1,0 +1,28 @@
+Coefficient list for exfoliator
+Boundary - the position Z moves to without checking force. Too low and the device will move slower, but too high will result in a crash and total failure
+Tolerance - how close to the desired force is acceptable. IKA lists the error as 0.3%+2g
+Taresleep - positive float, how long to wait for the scale to settle after taring
+XYZVel - positive float, sets the stage velocities each time the coeffs are reloaded. Superseded by Approach and Force velocities. Max 12.5 mm/s
+Approach Vel - how quickly the stage moves after reaching the boundary and before making contact. Higher values move faster, result in larger initial contact force
+Contact Backoff - how far the stage backs off after initial contact to try to have zero applied force before taring
+Force Vel - how quickly the stage moves after making contact while trying to reach a set force. Lower values should be more accurate
+Stable Time - how long to wait between movements when trying to reach a set force, to allow the scale to equilibrate
+Max Step: |Z-Step|<Intercept+|Diff/Slope|, where Diff is the difference between current and target force. Larger intercepts and smaller slopes move more quickly but are more susceptible to overshoot
+Derivative Offset: A 'fudge factor' on the calculated spring constant. Larger values move slower but help prevent overshoot. 
+-------
+Boundary (mm), 83.0
+Tolerance (%), 0.3
+Tolerance (g), 3
+Taresleep (s), 8
+XVel (mm/s), 8
+YVel (mm/s), 8
+ZVel (mm/s), 2
+Approach Vel (mm/s), 0.1
+Contact Backoff (mm), -0.03
+Force Vel (mm/s), 0.1
+Stable Time (s), 3
+Max step reciprocal slope (g/mm), 10000
+Max step intercept (mm), 0.02
+Derivative offset (g/micron), 0.2
+Weight cap, 5000
+Weight floor, -3000
